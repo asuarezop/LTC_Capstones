@@ -15,6 +15,7 @@ public class LedgerApp {
     public static boolean exitApp;
 
     public static ArrayList<Transaction> ledger;
+    public static ArrayList<Transaction> newEntries;
     public static String transactionsFilePath;
 
     public static BufferedWriter bufWriter;
@@ -25,6 +26,8 @@ public class LedgerApp {
 
         //Initializing transactionsList
         ledger = new ArrayList<>();
+
+        newEntries =new ArrayList<>();
 
         //File path for transactions data
         transactionsFilePath = "src/main/resources/transactions.csv";
@@ -68,14 +71,14 @@ public class LedgerApp {
             switch (userInput) {
                 case "D", "d":
                     try {
-                        addDeposit(ledger, transactionsFilePath);
+                        addDeposit(transactionsFilePath);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
                     break;
                 case "P", "p":
                     try {
-                        makePayment(ledger, transactionsFilePath);
+                        makePayment(transactionsFilePath);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -156,7 +159,7 @@ public class LedgerApp {
     }
 
     //Adding new deposits to the ledger
-    private static void addDeposit(ArrayList<Transaction> ledger, String filename) throws IOException {
+    private static void addDeposit(String filename) throws IOException {
         String[] depositDateTimeFormat;
         double transactionAmt;
         String vendorName;
@@ -184,18 +187,17 @@ public class LedgerApp {
         if (!userInput.isEmpty()) {
             d = new Transaction(LocalDate.parse(depositDateTimeFormat[0]), LocalTime.parse(depositDateTimeFormat[1]), transactionDesc, vendorName, transactionAmt);
 
-            //Write to bufferedWriter header of csv file
-            bufWriter.write("Date|Time|Description|Vendor|Amount\n");
             bufWriter.write(d.getDateOfTransaction() + "|" + d.getTimeOfTransaction() + "|" + d.getTransactionDesc() + "|" + d.getVendor() + "|");
             bufWriter.write(String.format("%.2f \n", d.getAmount()));
 
             ledger.add(d);
+            newEntries.add(d);
         }
         //Close the bufWriter
         bufWriter.close();
     }
 
-    private static void makePayment(ArrayList<Transaction> ledger, String filename) throws IOException {
+    private static void makePayment(String filename) throws IOException {
         String[] paymentDateTimeFormat;
         double transactionAmt;
         String vendorName;
@@ -207,6 +209,7 @@ public class LedgerApp {
         System.out.println("Enter the debit amount from the transaction: ");
         //To showcase debits as a negative transaction
         transactionAmt = inputSc.nextDouble();
+        inputSc.nextLine();
 
         System.out.println("Enter the vendor name from the transaction: ");
         vendorName = inputSc.nextLine().trim();
@@ -227,6 +230,7 @@ public class LedgerApp {
             bufWriter.write(String.format("%.2f \n", p.getAmount()));
 
             ledger.add(p);
+            newEntries.add(p);
         }
         //Close the bufWriter
         bufWriter.close();
@@ -273,13 +277,11 @@ public class LedgerApp {
             //Reading each line of input from fileContents
             String fileContents;
 
-            //Clear any existing items from previous write sessions 
+            //Clear any existing items from previous write sessions
             transactions.clear();
 
             //Skip the first line of file
             bufReader.readLine();
-
-
 
             //Reading from file
             while ((fileContents = bufReader.readLine()) != null) {
@@ -327,7 +329,7 @@ public class LedgerApp {
 
     //To retrieve a BufferedWriter
     private static BufferedWriter getBufferedWriter(String filename) throws IOException {
-        BufferedWriter bufWriter = new BufferedWriter(new FileWriter(filename)); //Set fileWriter to append mode in order to prevent data from being overwritten
+        BufferedWriter bufWriter = new BufferedWriter(new FileWriter(filename, true)); //Set fileWriter to append mode in order to prevent data from being overwritten
         return bufWriter;
     }
 
