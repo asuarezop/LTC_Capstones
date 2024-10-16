@@ -161,11 +161,6 @@ public class LedgerApp {
         double transactionAmt;
         String vendorName;
         String transactionDesc;
-        String pastTransactionsTimestamp;
-
-
-
-
 
         //Represents a new deposit transaction
         Transaction d;
@@ -184,13 +179,7 @@ public class LedgerApp {
         //Call method to retrieve date and time
         depositDateTimeFormat = getTransactionDateTime(transactionDateTime).split("\\|");
 
-        pastTransactionsTimestamp = depositDateTimeFormat[0] + depositDateTimeFormat[1];
-
-        String backupFilePath = "src/main/resources/backups/" + pastTransactionsTimestamp + ".csv";
-
         bufWriter = getBufferedWriter(filename);
-
-        BufferedWriter bufWriter2 = getBufferedWriter(backupFilePath);
 
         if (!userInput.isEmpty()) {
             d = new Transaction(LocalDate.parse(depositDateTimeFormat[0]), LocalTime.parse(depositDateTimeFormat[1]), transactionDesc, vendorName, transactionAmt);
@@ -200,9 +189,6 @@ public class LedgerApp {
             bufWriter.write(d.getDateOfTransaction() + "|" + d.getTimeOfTransaction() + "|" + d.getTransactionDesc() + "|" + d.getVendor() + "|");
             bufWriter.write(String.format("%.2f \n", d.getAmount()));
 
-            bufWriter2.write(d.getDateOfTransaction() + "|" + d.getTimeOfTransaction() + "|" + d.getTransactionDesc() + "|" + d.getVendor() + "|");
-            bufWriter2.write(String.format("%.2f \n", d.getAmount()));
-            
             ledger.add(d);
         }
         //Close the bufWriter
@@ -287,8 +273,13 @@ public class LedgerApp {
             //Reading each line of input from fileContents
             String fileContents;
 
+            //Clear any existing items from previous write sessions 
+            transactions.clear();
+
             //Skip the first line of file
             bufReader.readLine();
+
+
 
             //Reading from file
             while ((fileContents = bufReader.readLine()) != null) {
@@ -336,7 +327,7 @@ public class LedgerApp {
 
     //To retrieve a BufferedWriter
     private static BufferedWriter getBufferedWriter(String filename) throws IOException {
-        BufferedWriter bufWriter = new BufferedWriter(new FileWriter(filename));
+        BufferedWriter bufWriter = new BufferedWriter(new FileWriter(filename)); //Set fileWriter to append mode in order to prevent data from being overwritten
         return bufWriter;
     }
 
