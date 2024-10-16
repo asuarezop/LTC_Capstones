@@ -54,7 +54,6 @@ public class LedgerApp {
         PrintScreenService.showLedgerHomeScreen();
     }
 
-
 //    //Ledger Screen
 //    private static void showLedgerScreen() throws IOException {
 //        exitApp = false;
@@ -100,46 +99,46 @@ public class LedgerApp {
 //        } while (!exitApp);
 //    }
 
-    private static void showReportsScreen() throws IOException {
-        exitApp = false;
-        String reportsScreen = """
-                ===================================================================================
-                |                          * * * CACHE FLOW (REPORTS) * * *                       |
-                |                                                                                 |
-                |                              [1] Month to Month                                 |
-                |                              [2] Previous Month                                 |
-                |                              [3] Year to Date                                   |
-                |                              [4] Previous Year                                  |
-                |                              [5] Search By Vendor                               |
-                |                                                                                 |
-                |                          [H] Home          [X] Exit App                         |
-                ===================================================================================
-                """;
-
-        do {
-            System.out.println(reportsScreen + "Select from the available options: ");
-            userInput = inputSc.nextLine().trim();
-
-            switch (userInput) {
-                case "1":
-                    break;
-                case "2":
-                    break;
-                case "3":
-                    break;
-                case "4":
-                    break;
-                case "5":
-                    break;
-                case "H", "h":
-                    PrintScreenService.showLedgerHomeScreen();
-                    break;
-                case "X", "x":
-                    exitApp = true;
-                    break;
-                default:
-                    throw new Error("Sorry, that's not a valid option. Please make your selection.");
-            }
-        } while (!exitApp);
-    }
+//    private static void showReportsScreen() throws IOException {
+//        exitApp = false;
+//        String reportsScreen = """
+//                ===================================================================================
+//                |                          * * * CACHE FLOW (REPORTS) * * *                       |
+//                |                                                                                 |
+//                |                              [1] Month to Month                                 |
+//                |                              [2] Previous Month                                 |
+//                |                              [3] Year to Date                                   |
+//                |                              [4] Previous Year                                  |
+//                |                              [5] Search By Vendor                               |
+//                |                                                                                 |
+//                |                          [H] Home          [X] Exit App                         |
+//                ===================================================================================
+//                """;
+//
+//        do {
+//            System.out.println(reportsScreen + "Select from the available options: ");
+//            userInput = inputSc.nextLine().trim();
+//
+//            switch (userInput) {
+//                case "1":
+//                    break;
+//                case "2":
+//                    break;
+//                case "3":
+//                    break;
+//                case "4":
+//                    break;
+//                case "5":
+//                    break;
+//                case "H", "h":
+//                    PrintScreenService.showLedgerHomeScreen();
+//                    break;
+//                case "X", "x":
+//                    exitApp = true;
+//                    break;
+//                default:
+//                    throw new Error("Sorry, that's not a valid option. Please make your selection.");
+//            }
+//        } while (!exitApp);
+//    }
 }

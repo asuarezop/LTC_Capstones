@@ -4,6 +4,8 @@ import com.pluralsight.ledger.LedgerApp;
 import com.pluralsight.models.Transaction;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class TransactionProcessingService {
 
@@ -67,6 +69,21 @@ public class TransactionProcessingService {
                 }
                 break;
         }
+    }
+
+    public static void monthToMonthTransactionSearch() {
+        //Filter through ledger by startMonth and endMonth within the same month
+        LocalDate startMonth = LocalDate.parse(PrintScreenService.promptUser("Enter the start month of your transaction: "));
+        LocalDate endMonth = LocalDate.parse(PrintScreenService.promptUser("Enter the end month of your transaction: "));
+
+//        if (!startMonth.isEmpty() && !endMonth.isEmpty()) {
+//            for (Transaction t: LedgerApp.ledger) {
+//                //Compare month value
+////                if (startMonth.equals(t.getDateOfTransaction().getMonth()) {
+////
+////                }
+//            }
+//        }
     }
 
     public static void searchTransactionByVendor() {
