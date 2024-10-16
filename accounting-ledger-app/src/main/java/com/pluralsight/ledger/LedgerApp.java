@@ -6,7 +6,6 @@ import com.pluralsight.services.FileHandlerService;
 
 import java.io.*;
 import java.time.*;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -210,7 +209,7 @@ public class LedgerApp {
 
         System.out.println("Enter the debit amount from the transaction: ");
         //To showcase debits as a negative transaction
-        transactionAmt = inputSc.nextDouble();
+        transactionAmt = inputSc.nextDouble() * -1;
         inputSc.nextLine();
 
         System.out.println("Enter the vendor name from the transaction: ");
