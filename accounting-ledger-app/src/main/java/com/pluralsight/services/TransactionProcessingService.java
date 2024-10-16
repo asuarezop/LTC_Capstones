@@ -59,13 +59,27 @@ public class TransactionProcessingService {
 
             case "P", "p":
                 //User selected to show Payments only (negative transactions)
-                for (Transaction d : LedgerApp.ledger) {
+                for (Transaction p : LedgerApp.ledger) {
                     //If amount is not positive (in the negative range)
-                    if (d.getAmount() < 0) {
-                        System.out.println("Date:" + d.getDateOfTransaction() + " Time:" + d.getTimeOfTransaction() + " Description:" + d.getTransactionDesc() + " Vendor:" + d.getVendor() + " Amount:" + d.getAmount());
+                    if (p.getAmount() < 0) {
+                        System.out.println("Date:" + p.getDateOfTransaction() + " Time:" + p.getTimeOfTransaction() + " Description:" + p.getTransactionDesc() + " Vendor:" + p.getVendor() + " Amount:" + p.getAmount());
                     }
                 }
                 break;
+        }
+    }
+
+    public static void searchTransactionByVendor() {
+        //Returns user search term
+        String searchTerm = PrintScreenService.promptUser("Enter the vendor name you'd like to search from ledger: ");
+
+        if (!searchTerm.isEmpty()) {
+            for (Transaction t : LedgerApp.ledger) {
+                //Filtering ledger to find all transactions that match vendor name and printing to the console
+                if (searchTerm.equalsIgnoreCase(t.getVendor())) {
+                    System.out.println("Date:" + t.getDateOfTransaction() + " Time:" + t.getTimeOfTransaction() + " Description:" + t.getTransactionDesc() + " Vendor:" + t.getVendor() + " Amount:" + t.getAmount());
+                }
+            }
         }
     }
 }

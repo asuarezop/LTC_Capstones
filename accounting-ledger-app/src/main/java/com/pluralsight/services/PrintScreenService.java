@@ -55,7 +55,7 @@ public class PrintScreenService {
                 """;
 
         do {
-            System.out.println(ledgerScreen + "Select from the available options: ");
+            System.out.print(ledgerScreen + "Select from the available options: ");
             LedgerApp.userInput = LedgerApp.inputSc.nextLine().trim();
 
             switch (LedgerApp.userInput) {
@@ -63,7 +63,7 @@ public class PrintScreenService {
                     TransactionProcessingService.showTransactionsFromLedger(LedgerApp.userInput);
                     break;
                 case "L", "l":
-                    System.out.println("Run reports screen here");
+                    showReportsScreen();
                 case "H", "h":
                     showLedgerHomeScreen();
                     break;
@@ -74,6 +74,53 @@ public class PrintScreenService {
                     throw new Error("Sorry, that's not a valid option. Please make your selection.");
             }
         } while(!LedgerApp.exitApp);
+    }
+
+    public static void showReportsScreen() throws IOException {
+
+        String reportsScreen = """
+                ===================================================================================
+                |                          * * * CACHE FLOW (REPORTS) * * *                       |
+                |                                                                                 |
+                |                              [1] Month to Month                                 |
+                |                              [2] Previous Month                                 |
+                |                              [3] Year to Date                                   |
+                |                              [4] Previous Year                                  |
+                |                              [5] Search By Vendor                               |
+                |                                                                                 |
+                |                          [H] Home          [X] Exit App                         |
+                ===================================================================================
+                """;
+        do {
+            System.out.print(reportsScreen + "Select from the available options: ");
+            LedgerApp.userInput = LedgerApp.inputSc.nextLine().trim();
+
+            switch (LedgerApp.userInput) {
+                case "1":
+                    System.out.println("Month to month filter");
+                    break;
+                case "2":
+                    System.out.println("Previous month filter");
+                    break;
+                case "3":
+                    System.out.println("Year to date filter");
+                    break;
+                case "4":
+                    System.out.println("Previous year filter");
+                    break;
+                case "5":
+                    TransactionProcessingService.searchTransactionByVendor();
+                    break;
+                case "H", "h":
+                    showLedgerHomeScreen();
+                    break;
+                case "X", "x":
+                    LedgerApp.exitApp = true;
+                    break;
+                default:
+                    throw new Error("Sorry, that's not a valid option. Please make your selection.");
+            }
+        } while (!LedgerApp.exitApp);
     }
 
     //Retrieves user input from a prompt
