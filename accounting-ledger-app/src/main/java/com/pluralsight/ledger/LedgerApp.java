@@ -129,6 +129,9 @@ public class LedgerApp {
                 case "L", "l":
                     showReportsScreen();
                     break;
+                case "H", "h":
+                    showLedgerHomeScreen();
+                    break;
                 case "X", "x":
                     exitApp = true;
                     break;
@@ -156,6 +159,28 @@ public class LedgerApp {
 
         do {
             System.out.println(reportsScreen + "Select from the available options: ");
+            userInput = inputSc.nextLine().trim();
+
+            switch (userInput) {
+                case "1":
+                    break;
+                case "2":
+                    break;
+                case "3":
+                    break;
+                case "4":
+                    break;
+                case "5":
+                    break;
+                case "H", "h":
+                    showLedgerHomeScreen();
+                    break;
+                case "X", "x":
+                    exitApp = true;
+                    break;
+                default:
+                    throw new Error("Sorry, that's not a valid option. Please make your selection.");
+            }
         } while (!exitApp);
     }
 
