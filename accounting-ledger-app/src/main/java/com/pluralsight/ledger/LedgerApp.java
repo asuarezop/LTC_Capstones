@@ -23,7 +23,7 @@ public class LedgerApp {
     public static LocalDateTime transactionDateTime;
     public static String transactionsFilePath;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         inputSc = new Scanner(System.in);
 
         //Initializing transactionsList
@@ -55,7 +55,7 @@ public class LedgerApp {
     }
 
     //Ledger Home Screen
-    private static void showLedgerHomeScreen(boolean exitApp) {
+    private static void showLedgerHomeScreen() {
         String homeScreen = """
                 ===================================================================================
                 |                          * * * CACHE FLOW (HOME) * * *                          |

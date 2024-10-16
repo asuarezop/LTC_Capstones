@@ -1,5 +1,6 @@
 package com.pluralsight.services;
 
+import com.pluralsight.ledger.LedgerApp;
 import com.pluralsight.models.Transaction;
 
 import java.io.*;
@@ -72,5 +73,27 @@ public class FileHandlerService {
         } catch (IOException err) {
             throw new RuntimeException(err);
         }
+    }
+
+    public static void writeToTransactionFile(double transactionAmt, String transactionDesc, String vendorName) throws IOException {
+        String[] transactionDateTimeFormat;
+        Transaction t;
+
+        //Call method to retrieve date and time
+        transactionDateTimeFormat = DateTimeHandlerService.getTransactionDateTime(LedgerApp.transactionDateTime).split("\\|");
+
+        LedgerApp.bufWriter = getBufferedWriter(LedgerApp.transactionsFilePath);
+
+        if(!LedgerApp.userInput.isEmpty()) {
+            t = new Transaction(LocalDate.parse(transactionDateTimeFormat[0]), LocalTime.parse(transactionDateTimeFormat[1]), transactionDesc, vendorName, transactionAmt);
+
+            LedgerApp.bufWriter.write(t.getDateOfTransaction() + "|" + t.getTimeOfTransaction() + "|" + t.getTransactionDesc() + "|" + t.getVendor() + "|");
+            LedgerApp.bufWriter.write(String.format("%.2f \n", t.getAmount()));
+
+            LedgerApp.ledger.add(t);
+            LedgerApp.newEntries.add(t);
+        }
+
+        LedgerApp.bufWriter.close();
     }
 }
