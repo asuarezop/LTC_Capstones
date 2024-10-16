@@ -3,6 +3,7 @@ package com.pluralsight.ledger;
 import com.pluralsight.models.Transaction;
 import com.pluralsight.services.DateTimeHandlerService;
 import com.pluralsight.services.FileHandlerService;
+import com.pluralsight.services.PrintScreenService;
 
 import java.io.*;
 import java.time.*;
@@ -39,6 +40,9 @@ public class LedgerApp {
         //Initializing date time to now
         transactionDateTime = LocalDateTime.now();
 
+        //Boolean condition to control printScreens
+        exitApp = false;
+
         try {
             bufWriter = FileHandlerService.getBufferedWriter(transactionsFilePath);
 
@@ -47,12 +51,11 @@ public class LedgerApp {
         }
 
         //Call showLedgerHomeScreen to display application home screen
-        showLedgerHomeScreen();
+        PrintScreenService.showLedgerHomeScreen(exitApp);
     }
 
     //Ledger Home Screen
-    private static void showLedgerHomeScreen() {
-        exitApp = false;
+    private static void showLedgerHomeScreen(boolean exitApp) {
         String homeScreen = """
                 ===================================================================================
                 |                          * * * CACHE FLOW (HOME) * * *                          |
@@ -130,7 +133,7 @@ public class LedgerApp {
                     showReportsScreen();
                     break;
                 case "H", "h":
-                    showLedgerHomeScreen();
+                    PrintScreenService.showLedgerHomeScreen(exitApp);
                     break;
                 case "X", "x":
                     exitApp = true;
@@ -173,7 +176,7 @@ public class LedgerApp {
                 case "5":
                     break;
                 case "H", "h":
-                    showLedgerHomeScreen();
+                    PrintScreenService.showLedgerHomeScreen(exitApp);
                     break;
                 case "X", "x":
                     exitApp = true;
