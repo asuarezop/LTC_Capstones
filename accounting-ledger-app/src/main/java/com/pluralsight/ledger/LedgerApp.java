@@ -3,8 +3,8 @@ package com.pluralsight.ledger;
 import com.pluralsight.models.Transaction;
 
 import java.io.*;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -14,20 +14,33 @@ public class LedgerApp {
     public static String userInput;
     public static boolean exitApp;
 
-    public static ArrayList<Transaction> transactionsList;
+    public static ArrayList<Transaction> ledger;
     public static String transactionsFilePath;
 
-    public static void main(String[] args) {
+    public static BufferedWriter bufWriter;
+    public static LocalDateTime transactionDateTime;
+
+    public static void main(String[] args) throws IOException {
         inputSc = new Scanner(System.in);
 
         //Initializing transactionsList
-        transactionsList = new ArrayList<>();
+        ledger = new ArrayList<>();
 
         //File path for transactions data
         transactionsFilePath = "src/main/resources/transactions.csv";
 
         //Read transaction file and store contents into transactionsList
-        transactionsList = readTransactionFile(transactionsFilePath);
+        ledger = readTransactionFile(transactionsFilePath);
+
+        //Initializing date time to now
+        transactionDateTime = LocalDateTime.now();
+
+        try {
+            bufWriter = getBufferedWriter(transactionsFilePath);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         //Call showLedgerHomeScreen to display application home screen
         showLedgerHomeScreen();
@@ -55,13 +68,17 @@ public class LedgerApp {
             switch (userInput) {
                 case "D", "d":
                     try {
-                        addDeposit(transactionsList, transactionsFilePath);
+                        addDeposit(ledger, transactionsFilePath);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
                     break;
                 case "P", "p":
-                    makePayment();
+                    try {
+                        makePayment(ledger, transactionsFilePath);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
                 case "L", "l":
                     showLedgerScreen();
@@ -135,16 +152,20 @@ public class LedgerApp {
 
         do {
             System.out.println(reportsScreen + "Select from the available options: ");
-        } while(!exitApp);
+        } while (!exitApp);
     }
 
     //Adding new deposits to the ledger
-    private static void addDeposit(ArrayList<Transaction> transactionsList, String filename) throws IOException {
-        LocalDate date;
-        LocalTime time;
+    private static void addDeposit(ArrayList<Transaction> ledger, String filename) throws IOException {
+        String[] depositDateTimeFormat;
         double transactionAmt;
         String vendorName;
         String transactionDesc;
+        String pastTransactionsTimestamp;
+
+
+
+
 
         //Represents a new deposit transaction
         Transaction d;
@@ -160,42 +181,96 @@ public class LedgerApp {
         System.out.println("Enter the transaction description: ");
         transactionDesc = inputSc.nextLine().trim();
 
-        System.out.println("Enter the date of transaction: ");
-        userInput = inputSc.nextLine().trim();
-        date = LocalDate.parse(userInput);
+        //Call method to retrieve date and time
+        depositDateTimeFormat = getTransactionDateTime(transactionDateTime).split("\\|");
 
-        System.out.println("Enter the time of transaction: ");
-        userInput = inputSc.nextLine().trim();
-        time = LocalTime.parse(userInput);
+        pastTransactionsTimestamp = depositDateTimeFormat[0] + depositDateTimeFormat[1];
 
-        BufferedWriter bufWriter = getBufferedWriter(filename);
+        String backupFilePath = "src/main/resources/backups/" + pastTransactionsTimestamp + ".csv";
 
-        if(!userInput.isEmpty()) {
-            d = new Transaction(date, time, transactionDesc, vendorName, transactionAmt);
+        bufWriter = getBufferedWriter(filename);
 
-            transactionsList.add(d);
+        BufferedWriter bufWriter2 = getBufferedWriter(backupFilePath);
 
+        if (!userInput.isEmpty()) {
+            d = new Transaction(LocalDate.parse(depositDateTimeFormat[0]), LocalTime.parse(depositDateTimeFormat[1]), transactionDesc, vendorName, transactionAmt);
+
+            //Write to bufferedWriter header of csv file
+            bufWriter.write("Date|Time|Description|Vendor|Amount\n");
             bufWriter.write(d.getDateOfTransaction() + "|" + d.getTimeOfTransaction() + "|" + d.getTransactionDesc() + "|" + d.getVendor() + "|");
-            bufWriter.write(String.format("%.2f ", d.getAmount()));
+            bufWriter.write(String.format("%.2f \n", d.getAmount()));
+
+            bufWriter2.write(d.getDateOfTransaction() + "|" + d.getTimeOfTransaction() + "|" + d.getTransactionDesc() + "|" + d.getVendor() + "|");
+            bufWriter2.write(String.format("%.2f \n", d.getAmount()));
+            
+            ledger.add(d);
         }
         //Close the bufWriter
         bufWriter.close();
     }
 
-    private static void makePayment() {
-        System.out.println("Enter the debit amount ");
+    private static void makePayment(ArrayList<Transaction> ledger, String filename) throws IOException {
+        String[] paymentDateTimeFormat;
+        double transactionAmt;
+        String vendorName;
+        String transactionDesc;
+
+        //Represents a single debit payment
+        Transaction p;
+
+        System.out.println("Enter the debit amount from the transaction: ");
+        //To showcase debits as a negative transaction
+        transactionAmt = inputSc.nextDouble();
+
+        System.out.println("Enter the vendor name from the transaction: ");
+        vendorName = inputSc.nextLine().trim();
+
+        System.out.println("Enter the transaction description: ");
+        transactionDesc = inputSc.nextLine().trim();
+
+        //Get date and time format for transaction input
+        paymentDateTimeFormat = getTransactionDateTime(transactionDateTime).split("\\|");
+
+        bufWriter = getBufferedWriter(filename);
+
+        if (!userInput.isEmpty()) {
+
+            p = new Transaction(LocalDate.parse(paymentDateTimeFormat[0]), LocalTime.parse(paymentDateTimeFormat[1]), transactionDesc, vendorName, transactionAmt);
+
+            bufWriter.write(p.getDateOfTransaction() + "|" + p.getTimeOfTransaction() + "|" + p.getTransactionDesc() + "|" + p.getVendor() + "|");
+            bufWriter.write(String.format("%.2f \n", p.getAmount()));
+
+            ledger.add(p);
+        }
+        //Close the bufWriter
+        bufWriter.close();
     }
 
     private static void showAllEntries() {
-
+        //Print all transaction entries to the console
+        for (Transaction t : ledger) {
+            System.out.println("Date:" + t.getDateOfTransaction() + " Time:" + t.getTimeOfTransaction() + " Description:" + t.getTransactionDesc() + " Vendor:" + t.getVendor() + " Amount:" + t.getAmount());
+        }
     }
 
     private static void showOnlyDeposits() {
-
+        //Print only deposits (positive entries)
+        for (Transaction d : ledger) {
+            //If amount is not negative
+            if (d.getAmount() > 0) {
+                System.out.println("Date:" + d.getDateOfTransaction() + " Time:" + d.getTimeOfTransaction() + " Description:" + d.getTransactionDesc() + " Vendor:" + d.getVendor() + " Amount:" + d.getAmount());
+            }
+        }
     }
 
     private static void showOnlyPayments() {
-
+        //Print only payments (negative entries)
+        for (Transaction d : ledger) {
+            //If amount is not positive (in the negative range)
+            if (d.getAmount() < 0) {
+                System.out.println("Date:" + d.getDateOfTransaction() + " Time:" + d.getTimeOfTransaction() + " Description:" + d.getTransactionDesc() + " Vendor:" + d.getVendor() + " Amount:" + d.getAmount());
+            }
+        }
     }
 
     private static ArrayList<Transaction> readTransactionFile(String filename) {
@@ -216,7 +291,7 @@ public class LedgerApp {
             bufReader.readLine();
 
             //Reading from file
-            while((fileContents = bufReader.readLine()) != null) {
+            while ((fileContents = bufReader.readLine()) != null) {
                 String[] transactionData = fileContents.split("\\|");
 
                 //To store values from fileContents and assigning their values to transaction variables
@@ -242,9 +317,21 @@ public class LedgerApp {
             //Return transactions
             return transactions;
 
-        } catch(IOException err) {
+        } catch (IOException err) {
             throw new RuntimeException(err);
         }
+    }
+
+    //To retrieve current date and time for a transaction
+    private static String getTransactionDateTime(LocalDateTime transactionDateTime) {
+
+        DateTimeFormatter traditionalDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String transactionDate = transactionDateTime.format(traditionalDate);
+
+        DateTimeFormatter traditionalTime = DateTimeFormatter.ofPattern("HH:mm");
+        String transactionTime = transactionDateTime.format(traditionalTime);
+
+        return transactionDate + "|" + transactionTime;
     }
 
     //To retrieve a BufferedWriter
