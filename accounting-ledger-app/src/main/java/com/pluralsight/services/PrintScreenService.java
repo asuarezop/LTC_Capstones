@@ -29,7 +29,7 @@ public class PrintScreenService {
                     TransactionProcessingService.addTransaction(LedgerApp.userInput);
                     break;
                 case "L", "l":
-                    System.out.println("Your inside ledger");
+                    showLedgerScreen();
                     break;
                 case "X", "x":
                     LedgerApp.exitApp = true;
@@ -40,7 +40,7 @@ public class PrintScreenService {
         } while(!LedgerApp.exitApp);
     }
 
-    public static void showLedgerScreen() {
+    public static void showLedgerScreen() throws IOException {
         String ledgerScreen = """
                 ===================================================================================
                 |                          * * * CACHE FLOW (LEDGER) * * *                        |
@@ -53,6 +53,27 @@ public class PrintScreenService {
                 |                          [H] Home          [X] Exit App                         |
                 ===================================================================================
                 """;
+
+        do {
+            System.out.println(ledgerScreen + "Select from the available options: ");
+            LedgerApp.userInput = LedgerApp.inputSc.nextLine().trim();
+
+            switch (LedgerApp.userInput) {
+                case "A", "a", "D", "d", "P", "p":
+                    TransactionProcessingService.showTransactionsFromLedger(LedgerApp.userInput);
+                    break;
+                case "L", "l":
+                    System.out.println("Run reports screen here");
+                case "H", "h":
+                    showLedgerHomeScreen();
+                    break;
+                case "X", "x":
+                    LedgerApp.exitApp = true;
+                    break;
+                default:
+                    throw new Error("Sorry, that's not a valid option. Please make your selection.");
+            }
+        } while(!LedgerApp.exitApp);
     }
 
     //Retrieves user input from a prompt

@@ -1,5 +1,8 @@
 package com.pluralsight.services;
 
+import com.pluralsight.ledger.LedgerApp;
+import com.pluralsight.models.Transaction;
+
 import java.io.IOException;
 
 public class TransactionProcessingService {
@@ -9,7 +12,7 @@ public class TransactionProcessingService {
         String vendorName;
 
         //User selected to Add Deposit transaction
-        if (userInput.equals("D") ||  userInput.equals("d")) {
+        if (userInput.equals("D") || userInput.equals("d")) {
             double transactionDepositAmt;
 
             //Parsing string to double from PrintScreenService.promptUser()
@@ -31,6 +34,38 @@ public class TransactionProcessingService {
 
             //Passing values to be written to transactions.csv file
             FileHandlerService.writeToTransactionFile(transactionPaymentAmt, transactionDesc, vendorName);
+        }
+    }
+
+    public static void showTransactionsFromLedger(String userInput) {
+
+        switch (userInput) {
+            case "A", "a":
+                //User selected to Display All Entries
+                for (Transaction t : LedgerApp.ledger) {
+                    System.out.println("Date:" + t.getDateOfTransaction() + " Time:" + t.getTimeOfTransaction() + " Description:" + t.getTransactionDesc() + " Vendor:" + t.getVendor() + " Amount:" + t.getAmount());
+                }
+                break;
+
+            case "D", "d":
+                //User selected to Show Deposits only (positive transactions)
+                for (Transaction d : LedgerApp.ledger) {
+                    //If transaction amount is not negative
+                    if (d.getAmount() > 0) {
+                        System.out.println("Date:" + d.getDateOfTransaction() + " Time:" + d.getTimeOfTransaction() + " Description:" + d.getTransactionDesc() + " Vendor:" + d.getVendor() + " Amount:" + d.getAmount());
+                    }
+                }
+                break;
+
+            case "P", "p":
+                //User selected to show Payments only (negative transactions)
+                for (Transaction d : LedgerApp.ledger) {
+                    //If amount is not positive (in the negative range)
+                    if (d.getAmount() < 0) {
+                        System.out.println("Date:" + d.getDateOfTransaction() + " Time:" + d.getTimeOfTransaction() + " Description:" + d.getTransactionDesc() + " Vendor:" + d.getVendor() + " Amount:" + d.getAmount());
+                    }
+                }
+                break;
         }
     }
 }
