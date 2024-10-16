@@ -1,6 +1,8 @@
 package com.pluralsight.ledger;
 
 import com.pluralsight.models.Transaction;
+import com.pluralsight.services.DateTimeHandlerService;
+import com.pluralsight.services.FileHandlerService;
 
 import java.io.*;
 import java.time.*;
@@ -16,30 +18,30 @@ public class LedgerApp {
 
     public static ArrayList<Transaction> ledger;
     public static ArrayList<Transaction> newEntries;
-    public static String transactionsFilePath;
 
     public static BufferedWriter bufWriter;
     public static LocalDateTime transactionDateTime;
+    public static String transactionsFilePath;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         inputSc = new Scanner(System.in);
 
         //Initializing transactionsList
         ledger = new ArrayList<>();
 
-        newEntries =new ArrayList<>();
+        newEntries = new ArrayList<>();
 
         //File path for transactions data
         transactionsFilePath = "src/main/resources/transactions.csv";
 
         //Read transaction file and store contents into transactionsList
-        ledger = readTransactionFile(transactionsFilePath);
+        ledger = FileHandlerService.readTransactionFile(transactionsFilePath);
 
         //Initializing date time to now
         transactionDateTime = LocalDateTime.now();
 
         try {
-            bufWriter = getBufferedWriter(transactionsFilePath);
+            bufWriter = FileHandlerService.getBufferedWriter(transactionsFilePath);
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -180,9 +182,9 @@ public class LedgerApp {
         transactionDesc = inputSc.nextLine().trim();
 
         //Call method to retrieve date and time
-        depositDateTimeFormat = getTransactionDateTime(transactionDateTime).split("\\|");
+        depositDateTimeFormat = DateTimeHandlerService.getTransactionDateTime(transactionDateTime).split("\\|");
 
-        bufWriter = getBufferedWriter(filename);
+        bufWriter = FileHandlerService.getBufferedWriter(filename);
 
         if (!userInput.isEmpty()) {
             d = new Transaction(LocalDate.parse(depositDateTimeFormat[0]), LocalTime.parse(depositDateTimeFormat[1]), transactionDesc, vendorName, transactionAmt);
@@ -218,9 +220,9 @@ public class LedgerApp {
         transactionDesc = inputSc.nextLine().trim();
 
         //Get date and time format for transaction input
-        paymentDateTimeFormat = getTransactionDateTime(transactionDateTime).split("\\|");
+        paymentDateTimeFormat = DateTimeHandlerService.getTransactionDateTime(transactionDateTime).split("\\|");
 
-        bufWriter = getBufferedWriter(filename);
+        bufWriter = FileHandlerService.getBufferedWriter(filename);
 
         if (!userInput.isEmpty()) {
 
@@ -261,82 +263,5 @@ public class LedgerApp {
                 System.out.println("Date:" + d.getDateOfTransaction() + " Time:" + d.getTimeOfTransaction() + " Description:" + d.getTransactionDesc() + " Vendor:" + d.getVendor() + " Amount:" + d.getAmount());
             }
         }
-    }
-
-    private static ArrayList<Transaction> readTransactionFile(String filename) {
-        //Represents a single transaction to be added
-        Transaction t;
-
-        //Store a read-copy of transactions into ArrayList
-        ArrayList<Transaction> transactions = new ArrayList<>();
-
-        try {
-            //Calling openFileReader method to initialize BufferedReader
-            BufferedReader bufReader = openFileReader(filename);
-
-            //Reading each line of input from fileContents
-            String fileContents;
-
-            //Clear any existing items from previous write sessions
-            transactions.clear();
-
-            //Skip the first line of file
-            bufReader.readLine();
-
-            //Reading from file
-            while ((fileContents = bufReader.readLine()) != null) {
-                String[] transactionData = fileContents.split("\\|");
-
-                //To store values from fileContents and assigning their values to transaction variables
-                LocalDate transactionDate = LocalDate.parse(transactionData[0]);
-                LocalTime transactionTime = LocalTime.parse(transactionData[1]);
-                String transactionDesc = transactionData[2];
-                String associatedVendor = transactionData[3];
-                double transactionAmt = Double.parseDouble(transactionData[4]);
-
-                //Creating a new transaction object, passing transaction variables to constructor
-                t = new Transaction(transactionDate, transactionTime, transactionDesc, associatedVendor, transactionAmt);
-
-                //Add each transaction to transaction ArrayList
-                transactions.add(t);
-            }
-
-            //Successfully read file message
-            System.out.println("File was successfully read!");
-
-            //Closing bufReader
-            bufReader.close();
-
-            //Return transactions
-            return transactions;
-
-        } catch (IOException err) {
-            throw new RuntimeException(err);
-        }
-    }
-
-    //To retrieve current date and time for a transaction
-    private static String getTransactionDateTime(LocalDateTime transactionDateTime) {
-
-        DateTimeFormatter traditionalDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        String transactionDate = transactionDateTime.format(traditionalDate);
-
-        DateTimeFormatter traditionalTime = DateTimeFormatter.ofPattern("HH:mm");
-        String transactionTime = transactionDateTime.format(traditionalTime);
-
-        return transactionDate + "|" + transactionTime;
-    }
-
-    //To retrieve a BufferedWriter
-    private static BufferedWriter getBufferedWriter(String filename) throws IOException {
-        BufferedWriter bufWriter = new BufferedWriter(new FileWriter(filename, true)); //Set fileWriter to append mode in order to prevent data from being overwritten
-        return bufWriter;
-    }
-
-    //Initializing the BufferedReader
-    private static BufferedReader openFileReader(String filename) throws FileNotFoundException {
-        //Creating a new BufferedReader object to read "products.csv" and initializing it to read contents from FileReader
-        BufferedReader bufReader = new BufferedReader(new FileReader(filename));
-        return bufReader;
     }
 }
