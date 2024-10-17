@@ -4,8 +4,7 @@ import com.pluralsight.ledger.LedgerApp;
 import com.pluralsight.models.Transaction;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.*;
 
 public class TransactionProcessingService {
 
@@ -96,10 +95,11 @@ public class TransactionProcessingService {
     //Filter through ledger by comparing latest transactions to transactions made in the previous month
     public static void previousMonthTransactionSearch() {
         //Retrieving the date/time from LocalDateTime.now(), converting to LocalDate, and getting the month prior to latest transaction
-        LocalDate lastMonth = LedgerApp.transactionDateTime.toLocalDate().minusMonths(1);
+        int lastMonth = LedgerApp.transactionDateTime.toLocalDate().minusMonths(1).getMonthValue();
 
         for (Transaction t: LedgerApp.ledger) {
-            if (t.getDateOfTransaction().isEqual(lastMonth)) {
+            //If current transaction month is equal to last month
+            if (t.getDateOfTransaction().getMonthValue() == lastMonth) {
                 System.out.println("Date:" + t.getDateOfTransaction() + " Time:" + t.getTimeOfTransaction() + " Description:" + t.getTransactionDesc() + " Vendor:" + t.getVendor() + " Amount:" + t.getAmount());
             }
         }
@@ -107,10 +107,11 @@ public class TransactionProcessingService {
 
     //Start from Jan 1 to the latest date
     public static void yearToDateTransactionSearch() {
-        LocalDate yearStartDate = LedgerApp.transactionDateTime.toLocalDate().withDayOfYear(1);
+        LocalDate yearStartDate = LocalDate.of(LedgerApp.transactionDateTime.getYear(), Month.JANUARY, Month.JANUARY.firstDayOfYear(true));
 
         for (Transaction t: LedgerApp.ledger) {
-            if (t.getDateOfTransaction().isEqual(yearStartDate)) {
+            //If the current transaction year falls in the range of Jan. 1 to current date, print to the console
+            if (t.getDateOfTransaction().isAfter(yearStartDate) && t.getDateOfTransaction().isBefore(t.getDateOfTransaction())) {
                 System.out.println("Date:" + t.getDateOfTransaction() + " Time:" + t.getTimeOfTransaction() + " Description:" + t.getTransactionDesc() + " Vendor:" + t.getVendor() + " Amount:" + t.getAmount());
             }
         }
