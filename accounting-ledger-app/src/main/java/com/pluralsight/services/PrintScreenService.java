@@ -82,7 +82,7 @@ public class PrintScreenService {
                 ===================================================================================
                 |                          * * * CACHE FLOW (REPORTS) * * *                       |
                 |                                                                                 |
-                |                              [1] Month to Month                                 |
+                |                              [1] Month to Date                                  |
                 |                              [2] Previous Month                                 |
                 |                              [3] Year to Date                                   |
                 |                              [4] Previous Year                                  |
@@ -97,16 +97,16 @@ public class PrintScreenService {
 
             switch (LedgerApp.userInput) {
                 case "1":
-                    TransactionProcessingService.monthToMonthTransactionSearch();
+                    TransactionProcessingService.monthToDateTransactionSearch();
                     break;
                 case "2":
                     TransactionProcessingService.previousMonthTransactionSearch();
                     break;
                 case "3":
-                    System.out.println("Year to date filter");
+                    TransactionProcessingService.yearToDateTransactionSearch();
                     break;
                 case "4":
-                    System.out.println("Previous year filter");
+                    TransactionProcessingService.previousYearTransactionSearch();
                     break;
                 case "5":
                     TransactionProcessingService.searchTransactionByVendor();

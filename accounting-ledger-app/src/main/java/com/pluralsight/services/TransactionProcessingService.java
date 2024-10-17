@@ -71,19 +71,26 @@ public class TransactionProcessingService {
         }
     }
 
-    //Filter through ledger by startMonth and endMonth within the same month
-    public static void monthToMonthTransactionSearch() {
-        int startMonth = Integer.parseInt(PrintScreenService.promptUser("Enter the start month of your transaction (range from 1 - 12): "));
-        int endMonth = Integer.parseInt(PrintScreenService.promptUser("Enter the end month of your transaction (range from 1 - 12): "));
+    //Filter through ledger by month to date ==> current date from month I am in now to the first of that month
+    public static void monthToDateTransactionSearch() {
+        //No need to ask user for input, that's for custom search
+//        int startMonth = Integer.parseInt(PrintScreenService.promptUser("Enter the start month of your transaction (range from 1 - 12): "));
+//        int endMonth = Integer.parseInt(PrintScreenService.promptUser("Enter the end month of your transaction (range from 1 - 12): "));
+//        LocalDateTime firstOfTheMonth = LedgerApp.transactionDateTime.withDayOfMonth(1);
 
-        if (startMonth != 0 && endMonth != 0) {
+//        if (startMonth != 0 && endMonth != 0) {
             for (Transaction t: LedgerApp.ledger) {
                 //If current transaction falls in the range of startMonth and endMonth, print out to console
-                if (t.getDateOfTransaction().getMonthValue() >= startMonth && t.getDateOfTransaction().getMonthValue() <= endMonth) {
+//                if (t.getDateOfTransaction().getMonthValue() >= startMonth && t.getDateOfTransaction().getMonthValue() <= endMonth) {
+//                    System.out.println("Date:" + t.getDateOfTransaction() + " Time:" + t.getTimeOfTransaction() + " Description:" + t.getTransactionDesc() + " Vendor:" + t.getVendor() + " Amount:" + t.getAmount());
+//                }
+
+                //If current transaction month is equal to the current month of LocalTime.now
+                if (t.getDateOfTransaction().getMonth().equals(LedgerApp.transactionDateTime.getMonth())) {
                     System.out.println("Date:" + t.getDateOfTransaction() + " Time:" + t.getTimeOfTransaction() + " Description:" + t.getTransactionDesc() + " Vendor:" + t.getVendor() + " Amount:" + t.getAmount());
                 }
             }
-        }
+//        }
     }
 
     //Filter through ledger by comparing latest transactions to transactions made in the previous month
@@ -93,6 +100,30 @@ public class TransactionProcessingService {
 
         for (Transaction t: LedgerApp.ledger) {
             if (t.getDateOfTransaction().isEqual(lastMonth)) {
+                System.out.println("Date:" + t.getDateOfTransaction() + " Time:" + t.getTimeOfTransaction() + " Description:" + t.getTransactionDesc() + " Vendor:" + t.getVendor() + " Amount:" + t.getAmount());
+            }
+        }
+    }
+
+    //Start from Jan 1 to the latest date
+    public static void yearToDateTransactionSearch() {
+        LocalDate yearStartDate = LedgerApp.transactionDateTime.toLocalDate().withDayOfYear(1);
+
+        for (Transaction t: LedgerApp.ledger) {
+            if (t.getDateOfTransaction().isEqual(yearStartDate)) {
+                System.out.println("Date:" + t.getDateOfTransaction() + " Time:" + t.getTimeOfTransaction() + " Description:" + t.getTransactionDesc() + " Vendor:" + t.getVendor() + " Amount:" + t.getAmount());
+            }
+        }
+    }
+
+    //Show only transactions from the previous year
+    public static void previousYearTransactionSearch() {
+        //Get the current year value from LocalDateTime.now, convert to LocalDate, and get the previous year
+        int lastYear = LedgerApp.transactionDateTime.toLocalDate().minusYears(1).getYear();
+
+        for (Transaction t: LedgerApp.ledger) {
+            //If transaction year matches the previous year
+            if (t.getDateOfTransaction().getYear() == lastYear) {
                 System.out.println("Date:" + t.getDateOfTransaction() + " Time:" + t.getTimeOfTransaction() + " Description:" + t.getTransactionDesc() + " Vendor:" + t.getVendor() + " Amount:" + t.getAmount());
             }
         }
