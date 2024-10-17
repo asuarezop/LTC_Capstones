@@ -1,10 +1,12 @@
 package com.pluralsight.services;
 
 import com.pluralsight.ledger.LedgerApp;
-
 import java.io.IOException;
 
 public class PrintScreenService {
+
+    public static String allScreensColor = LedgerApp.escapeKey + "[38;5;153m";
+    public static String promptTextColor = LedgerApp.escapeKey + "[38;5;231m";
 
     //Ledger Home Screen
     public static void showLedgerHomeScreen() throws IOException {
@@ -21,7 +23,7 @@ public class PrintScreenService {
                 """;
 
         do {
-            System.out.print(homeScreen + "Select from the available options: ");
+            System.out.print(allScreensColor + homeScreen + "Select from the available options: ");
             LedgerApp.userInput = LedgerApp.inputSc.nextLine().trim();
 
             switch (LedgerApp.userInput) {
@@ -55,7 +57,7 @@ public class PrintScreenService {
                 """;
 
         do {
-            System.out.print(ledgerScreen + "Select from the available options: ");
+            System.out.print(allScreensColor + ledgerScreen + "Select from the available options: ");
             LedgerApp.userInput = LedgerApp.inputSc.nextLine().trim();
 
             switch (LedgerApp.userInput) {
@@ -77,7 +79,6 @@ public class PrintScreenService {
     }
 
     public static void showReportsScreen() throws IOException {
-
         String reportsScreen = """
                 ===================================================================================
                 |                          * * * CACHE FLOW (REPORTS) * * *                       |
@@ -92,7 +93,7 @@ public class PrintScreenService {
                 ===================================================================================
                 """;
         do {
-            System.out.print(reportsScreen + "Select from the available options: ");
+            System.out.print(allScreensColor + reportsScreen + "Select from the available options: ");
             LedgerApp.userInput = LedgerApp.inputSc.nextLine().trim();
 
             switch (LedgerApp.userInput) {
@@ -141,7 +142,7 @@ public class PrintScreenService {
                 """;
 
         do {
-            System.out.println(customSearchScreen + "Select from the available options: ");
+            System.out.println(allScreensColor + customSearchScreen + "Select from the available options: ");
             LedgerApp.userInput = LedgerApp.inputSc.nextLine().trim();
 
             switch (LedgerApp.userInput) {
@@ -171,7 +172,7 @@ public class PrintScreenService {
 
     //Retrieves user input from a prompt
     public static String promptUser(String prompt) {
-        System.out.println(prompt);
+        System.out.println(promptTextColor + prompt);
         return LedgerApp.userInput = LedgerApp.inputSc.nextLine().trim();
     }
 }

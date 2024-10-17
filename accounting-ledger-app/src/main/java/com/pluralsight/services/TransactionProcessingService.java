@@ -7,12 +7,21 @@ import java.io.IOException;
 import java.time.*;
 
 public class TransactionProcessingService {
+    public static String italicText = LedgerApp.escapeKey + "[3m";
+    public static String resetText = LedgerApp.escapeKey + "[23m";
+    public static String transactionDateColor = LedgerApp.escapeKey + "[38;5;220m";
+    public static String transactionTimeColor = LedgerApp.escapeKey + "[38;5;51m";
+    public static String transactionDescColor = LedgerApp.escapeKey + "[38;5;210m";
+    public static String transactionVendorColor = LedgerApp.escapeKey + "[38;5;183m";
+    public static String transactionAmountColorPos = LedgerApp.escapeKey + "[38;5;82m";
+    public static String transactionAmountColorNeg = LedgerApp.escapeKey + "[38;5;196m";
 
+    //Handles adding transaction entries to ledger (Deposits and Payments)
     public static void addTransaction(String userInput) throws IOException {
         String transactionDesc;
         String vendorName;
 
-        //User selected to Add Deposit transaction
+        //User selected to Add Deposit
         if (userInput.equals("D") || userInput.equals("d")) {
             double transactionDepositAmt;
 
@@ -24,7 +33,7 @@ public class TransactionProcessingService {
             //Passing values to be written to transactions.csv file
             FileHandlerService.writeToTransactionFile(transactionDepositAmt, transactionDesc, vendorName);
         }
-        //User selected to Make Payment transaction
+        //User selected to Make Payment
         else if (userInput.equals("P") || userInput.equals("p")) {
             double transactionPaymentAmt;
 
@@ -38,13 +47,14 @@ public class TransactionProcessingService {
         }
     }
 
+    //Prints transactions from ledger
     public static void showTransactionsFromLedger(String userInput) {
 
         switch (userInput) {
             case "A", "a":
                 //User selected to Display All Entries
                 for (Transaction t : LedgerApp.ledger) {
-                    System.out.println("Date:" + t.getDateOfTransaction() + " Time:" + t.getTimeOfTransaction() + " Description:" + t.getTransactionDesc() + " Vendor:" + t.getVendor() + " Amount:" + t.getAmount());
+                    System.out.println(transactionDateColor + "Date: " + t.getDateOfTransaction() + transactionTimeColor + " Time: " + t.getTimeOfTransaction() + transactionDescColor + " Description: " + t.getTransactionDesc() + transactionVendorColor + " Vendor: " + t.getVendor() + (t.getAmount() > 0 ? transactionAmountColorPos + " Amount: " + t.getAmount() + resetText : transactionAmountColorNeg + " Amount: " + t.getAmount() + resetText));
                 }
                 break;
 
@@ -53,7 +63,7 @@ public class TransactionProcessingService {
                 for (Transaction d : LedgerApp.ledger) {
                     //If transaction amount is not negative
                     if (d.getAmount() > 0) {
-                        System.out.println("Date:" + d.getDateOfTransaction() + " Time:" + d.getTimeOfTransaction() + " Description:" + d.getTransactionDesc() + " Vendor:" + d.getVendor() + " Amount:" + d.getAmount());
+                        System.out.println(transactionDateColor + "Date: " + d.getDateOfTransaction() + transactionTimeColor + " Time: " + d.getTimeOfTransaction() + transactionDescColor + " Description: " + d.getTransactionDesc() + transactionVendorColor + " Vendor: " + d.getVendor() + transactionAmountColorPos + " Amount: " + d.getAmount() + resetText);
                     }
                 }
                 break;
@@ -63,14 +73,14 @@ public class TransactionProcessingService {
                 for (Transaction p : LedgerApp.ledger) {
                     //If amount is not positive (in the negative range)
                     if (p.getAmount() < 0) {
-                        System.out.println("Date:" + p.getDateOfTransaction() + " Time:" + p.getTimeOfTransaction() + " Description:" + p.getTransactionDesc() + " Vendor:" + p.getVendor() + " Amount:" + p.getAmount());
+                        System.out.println(transactionDateColor + "Date: " + p.getDateOfTransaction() + transactionTimeColor + " Time: " + p.getTimeOfTransaction() + transactionDescColor + " Description: " + p.getTransactionDesc() + transactionVendorColor + " Vendor: " + p.getVendor() + transactionAmountColorNeg + " Amount: " + p.getAmount() + resetText);
                     }
                 }
                 break;
         }
     }
 
-    //Filter through ledger by month to date
+    //Filter through ledger by current month to latest date
     public static void monthToDateTransactionSearch() {
         //Variables to store current year and month from LocalDateTime.now()
         int currentYear = LedgerApp.transactionDateTime.getYear();
@@ -82,27 +92,28 @@ public class TransactionProcessingService {
         for (Transaction t : LedgerApp.ledger) {
             //If current transaction month is after monthStartDate (1st day of current month), print to console
             if (t.getDateOfTransaction().isAfter(monthStartDate)) {
-                System.out.println("Date:" + t.getDateOfTransaction() + " Time:" + t.getTimeOfTransaction() + " Description:" + t.getTransactionDesc() + " Vendor:" + t.getVendor() + " Amount:" + t.getAmount());
+                System.out.println("Date: " + t.getDateOfTransaction() + " Time: " + t.getTimeOfTransaction() + " Description: " + t.getTransactionDesc() + " Vendor: " + t.getVendor() + " Amount: " + t.getAmount());
             }
         }
     }
 
-    //Filter through ledger by comparing latest transactions to transactions made in the previous month
+    //Filter through ledger by current month transactions to transactions made in the previous month
     public static void previousMonthTransactionSearch() {
+
         //Retrieving the date/time from LocalDateTime.now(), converting to LocalDate, and getting the month prior to latest transaction
         int lastMonth = LedgerApp.transactionDateTime.toLocalDate().minusMonths(1).getMonthValue();
 
         for (Transaction t : LedgerApp.ledger) {
             //If current transaction month is equal to last month
             if (t.getDateOfTransaction().getMonthValue() == lastMonth) {
-                System.out.println("Date:" + t.getDateOfTransaction() + " Time:" + t.getTimeOfTransaction() + " Description:" + t.getTransactionDesc() + " Vendor:" + t.getVendor() + " Amount:" + t.getAmount());
+                System.out.println("Date: " + t.getDateOfTransaction() + " Time: " + t.getTimeOfTransaction() + " Description: " + t.getTransactionDesc() + " Vendor: " + t.getVendor() + " Amount: " + t.getAmount());
             }
         }
     }
 
-    //Start from Jan 1 to the latest date
+    //Show transactions that fall between Jan 1 to the latest date
     public static void yearToDateTransactionSearch() {
-        //Variables to store current year from LocalDateTime.now()
+        //Variable to store current year from LocalDateTime.now()
         int currentYear = LedgerApp.transactionDateTime.getYear();
 
         //Get the first month and first day of the current year - yyyy-01-01
@@ -111,20 +122,21 @@ public class TransactionProcessingService {
         for (Transaction t : LedgerApp.ledger) {
             //If the current transaction is after yearStartDate (Jan 1st), print to the console
             if (t.getDateOfTransaction().isAfter(yearStartDate)) {
-                System.out.println("Date:" + t.getDateOfTransaction() + " Time:" + t.getTimeOfTransaction() + " Description:" + t.getTransactionDesc() + " Vendor:" + t.getVendor() + " Amount:" + t.getAmount());
+                System.out.println("Date: " + t.getDateOfTransaction() + " Time: " + t.getTimeOfTransaction() + " Description: " + t.getTransactionDesc() + " Vendor: " + t.getVendor() + " Amount: " + t.getAmount());
             }
         }
     }
 
     //Show only transactions from the previous year
     public static void previousYearTransactionSearch() {
+
         //Get the current year value from LocalDateTime.now, convert to LocalDate, and get the previous year
         int lastYear = LedgerApp.transactionDateTime.toLocalDate().minusYears(1).getYear();
 
         for (Transaction t : LedgerApp.ledger) {
             //If transaction year matches the previous year, print to transaction to the console
             if (t.getDateOfTransaction().getYear() == lastYear) {
-                System.out.println("Date:" + t.getDateOfTransaction() + " Time:" + t.getTimeOfTransaction() + " Description:" + t.getTransactionDesc() + " Vendor:" + t.getVendor() + " Amount:" + t.getAmount());
+                System.out.println("Date: " + t.getDateOfTransaction() + " Time: " + t.getTimeOfTransaction() + " Description: " + t.getTransactionDesc() + " Vendor: " + t.getVendor() + " Amount: " + t.getAmount());
             }
         }
     }
@@ -137,7 +149,7 @@ public class TransactionProcessingService {
             for (Transaction t : LedgerApp.ledger) {
                 //Filtering ledger to find all transactions that match vendor name and printing to the console
                 if (searchTerm.equalsIgnoreCase(t.getVendor())) {
-                    System.out.println("Date:" + t.getDateOfTransaction() + " Time:" + t.getTimeOfTransaction() + " Description:" + t.getTransactionDesc() + " Vendor:" + t.getVendor() + " Amount:" + t.getAmount());
+                    System.out.println("Date: " + t.getDateOfTransaction() + " Time: " + t.getTimeOfTransaction() + " Description: " + t.getTransactionDesc() + " Vendor: " + t.getVendor() + " Amount: " + t.getAmount());
                 }
             }
         }

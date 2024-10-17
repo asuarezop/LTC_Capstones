@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class FileHandlerService {
 
-    //To retrieve a BufferedWriter
+    //Retrieve a BufferedWriter
     public static BufferedWriter getBufferedWriter(String filename) throws IOException {
         BufferedWriter bufWriter = new BufferedWriter(new FileWriter(filename, true)); //Set fileWriter to append mode in order to prevent data from being overwritten
         return bufWriter;

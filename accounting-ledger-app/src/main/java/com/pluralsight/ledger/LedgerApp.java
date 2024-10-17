@@ -23,6 +23,8 @@ public class LedgerApp {
     public static LocalDateTime transactionDateTime;
     public static String transactionsFilePath;
 
+    public static String escapeKey = "\033";
+
     public static void main(String[] args) throws IOException {
         inputSc = new Scanner(System.in);
 
@@ -44,6 +46,7 @@ public class LedgerApp {
         exitApp = false;
 
         try {
+            //Initializing bufferedWriter
             bufWriter = FileHandlerService.getBufferedWriter(transactionsFilePath);
 
         } catch (IOException e) {
