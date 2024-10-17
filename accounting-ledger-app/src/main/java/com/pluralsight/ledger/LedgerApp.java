@@ -24,6 +24,7 @@ public class LedgerApp {
     public static String transactionsFilePath;
 
     public static String escapeKey = "\033";
+    public static String transactionStringFormat;
 
     public static void main(String[] args) throws IOException {
         inputSc = new Scanner(System.in);
