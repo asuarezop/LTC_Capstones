@@ -71,17 +71,26 @@ public class TransactionProcessingService {
         }
     }
 
+    //Filter through ledger by startMonth and endMonth within the same month
     public static void monthToMonthTransactionSearch() {
-        //Filter through ledger by startMonth and endMonth within the same month
         int startMonth = Integer.parseInt(PrintScreenService.promptUser("Enter the start month of your transaction (range from 1 - 12): "));
         int endMonth = Integer.parseInt(PrintScreenService.promptUser("Enter the end month of your transaction (range from 1 - 12): "));
 
         if (startMonth != 0 && endMonth != 0) {
             for (Transaction t: LedgerApp.ledger) {
-                //Compare month values from userInput with month values of transactions inside ledger, print out those that match filter
-                if (t.getDateOfTransaction().getMonthValue() == startMonth && t.getDateOfTransaction().getMonthValue() == endMonth) {
+                //If current transaction falls in the range of startMonth and endMonth, print out to console 
+                if (t.getDateOfTransaction().getMonthValue() >= startMonth && t.getDateOfTransaction().getMonthValue() <= endMonth) {
                     System.out.println("Date:" + t.getDateOfTransaction() + " Time:" + t.getTimeOfTransaction() + " Description:" + t.getTransactionDesc() + " Vendor:" + t.getVendor() + " Amount:" + t.getAmount());
                 }
+            }
+        }
+    }
+
+    //Filter through ledger by comparing latest transactions to transactions made in the previous month
+    public static void previousMonthTransactionSearch() {
+        for (Transaction t: LedgerApp.ledger) {
+            if (t.getDateOfTransaction().isBefore(t.getDateOfTransaction())) {
+                System.out.println("Date:" + t.getDateOfTransaction() + " Time:" + t.getTimeOfTransaction() + " Description:" + t.getTransactionDesc() + " Vendor:" + t.getVendor() + " Amount:" + t.getAmount());
             }
         }
     }

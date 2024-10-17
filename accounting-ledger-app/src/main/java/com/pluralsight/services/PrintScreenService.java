@@ -100,7 +100,7 @@ public class PrintScreenService {
                     TransactionProcessingService.monthToMonthTransactionSearch();
                     break;
                 case "2":
-                    System.out.println("Previous month filter");
+                    TransactionProcessingService.previousMonthTransactionSearch();
                     break;
                 case "3":
                     System.out.println("Year to date filter");
