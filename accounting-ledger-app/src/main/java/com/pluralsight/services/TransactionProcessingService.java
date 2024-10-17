@@ -78,7 +78,7 @@ public class TransactionProcessingService {
 
         if (startMonth != 0 && endMonth != 0) {
             for (Transaction t: LedgerApp.ledger) {
-                //If current transaction falls in the range of startMonth and endMonth, print out to console 
+                //If current transaction falls in the range of startMonth and endMonth, print out to console
                 if (t.getDateOfTransaction().getMonthValue() >= startMonth && t.getDateOfTransaction().getMonthValue() <= endMonth) {
                     System.out.println("Date:" + t.getDateOfTransaction() + " Time:" + t.getTimeOfTransaction() + " Description:" + t.getTransactionDesc() + " Vendor:" + t.getVendor() + " Amount:" + t.getAmount());
                 }
@@ -88,8 +88,11 @@ public class TransactionProcessingService {
 
     //Filter through ledger by comparing latest transactions to transactions made in the previous month
     public static void previousMonthTransactionSearch() {
+        //Retrieving the date/time from LocalDateTime.now(), converting to LocalDate, and getting the month prior to latest transaction
+        LocalDate lastMonth = LedgerApp.transactionDateTime.toLocalDate().minusMonths(1);
+
         for (Transaction t: LedgerApp.ledger) {
-            if (t.getDateOfTransaction().isBefore(t.getDateOfTransaction())) {
+            if (t.getDateOfTransaction().isEqual(lastMonth)) {
                 System.out.println("Date:" + t.getDateOfTransaction() + " Time:" + t.getTimeOfTransaction() + " Description:" + t.getTransactionDesc() + " Vendor:" + t.getVendor() + " Amount:" + t.getAmount());
             }
         }
