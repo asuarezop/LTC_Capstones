@@ -97,7 +97,7 @@ public class PrintScreenService {
 
             switch (LedgerApp.userInput) {
                 case "1":
-                    System.out.println("Month to month filter");
+                    TransactionProcessingService.monthToMonthTransactionSearch();
                     break;
                 case "2":
                     System.out.println("Previous month filter");

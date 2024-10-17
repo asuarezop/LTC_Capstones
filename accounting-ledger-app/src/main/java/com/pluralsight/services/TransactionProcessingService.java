@@ -73,17 +73,17 @@ public class TransactionProcessingService {
 
     public static void monthToMonthTransactionSearch() {
         //Filter through ledger by startMonth and endMonth within the same month
-        LocalDate startMonth = LocalDate.parse(PrintScreenService.promptUser("Enter the start month of your transaction: "));
-        LocalDate endMonth = LocalDate.parse(PrintScreenService.promptUser("Enter the end month of your transaction: "));
+        int startMonth = Integer.parseInt(PrintScreenService.promptUser("Enter the start month of your transaction (range from 1 - 12): "));
+        int endMonth = Integer.parseInt(PrintScreenService.promptUser("Enter the end month of your transaction (range from 1 - 12): "));
 
-//        if (!startMonth.isEmpty() && !endMonth.isEmpty()) {
-//            for (Transaction t: LedgerApp.ledger) {
-//                //Compare month value
-////                if (startMonth.equals(t.getDateOfTransaction().getMonth()) {
-////
-////                }
-//            }
-//        }
+        if (startMonth != 0 && endMonth != 0) {
+            for (Transaction t: LedgerApp.ledger) {
+                //Compare month values from userInput with month values of transactions inside ledger, print out those that match filter
+                if (t.getDateOfTransaction().getMonthValue() == startMonth && t.getDateOfTransaction().getMonthValue() == endMonth) {
+                    System.out.println("Date:" + t.getDateOfTransaction() + " Time:" + t.getTimeOfTransaction() + " Description:" + t.getTransactionDesc() + " Vendor:" + t.getVendor() + " Amount:" + t.getAmount());
+                }
+            }
+        }
     }
 
     public static void searchTransactionByVendor() {
