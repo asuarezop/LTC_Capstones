@@ -111,6 +111,9 @@ public class PrintScreenService {
                 case "5":
                     TransactionProcessingService.searchTransactionByVendor();
                     break;
+                case "6":
+                    showCustomSearchScreen();
+                    break;
                 case "H", "h":
                     showLedgerHomeScreen();
                     break;
@@ -121,6 +124,49 @@ public class PrintScreenService {
                     throw new Error("Sorry, that's not a valid option. Please make your selection.");
             }
         } while (!LedgerApp.exitApp);
+    }
+
+    public static void showCustomSearchScreen() throws IOException {
+        String customSearchScreen = """
+                ===================================================================================
+                |                     * * * CACHE FLOW (CUSTOM SEARCH) * * *                      |
+                |                                                                                 |
+                |                              [1] Start/End Date                                 |
+                |                              [2] Description                                    |
+                |                              [3] Vendor                                         |
+                |                              [4] Amount                                         |
+                |                                                                                 |
+                |                          [H] Home          [X] Exit App                         |
+                ===================================================================================
+                """;
+
+        do {
+            System.out.println(customSearchScreen + "Select from the available options: ");
+            LedgerApp.userInput = LedgerApp.inputSc.nextLine().trim();
+
+            switch (LedgerApp.userInput) {
+                case "1":
+                    TransactionProcessingService.searchTransactionByStartEndDate();
+                    break;
+                case "2":
+                    System.out.println("Description search");
+                    break;
+                case "3":
+                    System.out.println("Vendor search");
+                    break;
+                case "4":
+                    System.out.println("Amount search");
+                    break;
+                case "H", "h":
+                    showLedgerHomeScreen();
+                    break;
+                case "X", "x":
+                    LedgerApp.exitApp = true;
+                    break;
+                default:
+                    throw new Error("Sorry, that's not a valid option. Please make your selection.");
+            }
+        } while(!LedgerApp.exitApp);
     }
 
     //Retrieves user input from a prompt

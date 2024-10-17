@@ -72,24 +72,19 @@ public class TransactionProcessingService {
 
     //Filter through ledger by month to date ==> current date from month I am in now to the first of that month
     public static void monthToDateTransactionSearch() {
-        //No need to ask user for input, that's for custom search
-//        int startMonth = Integer.parseInt(PrintScreenService.promptUser("Enter the start month of your transaction (range from 1 - 12): "));
-//        int endMonth = Integer.parseInt(PrintScreenService.promptUser("Enter the end month of your transaction (range from 1 - 12): "));
-//        LocalDateTime firstOfTheMonth = LedgerApp.transactionDateTime.withDayOfMonth(1);
+        //Variables to store current year and month from LocalDateTime.now()
+        int currentYear = LedgerApp.transactionDateTime.getYear();
+        Month currentMonth = LedgerApp.transactionDateTime.getMonth();
 
-//        if (startMonth != 0 && endMonth != 0) {
-            for (Transaction t: LedgerApp.ledger) {
-                //If current transaction falls in the range of startMonth and endMonth, print out to console
-//                if (t.getDateOfTransaction().getMonthValue() >= startMonth && t.getDateOfTransaction().getMonthValue() <= endMonth) {
-//                    System.out.println("Date:" + t.getDateOfTransaction() + " Time:" + t.getTimeOfTransaction() + " Description:" + t.getTransactionDesc() + " Vendor:" + t.getVendor() + " Amount:" + t.getAmount());
-//                }
+        //Creating a new LocalDate that is the first day of current month - yyyy-MM-01
+        LocalDate monthStartDate = LocalDate.of(currentYear, currentMonth, 1);
 
-                //If current transaction month is equal to the current month of LocalTime.now
-                if (t.getDateOfTransaction().getMonth().equals(LedgerApp.transactionDateTime.getMonth())) {
-                    System.out.println("Date:" + t.getDateOfTransaction() + " Time:" + t.getTimeOfTransaction() + " Description:" + t.getTransactionDesc() + " Vendor:" + t.getVendor() + " Amount:" + t.getAmount());
-                }
+        for (Transaction t : LedgerApp.ledger) {
+            //If current transaction month is after monthStartDate (1st day of current month), print to console
+            if (t.getDateOfTransaction().isAfter(monthStartDate)) {
+                System.out.println("Date:" + t.getDateOfTransaction() + " Time:" + t.getTimeOfTransaction() + " Description:" + t.getTransactionDesc() + " Vendor:" + t.getVendor() + " Amount:" + t.getAmount());
             }
-//        }
+        }
     }
 
     //Filter through ledger by comparing latest transactions to transactions made in the previous month
@@ -97,7 +92,7 @@ public class TransactionProcessingService {
         //Retrieving the date/time from LocalDateTime.now(), converting to LocalDate, and getting the month prior to latest transaction
         int lastMonth = LedgerApp.transactionDateTime.toLocalDate().minusMonths(1).getMonthValue();
 
-        for (Transaction t: LedgerApp.ledger) {
+        for (Transaction t : LedgerApp.ledger) {
             //If current transaction month is equal to last month
             if (t.getDateOfTransaction().getMonthValue() == lastMonth) {
                 System.out.println("Date:" + t.getDateOfTransaction() + " Time:" + t.getTimeOfTransaction() + " Description:" + t.getTransactionDesc() + " Vendor:" + t.getVendor() + " Amount:" + t.getAmount());
@@ -107,11 +102,13 @@ public class TransactionProcessingService {
 
     //Start from Jan 1 to the latest date
     public static void yearToDateTransactionSearch() {
+        //Get the first month and first day of the current year - yyyy-01-01
         LocalDate yearStartDate = LocalDate.of(LedgerApp.transactionDateTime.getYear(), Month.JANUARY, Month.JANUARY.firstDayOfYear(true));
 
-        for (Transaction t: LedgerApp.ledger) {
-            //If the current transaction year falls in the range of Jan. 1 to current date, print to the console
-            if (t.getDateOfTransaction().isAfter(yearStartDate) && t.getDateOfTransaction().isBefore(t.getDateOfTransaction())) {
+        System.out.println(yearStartDate);
+        for (Transaction t : LedgerApp.ledger) {
+            //If the current transaction is after yearStartDate (Jan 1st), print to the console
+            if (t.getDateOfTransaction().isAfter(yearStartDate)) {
                 System.out.println("Date:" + t.getDateOfTransaction() + " Time:" + t.getTimeOfTransaction() + " Description:" + t.getTransactionDesc() + " Vendor:" + t.getVendor() + " Amount:" + t.getAmount());
             }
         }
@@ -122,8 +119,8 @@ public class TransactionProcessingService {
         //Get the current year value from LocalDateTime.now, convert to LocalDate, and get the previous year
         int lastYear = LedgerApp.transactionDateTime.toLocalDate().minusYears(1).getYear();
 
-        for (Transaction t: LedgerApp.ledger) {
-            //If transaction year matches the previous year
+        for (Transaction t : LedgerApp.ledger) {
+            //If transaction year matches the previous year, print to transaction to the console
             if (t.getDateOfTransaction().getYear() == lastYear) {
                 System.out.println("Date:" + t.getDateOfTransaction() + " Time:" + t.getTimeOfTransaction() + " Description:" + t.getTransactionDesc() + " Vendor:" + t.getVendor() + " Amount:" + t.getAmount());
             }
@@ -138,6 +135,21 @@ public class TransactionProcessingService {
             for (Transaction t : LedgerApp.ledger) {
                 //Filtering ledger to find all transactions that match vendor name and printing to the console
                 if (searchTerm.equalsIgnoreCase(t.getVendor())) {
+                    System.out.println("Date:" + t.getDateOfTransaction() + " Time:" + t.getTimeOfTransaction() + " Description:" + t.getTransactionDesc() + " Vendor:" + t.getVendor() + " Amount:" + t.getAmount());
+                }
+            }
+        }
+    }
+
+    //Custom Search
+    public static void searchTransactionByStartEndDate() {
+        int startMonth = Integer.parseInt(PrintScreenService.promptUser("Enter the start month of your transaction (range from 1 - 12): "));
+        int endMonth = Integer.parseInt(PrintScreenService.promptUser("Enter the end month of your transaction (range from 1 - 12): "));
+
+        if (startMonth != 0 && endMonth != 0) {
+            for (Transaction t : LedgerApp.ledger) {
+            //If current transaction falls in the range of startMonth and endMonth, print out to console
+                if (t.getDateOfTransaction().getMonthValue() >= startMonth && t.getDateOfTransaction().getMonthValue() <= endMonth) {
                     System.out.println("Date:" + t.getDateOfTransaction() + " Time:" + t.getTimeOfTransaction() + " Description:" + t.getTransactionDesc() + " Vendor:" + t.getVendor() + " Amount:" + t.getAmount());
                 }
             }
