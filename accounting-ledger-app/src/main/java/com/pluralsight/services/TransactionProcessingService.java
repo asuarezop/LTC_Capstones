@@ -41,7 +41,6 @@ public class TransactionProcessingService {
 
     //Prints transactions from ledger
     public static void showTransactionsFromLedger(String userInput) {
-
         switch (userInput) {
             case "A", "a":
                 //User selected to Display All Entries
@@ -91,7 +90,6 @@ public class TransactionProcessingService {
 
     //Filter ledger by current month transactions to transactions made in the previous month
     public static void previousMonthTransactionSearch() {
-
         //Retrieving the date/time from LocalDateTime.now(), converting to LocalDate, and getting the month prior to latest transaction
         int lastMonth = LedgerApp.transactionDateTime.toLocalDate().minusMonths(1).getMonthValue();
 
@@ -121,7 +119,6 @@ public class TransactionProcessingService {
 
     //Show only transactions from the previous year
     public static void previousYearTransactionSearch() {
-
         //Get the current year value from LocalDateTime.now, convert to LocalDate, and get the previous year
         int lastYear = LedgerApp.transactionDateTime.toLocalDate().minusYears(1).getYear();
 

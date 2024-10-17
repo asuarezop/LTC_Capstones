@@ -24,30 +24,21 @@ public class Transaction {
     public LocalDate getDateOfTransaction() {
         return dateOfTransaction;
     }
-
-
     public LocalTime getTimeOfTransaction() {
         return timeOfTransaction;
     }
-
-
     public String getTransactionDesc() {
         return transactionDesc;
     }
-
-
     public String getVendor() {
         return vendor;
     }
-
-
     public double getAmount() {
         return amount;
     }
 
     @Override
     public String toString() {
-
         //Variables to color text output
         String transactionDateColor = LedgerApp.escapeKey + "[38;5;220m";
         String transactionTimeColor = LedgerApp.escapeKey + "[38;5;51m";

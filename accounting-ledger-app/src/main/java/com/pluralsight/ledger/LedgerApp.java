@@ -1,7 +1,6 @@
 package com.pluralsight.ledger;
 
 import com.pluralsight.models.Transaction;
-import com.pluralsight.services.DateTimeHandlerService;
 import com.pluralsight.services.FileHandlerService;
 import com.pluralsight.services.PrintScreenService;
 
@@ -14,6 +13,7 @@ public class LedgerApp {
 
     public static Scanner inputSc;
     public static String userInput;
+    public static String escapeKey = "\033";
     public static boolean exitApp;
 
     public static ArrayList<Transaction> ledger;
@@ -22,9 +22,6 @@ public class LedgerApp {
     public static BufferedWriter bufWriter;
     public static LocalDateTime transactionDateTime;
     public static String transactionsFilePath;
-
-    public static String escapeKey = "\033";
-    public static String transactionStringFormat;
 
     public static void main(String[] args) throws IOException {
         inputSc = new Scanner(System.in);

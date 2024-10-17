@@ -4,20 +4,11 @@ import com.pluralsight.ledger.LedgerApp;
 import com.pluralsight.models.Transaction;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class PrintScreenService {
-
+    //Global variables to color terminal screens and prompt output
     public static String allScreensColor = LedgerApp.escapeKey + "[38;5;153m";
     public static String promptTextColor = LedgerApp.escapeKey + "[38;5;231m";
-    public static String resetText = LedgerApp.escapeKey + "[23m";
-    public static String transactionDateColor = LedgerApp.escapeKey + "[38;5;220m";
-    public static String transactionTimeColor = LedgerApp.escapeKey + "[38;5;51m";
-    public static String transactionDescColor = LedgerApp.escapeKey + "[38;5;210m";
-    public static String transactionVendorColor = LedgerApp.escapeKey + "[38;5;183m";
-    public static String transactionAmountColorPos = LedgerApp.escapeKey + "[38;5;82m";
-    public static String transactionAmountColorNeg = LedgerApp.escapeKey + "[38;5;196m";
-
 
     //Ledger Home Screen
     public static void showLedgerHomeScreen() throws IOException {
