@@ -70,7 +70,7 @@ public class TransactionProcessingService {
         }
     }
 
-    //Filter through ledger by month to date ==> current date from month I am in now to the first of that month
+    //Filter through ledger by month to date
     public static void monthToDateTransactionSearch() {
         //Variables to store current year and month from LocalDateTime.now()
         int currentYear = LedgerApp.transactionDateTime.getYear();
@@ -102,10 +102,12 @@ public class TransactionProcessingService {
 
     //Start from Jan 1 to the latest date
     public static void yearToDateTransactionSearch() {
-        //Get the first month and first day of the current year - yyyy-01-01
-        LocalDate yearStartDate = LocalDate.of(LedgerApp.transactionDateTime.getYear(), Month.JANUARY, Month.JANUARY.firstDayOfYear(true));
+        //Variables to store current year from LocalDateTime.now()
+        int currentYear = LedgerApp.transactionDateTime.getYear();
 
-        System.out.println(yearStartDate);
+        //Get the first month and first day of the current year - yyyy-01-01
+        LocalDate yearStartDate = LocalDate.of(currentYear, Month.JANUARY, Month.JANUARY.firstDayOfYear(true));
+
         for (Transaction t : LedgerApp.ledger) {
             //If the current transaction is after yearStartDate (Jan 1st), print to the console
             if (t.getDateOfTransaction().isAfter(yearStartDate)) {
