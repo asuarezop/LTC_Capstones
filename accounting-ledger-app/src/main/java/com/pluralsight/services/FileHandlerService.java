@@ -65,7 +65,8 @@ public class FileHandlerService {
                 //Add each transaction to transaction ArrayList
                 transactions.add(t);
 
-//                Collections.sort(t);
+                //Sorting transactions in descending order by comparing two transaction date times
+                transactions.sort((t1, t2) -> t2.getDateOfTransaction().compareTo(t1.getDateOfTransaction()));
             }
 
             //Successfully read file message

@@ -17,7 +17,7 @@ public class LedgerApp {
 
     public static void main(String[] args) throws IOException {
         //Initializing ledger
-        ledger = new ArrayList<Transaction>();
+        ledger = new ArrayList<>();
 
         //File path for transactions data
         transactionsFilePath = "src/main/resources/transactions.csv";
