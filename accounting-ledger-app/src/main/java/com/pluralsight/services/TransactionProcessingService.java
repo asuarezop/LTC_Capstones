@@ -38,7 +38,6 @@ public class TransactionProcessingService {
                     PrintScreenService.printTransaction(t);
                 }
                 break;
-
             case "D", "d":
                 //User selected to Show Deposits only (positive transactions)
                 for (Transaction t : LedgerApp.ledger) {
@@ -48,7 +47,6 @@ public class TransactionProcessingService {
                     }
                 }
                 break;
-
             case "P", "p":
                 //User selected to show Payments only (negative transactions)
                 for (Transaction t : LedgerApp.ledger) {

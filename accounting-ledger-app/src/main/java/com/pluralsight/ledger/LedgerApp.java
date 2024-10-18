@@ -6,7 +6,6 @@ import com.pluralsight.services.PrintScreenService;
 import java.io.*;
 import java.time.*;
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class LedgerApp {
     public static String escapeKey = "\033";

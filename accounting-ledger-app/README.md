@@ -102,6 +102,7 @@ public static void searchTransactionByVendor() {
 
 ### Interesting code
 ![Sorting arrayList of transactions](src/main/resources/images/SortingTransactionsList.png)
+![YearToDate output](src/main/resources/images/YearToDateOutput.png)
 
 ### Author
 Anthony Suarez - https://github.com/asuarezop
