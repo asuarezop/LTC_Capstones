@@ -35,6 +35,8 @@
     }
 ```
 
+![Add Transaction output](src/main/resources/images/AddDepositTransactionOutput.png)
+
 `Show Transactions`
 ```declarative
   //Prints transactions from ledger
@@ -70,6 +72,8 @@
     }
 ```
 
+![Show All Transactions output](src/main/resources/images/ShowTransactionsOutput.png)
+
 `Vendor Search`
 ```declarative
 public static void searchTransactionByVendor() {
@@ -87,3 +91,17 @@ public static void searchTransactionByVendor() {
     }
 ```
 
+![Transaction Vendor Search](src/main/resources/images/SearchVendorOutput.png)
+
+### What I Learned
+* Working with LocalDateTime was more complicated than I initially thought! 
+* Chaining methods together and understanding what each method is returning through IntelliJ's tooltips was my "Eureka!" moment
+* The power of refactoring code and separating methods based on their intended purpose in the application (project organization)
+* You can learn a lot from looking at other people's code (helpful for generating ideas to get unstuck)
+* Helping others work through their code makes the concepts sink in better
+
+### Interesting code
+![Sorting arrayList of transactions](src/main/resources/images/SortingTransactionsList.png)
+
+### Author
+Anthony Suarez - https://github.com/asuarezop
