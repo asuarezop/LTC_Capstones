@@ -2,7 +2,6 @@ package com.pluralsight.services;
 
 import com.pluralsight.ledger.LedgerApp;
 import com.pluralsight.models.Transaction;
-
 import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -10,15 +9,17 @@ import java.util.ArrayList;
 
 public class FileHandlerService {
 
-    //Retrieve a BufferedWriter
+    public static ArrayList<Transaction> newEntries = new ArrayList<>();
+
     public static BufferedWriter getBufferedWriter(String filename) throws IOException {
-        BufferedWriter bufWriter = new BufferedWriter(new FileWriter(filename, true)); //Set fileWriter to append mode in order to prevent data from being overwritten
+        //Set fileWriter to append mode in order to prevent data from being overwritten
+        BufferedWriter bufWriter = new BufferedWriter(new FileWriter(filename, true));
         return bufWriter;
     }
 
     //Initializing the BufferedReader
     public static BufferedReader openFileReader(String filename) throws FileNotFoundException {
-        //Creating a new BufferedReader object to read "products.csv" and initializing it to read contents from FileReader
+        //Creating a new BufferedReader object to read file and initializing it to read contents from FileReader
         BufferedReader bufReader = new BufferedReader(new FileReader(filename));
         return bufReader;
     }
@@ -84,14 +85,15 @@ public class FileHandlerService {
 
         LedgerApp.bufWriter = getBufferedWriter(LedgerApp.transactionsFilePath);
 
-        if(!LedgerApp.userInput.isEmpty()) {
+        if(!PrintScreenService.userInput.isEmpty()) {
             t = new Transaction(LocalDate.parse(transactionDateTimeFormat[0]), LocalTime.parse(transactionDateTimeFormat[1]), transactionDesc, vendorName, transactionAmt);
 
             LedgerApp.bufWriter.write(t.getDateOfTransaction() + "|" + t.getTimeOfTransaction() + "|" + t.getTransactionDesc() + "|" + t.getVendor() + "|");
             LedgerApp.bufWriter.write(String.format("%.2f \n", t.getAmount()));
 
+            //Adding to the original ledger and backup ledger copy
             LedgerApp.ledger.add(t);
-            LedgerApp.newEntries.add(t);
+            newEntries.add(t);
         }
 
         LedgerApp.bufWriter.close();

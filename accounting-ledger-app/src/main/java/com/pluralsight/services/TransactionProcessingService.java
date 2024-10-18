@@ -2,7 +2,6 @@ package com.pluralsight.services;
 
 import com.pluralsight.ledger.LedgerApp;
 import com.pluralsight.models.Transaction;
-
 import java.io.IOException;
 import java.time.*;
 
@@ -10,32 +9,23 @@ public class TransactionProcessingService {
 
     //Handles adding transaction entries to ledger (Deposits and Payments)
     public static void addTransaction(String userInput) throws IOException {
-        String transactionDesc;
-        String vendorName;
+        //To hold transaction data
+        String[] transactionDetails;
 
         //User selected to Add Deposit
         if (userInput.equals("D") || userInput.equals("d")) {
-            double transactionDepositAmt;
+            //Retrieving transaction input from user and splitting it by vertical bar
+            transactionDetails = PrintScreenService.promptUserForTransactionDetails().split("\\|");
 
-            //Parsing string to double from PrintScreenService.promptUser()
-            transactionDepositAmt = Double.parseDouble(PrintScreenService.promptUser("Enter the deposit amount from the transaction: "));
-            transactionDesc = PrintScreenService.promptUser("Enter the transaction description: ");
-            vendorName = PrintScreenService.promptUser("Enter the vendor name from the transaction: ");
-
-            //Passing values to be written to transactions.csv file
-            FileHandlerService.writeToTransactionFile(transactionDepositAmt, transactionDesc, vendorName);
+            //Passing values from transactionDetails to be written to transactions.csv file
+            FileHandlerService.writeToTransactionFile(Double.parseDouble(transactionDetails[0]), transactionDetails[1], transactionDetails[2]);
         }
         //User selected to Make Payment
         else if (userInput.equals("P") || userInput.equals("p")) {
-            double transactionPaymentAmt;
+            transactionDetails = PrintScreenService.promptUserForTransactionDetails().split("\\|");
 
-            //Parsing string to double from PrintScreenService.promptUser() and multiplying by -1 to show as negative
-            transactionPaymentAmt = Double.parseDouble(PrintScreenService.promptUser("Enter the deposit amount from the transaction: ")) * -1;
-            transactionDesc = PrintScreenService.promptUser("Enter the transaction description: ");
-            vendorName = PrintScreenService.promptUser("Enter the vendor name from the transaction: ");
-
-            //Passing values to be written to transactions.csv file
-            FileHandlerService.writeToTransactionFile(transactionPaymentAmt, transactionDesc, vendorName);
+            //Passing values to be written to transactions.csv file, multiplying transactionAmt by -1 to show as negative
+            FileHandlerService.writeToTransactionFile(Double.parseDouble(transactionDetails[0]) * -1, transactionDetails[1], transactionDetails[2]);
         }
     }
 

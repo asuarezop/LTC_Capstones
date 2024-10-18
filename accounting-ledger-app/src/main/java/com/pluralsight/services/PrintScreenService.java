@@ -2,13 +2,22 @@ package com.pluralsight.services;
 
 import com.pluralsight.ledger.LedgerApp;
 import com.pluralsight.models.Transaction;
-
 import java.io.IOException;
+import java.util.Scanner;
 
 public class PrintScreenService {
-    //Global variables to color terminal screens and prompt output
+    //String variables to color terminal screens and prompt output
     public static String allScreensColor = LedgerApp.escapeKey + "[38;5;153m";
     public static String promptTextColor = LedgerApp.escapeKey + "[38;5;231m";
+
+    //Boolean condition to exit application screens
+    public static boolean exitApp = false;
+
+    //Related to input from user
+    public static String userInput;
+
+    //Initializing scanner to read from terminal input
+    public static Scanner inputSc = new Scanner(System.in);
 
     //Ledger Home Screen
     public static void showLedgerHomeScreen() throws IOException {
@@ -26,22 +35,22 @@ public class PrintScreenService {
 
         do {
             System.out.print(allScreensColor + homeScreen + "Select from the available options: ");
-            LedgerApp.userInput = LedgerApp.inputSc.nextLine().trim();
+            userInput = inputSc.nextLine().trim();
 
-            switch (LedgerApp.userInput) {
+            switch (userInput) {
                 case "D", "d", "P", "p":
-                    TransactionProcessingService.addTransaction(LedgerApp.userInput);
+                    TransactionProcessingService.addTransaction(userInput);
                     break;
                 case "L", "l":
                     showLedgerScreen();
                     break;
                 case "X", "x":
-                    LedgerApp.exitApp = true;
+                    exitApp = true;
                     break;
                 default:
                     throw new Error("Sorry, that's not a valid option. Please make your selection.");
             }
-        } while(!LedgerApp.exitApp);
+        } while(!exitApp);
     }
 
     public static void showLedgerScreen() throws IOException {
@@ -60,11 +69,11 @@ public class PrintScreenService {
 
         do {
             System.out.print(allScreensColor + ledgerScreen + "Select from the available options: ");
-            LedgerApp.userInput = LedgerApp.inputSc.nextLine().trim();
+            userInput = inputSc.nextLine().trim();
 
-            switch (LedgerApp.userInput) {
+            switch (userInput) {
                 case "A", "a", "D", "d", "P", "p":
-                    TransactionProcessingService.showTransactionsFromLedger(LedgerApp.userInput);
+                    TransactionProcessingService.showTransactionsFromLedger(userInput);
                     break;
                 case "L", "l":
                     showReportsScreen();
@@ -72,12 +81,12 @@ public class PrintScreenService {
                     showLedgerHomeScreen();
                     break;
                 case "X", "x":
-                    LedgerApp.exitApp = true;
+                    exitApp = true;
                     break;
                 default:
                     throw new Error("Sorry, that's not a valid option. Please make your selection.");
             }
-        } while(!LedgerApp.exitApp);
+        } while(!exitApp);
     }
 
     public static void showReportsScreen() throws IOException {
@@ -96,9 +105,9 @@ public class PrintScreenService {
                 """;
         do {
             System.out.print(allScreensColor + reportsScreen + "Select from the available options: ");
-            LedgerApp.userInput = LedgerApp.inputSc.nextLine().trim();
+            userInput = inputSc.nextLine().trim();
 
-            switch (LedgerApp.userInput) {
+            switch (userInput) {
                 case "1":
                     TransactionProcessingService.monthToDateTransactionSearch();
                     break;
@@ -121,12 +130,12 @@ public class PrintScreenService {
                     showLedgerHomeScreen();
                     break;
                 case "X", "x":
-                    LedgerApp.exitApp = true;
+                    exitApp = true;
                     break;
                 default:
                     throw new Error("Sorry, that's not a valid option. Please make your selection.");
             }
-        } while (!LedgerApp.exitApp);
+        } while (!exitApp);
     }
 
     public static void showCustomSearchScreen() throws IOException {
@@ -145,9 +154,9 @@ public class PrintScreenService {
 
         do {
             System.out.println(allScreensColor + customSearchScreen + "Select from the available options: ");
-            LedgerApp.userInput = LedgerApp.inputSc.nextLine().trim();
+            userInput = inputSc.nextLine().trim();
 
-            switch (LedgerApp.userInput) {
+            switch (userInput) {
                 case "1":
                     TransactionProcessingService.searchTransactionByStartEndDate();
                     break;
@@ -164,23 +173,35 @@ public class PrintScreenService {
                     showLedgerHomeScreen();
                     break;
                 case "X", "x":
-                    LedgerApp.exitApp = true;
+                    exitApp = true;
                     break;
                 default:
                     throw new Error("Sorry, that's not a valid option. Please make your selection.");
             }
-        } while(!LedgerApp.exitApp);
+        } while(!exitApp);
     }
 
     //Retrieves user input from a prompt
     public static String promptUser(String prompt) {
         System.out.println(promptTextColor + prompt);
-        return LedgerApp.userInput = LedgerApp.inputSc.nextLine().trim();
+        return userInput = inputSc.nextLine().trim();
     }
 
     //Print out a formatted transaction
     public static void printTransaction(Transaction t) {
         String formatStr = t.toString();
         System.out.println(formatStr);
+    }
+
+    public static String promptUserForTransactionDetails() {
+        double transactionDepositAmt;
+        String transactionDesc;
+        String vendorName;
+
+        transactionDepositAmt = Double.parseDouble(promptUser("Enter the deposit amount: "));
+        transactionDesc = promptUser("Enter the transaction description: ");
+        vendorName = promptUser("Enter the vendor name: ");
+
+        return transactionDepositAmt + "|" + transactionDesc + "|" + vendorName;
     }
 }
