@@ -2,14 +2,18 @@ package com.pluralsight.services;
 
 import com.pluralsight.ledger.LedgerApp;
 import com.pluralsight.models.Transaction;
+import com.pluralsight.models.TransactionComparator;
+
 import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class FileHandlerService {
 
     public static ArrayList<Transaction> newEntries = new ArrayList<>();
+    public static String successActionColor = LedgerApp.escapeKey + "[38;5;46m";
 
     public static BufferedWriter getBufferedWriter(String filename) throws IOException {
         //Set fileWriter to append mode in order to prevent data from being overwritten
@@ -60,10 +64,12 @@ public class FileHandlerService {
 
                 //Add each transaction to transaction ArrayList
                 transactions.add(t);
+
+//                Collections.sort(t);
             }
 
             //Successfully read file message
-            System.out.println("File was successfully read!");
+            System.out.println(successActionColor + "File was successfully read!");
 
             //Closing bufReader
             bufReader.close();
@@ -95,6 +101,9 @@ public class FileHandlerService {
             LedgerApp.ledger.add(t);
             newEntries.add(t);
         }
+
+        //Successfully written to file message
+        System.out.println(successActionColor + "Transaction was successfully written to file!");
 
         LedgerApp.bufWriter.close();
     }

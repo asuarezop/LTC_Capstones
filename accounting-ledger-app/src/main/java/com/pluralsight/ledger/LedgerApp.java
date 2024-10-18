@@ -6,6 +6,7 @@ import com.pluralsight.services.PrintScreenService;
 import java.io.*;
 import java.time.*;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class LedgerApp {
     public static String escapeKey = "\033";
@@ -16,7 +17,7 @@ public class LedgerApp {
 
     public static void main(String[] args) throws IOException {
         //Initializing ledger
-        ledger = new ArrayList<>();
+        ledger = new ArrayList<Transaction>();
 
         //File path for transactions data
         transactionsFilePath = "src/main/resources/transactions.csv";

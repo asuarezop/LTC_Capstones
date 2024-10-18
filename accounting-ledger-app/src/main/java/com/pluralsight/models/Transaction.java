@@ -1,10 +1,10 @@
 package com.pluralsight.models;
 
 import com.pluralsight.ledger.LedgerApp;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+//PARENT CLASS - Transaction
 public class Transaction {
     private LocalDate dateOfTransaction;
     private LocalTime timeOfTransaction;
@@ -53,6 +53,9 @@ public class Transaction {
                 transactionVendorColor + " Vendor: " + vendor +
 
                 //Conditional rendering of amount text color based on whether value greater than 0
-                (amount > 0 ? transactionAmountColorPos + " Amount: " + amount : transactionAmountColorNeg + " Amount: " + amount);
+                (amount > 0 ? transactionAmountColorPos + " Amount: " + String.format("%.2f", amount)  : transactionAmountColorNeg + " Amount: " + String.format("%.2f", amount));
     }
 }
+
+
+
