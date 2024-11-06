@@ -1,6 +1,8 @@
 package com.pluralsight.deli.options;
 
-public enum RegularTopping {
+import com.pluralsight.deli.models.Topping;
+
+public enum RegularTopping implements Topping {
     LETTUCE,
     PEPPERS,
     ONIONS,
@@ -9,5 +11,10 @@ public enum RegularTopping {
     CUCUMBERS,
     PICKLES,
     GUACAMOLE,
-    MUSHROOMS
+    MUSHROOMS;
+
+    @Override
+    public void getCategory() {
+
+    }
 }

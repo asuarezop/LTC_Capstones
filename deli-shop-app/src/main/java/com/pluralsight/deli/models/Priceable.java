@@ -1,6 +1,6 @@
 package com.pluralsight.deli.models;
 
- interface Priceable {
+public interface Priceable {
     default double getPrice() {
         return 0.0;
     }

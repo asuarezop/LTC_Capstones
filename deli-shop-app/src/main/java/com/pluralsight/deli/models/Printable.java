@@ -1,5 +1,5 @@
 package com.pluralsight.deli.models;
 
-interface Printable {
+public interface Printable {
     void printTo();
 }
