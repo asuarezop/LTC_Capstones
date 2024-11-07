@@ -15,7 +15,7 @@ public enum PremiumTopping implements Topping {
     SWISS_CHEESE;
 
     @Override
-    public void getCategory() {
+    public void addTopping() {
 
     }
 }

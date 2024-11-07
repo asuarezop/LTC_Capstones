@@ -14,7 +14,7 @@ public enum RegularTopping implements Topping {
     MUSHROOMS;
 
     @Override
-    public void getCategory() {
+    public void addTopping() {
 
     }
 }

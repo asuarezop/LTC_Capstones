@@ -107,6 +107,7 @@ public class UserInterface {
         SandwichSize size = SandwichSize.valueOf(promptUser("Size: "));
 
         promptInstructions("Enter sandwich toppings:  ");
+        
 //        Topping sandwichTopping =
     }
 

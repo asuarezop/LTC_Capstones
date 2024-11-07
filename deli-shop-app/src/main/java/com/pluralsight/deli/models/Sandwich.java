@@ -4,7 +4,6 @@ import com.pluralsight.deli.options.BreadType;
 import com.pluralsight.deli.options.PremiumTopping;
 import com.pluralsight.deli.options.RegularTopping;
 import com.pluralsight.deli.options.SandwichSize;
-
 import java.util.List;
 
 public class Sandwich implements Priceable {
@@ -47,7 +46,7 @@ public class Sandwich implements Priceable {
         return toppings;
     }
 
-    public void addTopping(RegularTopping t) {
+    public void addExtra(RegularTopping t) {
         toppings.add(t);
     }
 
@@ -55,6 +54,4 @@ public class Sandwich implements Priceable {
     public double getPrice() {
         return 0.0;
     }
-
-
 }
