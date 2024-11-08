@@ -2,9 +2,12 @@ package com.pluralsight.deli.models;
 
 import JavaHelpers.ColorCodes;
 import com.pluralsight.deli.options.BreadType;
+import com.pluralsight.deli.options.PremiumTopping;
 import com.pluralsight.deli.options.SandwichSize;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -101,13 +104,21 @@ public class UserInterface {
         System.out.println(sandwichScreenMenuHeader);
         promptInstructions("Enter type of bread:  ");
         //TODO - display list of values for bread using lambda expression
-        BreadType sandwichBread = BreadType.valueOf(promptUser("Bread: "));
+        BreadType sandwichBread = BreadType.valueOf(promptMenuSelection("Bread: "));
 
         promptInstructions("Enter sandwich size:  ");
-        SandwichSize size = SandwichSize.valueOf(promptUser("Size: "));
+        SandwichSize size = SandwichSize.valueOf(promptMenuSelection("Size: "));
 
         promptInstructions("Enter sandwich toppings:  ");
-        
+        PremiumTopping meat = PremiumTopping.valueOf(promptMenuSelection("Meat: "));
+        PremiumTopping cheese = PremiumTopping.valueOf(promptMenuSelection("Cheese: "));
+
+        List<Topping> otherToppings = new ArrayList<>();
+        promptUser("Other Toppings: ");
+
+
+
+
 //        Topping sandwichTopping =
     }
 
@@ -115,6 +126,11 @@ public class UserInterface {
     public String promptUser(String prompt) {
         System.out.print(ColorCodes.WHITE + prompt + ColorCodes.RESET);
         return userInput = inputSc.nextLine().trim();
+    }
+
+    public String promptMenuSelection(String prompt) {
+        System.out.print(ColorCodes.WHITE + prompt + ColorCodes.RESET);
+        return userInput = inputSc.nextLine().toUpperCase().trim();
     }
 
     public void promptInstructions(String prompt) {

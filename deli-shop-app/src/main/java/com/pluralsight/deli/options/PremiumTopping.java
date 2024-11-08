@@ -1,8 +1,6 @@
 package com.pluralsight.deli.options;
 
-import com.pluralsight.deli.models.Topping;
-
-public enum PremiumTopping implements Topping {
+public enum PremiumTopping {
     STEAK,
     HAM,
     SALAMI,
@@ -13,9 +11,4 @@ public enum PremiumTopping implements Topping {
     PROVOLONE_CHEESE,
     CHEDDAR_CHEESE,
     SWISS_CHEESE;
-
-    @Override
-    public void addTopping() {
-
-    }
 }

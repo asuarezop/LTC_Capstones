@@ -6,52 +6,53 @@ import com.pluralsight.deli.options.RegularTopping;
 import com.pluralsight.deli.options.SandwichSize;
 import java.util.List;
 
-public class Sandwich implements Priceable {
-    private BreadType bread;
+public class Sandwich extends OrderItem implements Priceable {
     private SandwichSize size;
+    private BreadType bread;
+    private PremiumTopping meat;
+    private PremiumTopping cheese;
     private boolean isToasted;
-    private RegularTopping regTopping;
-    private PremiumTopping premTopping;
-    private List<Topping> toppings;
+    private List<RegularTopping> toppings;
 
-    public Sandwich(BreadType bread, SandwichSize size, boolean isToasted, RegularTopping regTopping, PremiumTopping premTopping) {
-        this.bread = bread;
+    public Sandwich(SandwichSize size, BreadType bread, PremiumTopping meat, PremiumTopping cheese, boolean isToasted) {
         this.size = size;
+        this.bread = bread;
+        this.meat = meat;
+        this.cheese = cheese;
         this.isToasted = isToasted;
-        this.regTopping = regTopping;
-        this.premTopping = premTopping;
-    }
-
-    public BreadType getBread() {
-        return bread;
     }
 
     public SandwichSize getSize() {
         return size;
     }
 
+    public BreadType getBread() {
+        return bread;
+    }
+
+    public PremiumTopping getMeat() {
+        return meat;
+    }
+
+    public PremiumTopping getCheese() {
+        return cheese;
+    }
+
     public boolean isToasted() {
         return isToasted;
     }
 
-    public RegularTopping getRegTopping() {
-        return regTopping;
-    }
-
-    public PremiumTopping getPremTopping() {
-        return premTopping;
-    }
-
-    public List<Topping> getToppings() {
+    public List<RegularTopping> getToppings() {
         return toppings;
-    }
-
-    public void addExtra(RegularTopping t) {
-        toppings.add(t);
     }
 
     @Override
     public double getPrice() {
         return 0.0;
+    }
+
+    @Override
+    public void displayItem() {
+        //Where you would print individual sandwich to user
     }
 }

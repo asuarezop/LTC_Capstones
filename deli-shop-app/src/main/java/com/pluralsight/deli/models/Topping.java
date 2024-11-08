@@ -1,7 +1,7 @@
 package com.pluralsight.deli.models;
 
-import com.pluralsight.deli.options.RegularTopping;
+import java.util.ArrayList;
 
-public interface Topping {
-    void addTopping();
+public abstract class Topping {
+    //Will hold a list of menu items
 }

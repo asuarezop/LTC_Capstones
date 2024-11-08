@@ -1,16 +1,18 @@
 package com.pluralsight.deli.models;
 
-public abstract class Order implements Printable {
+import java.time.LocalDate;
+import java.time.LocalTime;
+
+public abstract class Order implements Priceable {
     private int orderId;
-    private String customerName;
-    private String customerEmail;
-    private Sandwich customerSandwich;
+    private LocalDate orderDate;
+    private LocalTime orderTime;
 
     public abstract double getTotalCost();
     public abstract String getOrderDetails();
 
-    @Override
-    public void printTo() {
-        System.out.println("print to receipt");
-    }
+//    @Override
+//    public void printTo() {
+//        System.out.println("print to receipt");
+//    }
 }
