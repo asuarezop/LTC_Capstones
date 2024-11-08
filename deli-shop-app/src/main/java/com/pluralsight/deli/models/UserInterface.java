@@ -3,6 +3,7 @@ package com.pluralsight.deli.models;
 import JavaHelpers.ColorCodes;
 import com.pluralsight.deli.options.BreadType;
 import com.pluralsight.deli.options.PremiumTopping;
+import com.pluralsight.deli.options.RegularTopping;
 import com.pluralsight.deli.options.SandwichSize;
 
 import java.io.IOException;
@@ -101,25 +102,74 @@ public class UserInterface {
                 =================================
                 """;
 
+        String breadTypeOptions = """
+                A) White
+                B) Wheat
+                C) Rye
+                D) Wrap
+                """;
+
+        String sandwichSizeOptions = """
+                A) 4"
+                B) 8"
+                C) 12"
+                """;
+
+        String sandwichRegularToppings = """
+                A) Lettuce
+                B) Peppers
+                C) Onions
+                D) Tomatoes
+                E) Jalapenos
+                F) Cucumbers
+                G) Pickles
+                H) Guacamole
+                I) Mushrooms
+                """;
+
+        String sandwichPremiumMeatToppings = """
+                A) Steak
+                B) Ham
+                C) Salami
+                D) Roast Beef
+                E) Chicken
+                F) Bacon
+                """;
+
+        String sandwichPremiumCheeseToppings = """
+                A) American
+                B) Provolone
+                C) Cheddar
+                D) Swiss
+                """;
+
         System.out.println(sandwichScreenMenuHeader);
         promptInstructions("Enter type of bread:  ");
+        System.out.println(breadTypeOptions);
         //TODO - display list of values for bread using lambda expression
         BreadType sandwichBread = BreadType.valueOf(promptMenuSelection("Bread: "));
 
         promptInstructions("Enter sandwich size:  ");
+        System.out.println(sandwichSizeOptions);
+        //TODO - user should be able to type an integer number and get the right enum value
         SandwichSize size = SandwichSize.valueOf(promptMenuSelection("Size: "));
 
+
         promptInstructions("Enter sandwich toppings:  ");
-        PremiumTopping meat = PremiumTopping.valueOf(promptMenuSelection("Meat: "));
-        PremiumTopping cheese = PremiumTopping.valueOf(promptMenuSelection("Cheese: "));
+        System.out.println(sandwichRegularToppings);
+        RegularTopping sandwichVeggies = RegularTopping.valueOf(promptMenuSelection("Toppings: "));
 
-        List<Topping> otherToppings = new ArrayList<>();
-        promptUser("Other Toppings: ");
+//        promptInstructions("Would you like to add additional toppings?:  ");
+//        String wantsExtra = promptUser("1) Yes\n2) No");
 
-
-
-
-//        Topping sandwichTopping =
+//        if (wantsExtra.equalsIgnoreCase("Yes")) {
+//            List<Topping> otherToppings = new ArrayList<>();
+//            promptUser("Other Toppings: ");
+//            System.out.println(sandwichPremiumMeatToppings);
+//            PremiumTopping meat = PremiumTopping.valueOf(promptMenuSelection("Meat: "));
+//            System.out.println(sandwichPremiumCheeseToppings);
+//            PremiumTopping cheese = PremiumTopping.valueOf(promptMenuSelection("Cheese: "));
+//        }
     }
 
     //Retrieves user input from a prompt
