@@ -15,7 +15,7 @@ public class BagOfChips extends OrderItem {
     }
 
     @Override
-    public void displayItem() {
-
+    public String displayItem() {
+        return String.format("%-10s", flavor);
     }
 }

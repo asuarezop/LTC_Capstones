@@ -15,6 +15,9 @@ public class UserInterface {
     //Related to input from user
     static String userInput;
 
+    //Hold responses for adding more toppings and toasting sandwich
+    static String response;
+
     //Initializing scanner to read from terminal input
     static Scanner inputSc = new Scanner(System.in);
 
@@ -153,6 +156,11 @@ public class UserInterface {
                 D) Swiss
                 """;
 
+        String simpleResponse = """
+                    1) Yes
+                    2) No
+                    """;
+
         System.out.println(sandwichScreenMenuHeader);
         promptInstructions("Enter type of bread:  ");
         System.out.println(breadTypeOptions);
@@ -164,6 +172,7 @@ public class UserInterface {
         SandwichSize size = SandwichSize.valueOfSize(promptMenuSelection("Size: "));
         System.out.println(size);
 
+        boolean finished = false;
         do {
             //Initializing a new sandwich object
             Sandwich customerSandwich = new Sandwich();
@@ -178,15 +187,47 @@ public class UserInterface {
             List<Topping> appliedToppings = customerSandwich.getToppings();
             System.out.println(appliedToppings);
 
-            //TODO - create an exit condition that would stop loop without user having to type it out
+            promptInstructions("Would you like to add more toppings?:  ");
+            response = promptUser(simpleResponse);
 
-//            promptInstructions("Would you like to add premium toppings?:  ");
+            if (response.equalsIgnoreCase("2")) {
 
+                promptInstructions("Enter any premium toppings to add onto sandwich:  ");
+                System.out.println(sandwichPremiumMeatToppings);
+                PremiumTopping meats = PremiumTopping.valueOf(promptMenuSelection("Meat: "));
+                System.out.println(sandwichPremiumCheeseToppings);
+                PremiumTopping cheeses = PremiumTopping.valueOf(promptMenuSelection("Cheese: "));
+                Sandwich.addPremToppings(meats);
+                Sandwich.addPremToppings(cheeses);
 
-        } while (!exitApp);
+                List<Topping> appliedPremToppings = customerSandwich.getToppings();
+                System.out.println(appliedPremToppings);
 
+                promptInstructions("Would you like to add more premium toppings?:  ");
+                String addAdditionalPremToppings = promptUser(simpleResponse);
 
+                if (addAdditionalPremToppings.equalsIgnoreCase("2")) {
+                    promptInstructions("Would you like your sandwich toasted?:  ");
+                    response = promptUser(simpleResponse);
 
+                    if (response.equalsIgnoreCase("1")) {
+                        customerSandwich = new Sandwich(size, sandwichBread, true);
+                    } else {
+                        customerSandwich = new Sandwich(size, sandwichBread, false);
+                    }
+                    //Adding customer sandwich item to order
+                    blankOrder.addToOrder(customerSandwich);
+
+                    //View finished sandwich
+                    String completedSandwich = customerSandwich.displayItem();
+                    System.out.println(completedSandwich);
+
+                    System.out.println(customerSandwich.getPrice());
+
+                    finished = true;
+                }
+            }
+        } while (!finished);
 
 
 

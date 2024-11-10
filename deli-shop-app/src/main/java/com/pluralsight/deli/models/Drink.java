@@ -20,8 +20,8 @@ public class Drink extends OrderItem {
     }
 
     @Override
-    public void displayItem() {
-
+    public String displayItem() {
+        return String.format("%-10s, -%12s", size, flavor);
     }
 
     @Override

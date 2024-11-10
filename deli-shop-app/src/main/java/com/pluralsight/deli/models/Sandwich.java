@@ -1,6 +1,7 @@
 package com.pluralsight.deli.models;
 
 import com.pluralsight.deli.options.BreadType;
+import com.pluralsight.deli.options.PremiumTopping;
 import com.pluralsight.deli.options.RegularTopping;
 import com.pluralsight.deli.options.SandwichSize;
 
@@ -41,13 +42,24 @@ public class Sandwich extends OrderItem {
         toppings.add(t);
     }
 
-    @Override
-    public double getPrice() {
-        return 0.0;
+    public static void addPremToppings(PremiumTopping t) {
+        toppings.add(t);
     }
 
     @Override
-    public void displayItem() {
+    public double getPrice() {
+        double sandwichPrice = 0.0;
+
+        return switch (size) {
+            case FOUR_INCHES -> sandwichPrice + 5.50;
+            case EIGHT_INCHES -> sandwichPrice + 7.00;
+            case TWELVE_INCHES -> sandwichPrice + 8.50;
+        };
+    }
+
+    @Override
+    public String displayItem() {
         //Where you would print individual sandwich to user
+        return String.format("Sandwich specs: %s,%s,%s", size, bread, isToasted);
     }
 }
