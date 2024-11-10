@@ -1,6 +1,6 @@
 package com.pluralsight.deli.options;
 
-public enum ChipType {
+public enum ChipFlavor {
     POTATO,
     BBQ,
     OVEN_BAKED,
@@ -8,5 +8,5 @@ public enum ChipType {
     SALT_AND_PEPPER,
     MULTIGRAIN,
     CHEDDAR_CHEESE,
-    JALAPENO,
+    JALAPENO;
 }

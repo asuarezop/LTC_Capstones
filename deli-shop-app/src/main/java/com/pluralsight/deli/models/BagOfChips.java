@@ -1,7 +1,13 @@
 package com.pluralsight.deli.models;
 
-public class BagOfChips extends OrderItem implements Priceable {
-    private String flavor;
+import com.pluralsight.deli.options.ChipFlavor;
+
+public class BagOfChips extends OrderItem {
+    private ChipFlavor flavor;
+
+    public BagOfChips(ChipFlavor flavor) {
+        this.flavor = flavor;
+    }
 
     @Override
     public double getPrice() {

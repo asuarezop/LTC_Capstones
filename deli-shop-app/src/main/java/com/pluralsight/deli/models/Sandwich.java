@@ -1,31 +1,23 @@
 package com.pluralsight.deli.models;
 
 import com.pluralsight.deli.options.BreadType;
-import com.pluralsight.deli.options.PremiumTopping;
-import com.pluralsight.deli.options.RegularTopping;
 import com.pluralsight.deli.options.SandwichSize;
 
 import java.util.List;
 
-public class Sandwich extends OrderItem implements Priceable {
-    private SandwichSize size;
+public class Sandwich extends OrderItem {
+    private int size;
     private BreadType bread;
-    private RegularTopping veggies;
-    private PremiumTopping meat;
-    private PremiumTopping cheese;
     private boolean isToasted;
-    private List<RegularTopping> toppings;
+    private List<Topping> toppings;
 
-    public Sandwich(SandwichSize size, BreadType bread, RegularTopping veggies, PremiumTopping meat, PremiumTopping cheese, boolean isToasted) {
+    public Sandwich(int size, BreadType bread, boolean isToasted) {
         this.size = size;
         this.bread = bread;
-        this.veggies = veggies;
-        this.meat = meat;
-        this.cheese = cheese;
         this.isToasted = isToasted;
     }
 
-    public SandwichSize getSize() {
+    public int getSize() {
         return size;
     }
 
@@ -33,24 +25,16 @@ public class Sandwich extends OrderItem implements Priceable {
         return bread;
     }
 
-    public RegularTopping getVeggies() {
-        return veggies;
-    }
-
-    public PremiumTopping getMeat() {
-        return meat;
-    }
-
-    public PremiumTopping getCheese() {
-        return cheese;
-    }
-
     public boolean isToasted() {
         return isToasted;
     }
 
-    public List<RegularTopping> getToppings() {
+    public List<Topping> getToppings() {
         return toppings;
+    }
+
+    public void addToppings(Topping t) {
+        toppings.add(t);
     }
 
     @Override

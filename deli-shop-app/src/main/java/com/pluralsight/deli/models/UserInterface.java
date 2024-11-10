@@ -21,6 +21,15 @@ public class UserInterface {
     //Boolean condition to exit application screens
     static boolean exitApp = false;
 
+    //Instance variable to hold a new order
+    private Order blankOrder;
+
+    //Initializing blankOrder with a new Order object instance
+    private void init() {
+        this.blankOrder = new Order();
+    }
+
+
     public void showHomeScreen() throws IOException {
         String homeScreenMenuHeader = """
                 =================================
@@ -125,6 +134,7 @@ public class UserInterface {
                 G) Pickles
                 H) Guacamole
                 I) Mushrooms
+                X) Done
                 """;
 
         String sandwichPremiumMeatToppings = """
@@ -152,15 +162,25 @@ public class UserInterface {
         promptInstructions("Enter sandwich size:  ");
         System.out.println(sandwichSizeOptions);
         //TODO - user should be able to type an integer number and get the right enum value
-        SandwichSize size = SandwichSize.valueOf(promptMenuSelection("Size: "));
+        int size = SandwichSize.valueOf(promptMenuSelection("Size: ")).getSize();
+        System.out.println(size);
+
+        do {
+//            List<RegularTopping> regularToppings = new ArrayList<>();
+            promptInstructions("Enter sandwich toppings:  ");
+            System.out.println(sandwichRegularToppings);
+            RegularTopping sandwichVeggies = RegularTopping.valueOf(promptMenuSelection("Toppings: "));
 
 
-        promptInstructions("Enter sandwich toppings:  ");
-        System.out.println(sandwichRegularToppings);
-        RegularTopping sandwichVeggies = RegularTopping.valueOf(promptMenuSelection("Toppings: "));
+            promptInstructions("Would you like to add premium toppings?:  ");
 
-//        promptInstructions("Would you like to add additional toppings?:  ");
-//        String wantsExtra = promptUser("1) Yes\n2) No");
+
+        } while (!exitApp);
+
+
+
+
+
 
 //        if (wantsExtra.equalsIgnoreCase("Yes")) {
 //            List<Topping> otherToppings = new ArrayList<>();

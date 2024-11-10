@@ -2,17 +2,51 @@ package com.pluralsight.deli.models;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
-public abstract class Order implements Priceable {
+public class Order {
     private int orderId;
     private LocalDate orderDate;
     private LocalTime orderTime;
+    private final List<OrderItem> orderItems = new ArrayList<>();
 
-    public abstract double getTotalCost();
-    public abstract String getOrderDetails();
+    //Default constructor
+    public Order() {}
 
-//    @Override
-//    public void printTo() {
-//        System.out.println("print to receipt");
-//    }
+    public Order(int orderId, LocalDate orderDate, LocalTime orderTime) {
+        this.orderId = orderId;
+        this.orderDate = orderDate;
+        this.orderTime = orderTime;
+    }
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public LocalDate getOrderDate() {
+        return orderDate;
+    }
+
+    public LocalTime getOrderTime() {
+        return orderTime;
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    //Adds a new order item
+    public void addToOrder(OrderItem o) {
+        orderItems.add(o);
+    }
+
+    //Calculate total cost of order
+    public double getTotalCost() {
+        return 0.0;
+    };
+
+    public void printToReceipt() {
+        System.out.println("print to receipt");
+    }
 }

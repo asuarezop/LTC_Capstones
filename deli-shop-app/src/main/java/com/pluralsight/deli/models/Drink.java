@@ -1,15 +1,17 @@
 package com.pluralsight.deli.models;
 
-public class Drink extends OrderItem implements Priceable {
-    private String size;
+import com.pluralsight.deli.options.DrinkSize;
+
+public class Drink extends OrderItem {
+    private DrinkSize size;
     private String flavor;
 
-    public Drink(String size, String flavor) {
+    public Drink(DrinkSize size, String flavor) {
         this.size = size;
         this.flavor = flavor;
     }
 
-    public String getSize() {
+    public DrinkSize getSize() {
         return size;
     }
 
@@ -18,18 +20,18 @@ public class Drink extends OrderItem implements Priceable {
     }
 
     @Override
-    public double getPrice() {
-        //Using switch statement to return price of a Drink at different sizes
-        return switch (size) {
-            case "SMALL" -> 2.00;
-            case "MEDIUM" -> 2.50;
-            case "LARGE" -> 3.00;
-            default -> 0.0;
-        };
+    public void displayItem() {
+
     }
 
     @Override
-    public void displayItem() {
-
+    public double getPrice() {
+        //Using switch statement to return price of a Drink at different sizes
+        return switch (size) {
+            case SMALL -> 2.00;
+            case MEDIUM -> 2.50;
+            case LARGE -> 3.00;
+            default -> 0.0;
+        };
     }
 }
