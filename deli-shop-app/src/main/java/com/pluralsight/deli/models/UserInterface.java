@@ -161,8 +161,7 @@ public class UserInterface {
 
         promptInstructions("Enter sandwich size:  ");
         System.out.println(sandwichSizeOptions);
-        //TODO - user should be able to type an integer number and get the right enum value
-        int size = SandwichSize.valueOf(promptMenuSelection("Size: ")).getSize();
+        SandwichSize size = SandwichSize.valueOfSize(promptMenuSelection("Size: "));
         System.out.println(size);
 
         do {

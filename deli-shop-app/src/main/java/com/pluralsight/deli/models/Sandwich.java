@@ -2,22 +2,21 @@ package com.pluralsight.deli.models;
 
 import com.pluralsight.deli.options.BreadType;
 import com.pluralsight.deli.options.SandwichSize;
-
 import java.util.List;
 
 public class Sandwich extends OrderItem {
-    private int size;
+    private SandwichSize size;
     private BreadType bread;
     private boolean isToasted;
     private List<Topping> toppings;
 
-    public Sandwich(int size, BreadType bread, boolean isToasted) {
+    public Sandwich(SandwichSize size, BreadType bread, boolean isToasted) {
         this.size = size;
         this.bread = bread;
         this.isToasted = isToasted;
     }
 
-    public int getSize() {
+    public SandwichSize getSize() {
         return size;
     }
 
