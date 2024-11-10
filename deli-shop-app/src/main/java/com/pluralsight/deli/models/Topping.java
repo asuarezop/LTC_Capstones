@@ -1,6 +1,4 @@
 package com.pluralsight.deli.models;
 
-public abstract class Topping implements Priceable  {
-    private int size;
-
+public interface Topping extends Priceable  {
 }

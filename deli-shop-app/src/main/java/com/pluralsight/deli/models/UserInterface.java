@@ -44,6 +44,7 @@ public class UserInterface {
                 """;
 
         do {
+            init();
             System.out.println(homeScreenMenuHeader);
             System.out.println(prompt);
             userInput = inputSc.nextLine().trim().toUpperCase();
@@ -134,7 +135,6 @@ public class UserInterface {
                 G) Pickles
                 H) Guacamole
                 I) Mushrooms
-                X) Done
                 """;
 
         String sandwichPremiumMeatToppings = """
@@ -165,13 +165,22 @@ public class UserInterface {
         System.out.println(size);
 
         do {
-//            List<RegularTopping> regularToppings = new ArrayList<>();
+            //Initializing a new sandwich object
+            Sandwich customerSandwich = new Sandwich();
+
             promptInstructions("Enter sandwich toppings:  ");
             System.out.println(sandwichRegularToppings);
             RegularTopping sandwichVeggies = RegularTopping.valueOf(promptMenuSelection("Toppings: "));
+            System.out.println(sandwichVeggies); //test to check value (working)
 
+            //Viewing user's added toppings of their sandwich
+            Sandwich.addRegToppings(sandwichVeggies);
+            List<Topping> appliedToppings = customerSandwich.getToppings();
+            System.out.println(appliedToppings);
 
-            promptInstructions("Would you like to add premium toppings?:  ");
+            //TODO - create an exit condition that would stop loop without user having to type it out
+
+//            promptInstructions("Would you like to add premium toppings?:  ");
 
 
         } while (!exitApp);

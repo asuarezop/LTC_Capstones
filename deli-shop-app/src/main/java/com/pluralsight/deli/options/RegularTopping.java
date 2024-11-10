@@ -1,6 +1,8 @@
 package com.pluralsight.deli.options;
 
-public enum RegularTopping {
+import com.pluralsight.deli.models.Topping;
+
+public enum RegularTopping implements Topping {
     LETTUCE,
     PEPPERS,
     ONIONS,
@@ -10,4 +12,9 @@ public enum RegularTopping {
     PICKLES,
     GUACAMOLE,
     MUSHROOMS;
+
+    @Override
+    public double getPrice() {
+        return 0.0;
+    }
 }

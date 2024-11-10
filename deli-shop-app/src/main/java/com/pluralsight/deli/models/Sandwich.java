@@ -1,14 +1,19 @@
 package com.pluralsight.deli.models;
 
 import com.pluralsight.deli.options.BreadType;
+import com.pluralsight.deli.options.RegularTopping;
 import com.pluralsight.deli.options.SandwichSize;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Sandwich extends OrderItem {
     private SandwichSize size;
     private BreadType bread;
     private boolean isToasted;
-    private List<Topping> toppings;
+    private static List<Topping> toppings = new ArrayList<>();
+
+    public Sandwich() {}
 
     public Sandwich(SandwichSize size, BreadType bread, boolean isToasted) {
         this.size = size;
@@ -32,7 +37,7 @@ public class Sandwich extends OrderItem {
         return toppings;
     }
 
-    public void addToppings(Topping t) {
+    public static void addRegToppings(RegularTopping t) {
         toppings.add(t);
     }
 
