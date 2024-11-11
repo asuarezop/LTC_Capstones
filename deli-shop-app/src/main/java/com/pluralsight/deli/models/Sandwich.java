@@ -12,14 +12,11 @@ public class Sandwich extends OrderItem {
     private SandwichSize size;
     private BreadType bread;
     private boolean isToasted;
-    private static List<Topping> toppings = new ArrayList<>();
+    private List<Topping> toppings = new ArrayList<>();
 
-    public Sandwich() {}
-
-    public Sandwich(SandwichSize size, BreadType bread, boolean isToasted) {
+    public Sandwich(SandwichSize size, BreadType bread) {
         this.size = size;
         this.bread = bread;
-        this.isToasted = isToasted;
     }
 
     public SandwichSize getSize() {
@@ -34,15 +31,19 @@ public class Sandwich extends OrderItem {
         return isToasted;
     }
 
+    public void setToasted(boolean toasted) {
+        isToasted = toasted;
+    }
+
     public List<Topping> getToppings() {
         return toppings;
     }
 
-    public static void addRegToppings(RegularTopping t) {
-        toppings.add(t);
+    public void addToppings(List<Topping> userToppings) {
+        toppings.addAll(userToppings);
     }
 
-    public static void addPremToppings(PremiumTopping t) {
+    public void addPremToppings(PremiumTopping t) {
         toppings.add(t);
     }
 
