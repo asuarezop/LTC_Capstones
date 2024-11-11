@@ -134,4 +134,22 @@ public class MenuPromptHandler {
             H) Jalapeno
             """;
 
+
+    public static String checkoutScreenMenuHeader = """
+                =================================
+                |            CHECKOUT           |
+                =================================
+                """;
+
+
+    public static String sauceOptions = """
+            A) Mayo
+            B) Mustard
+            C) Ketchup
+            D) Ranch
+            E) Thousand Islands
+            F) Vinaigrette
+            G) Au Jus
+            """;
+
 }

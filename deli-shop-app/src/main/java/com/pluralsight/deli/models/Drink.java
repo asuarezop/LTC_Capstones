@@ -4,7 +4,7 @@ import com.pluralsight.deli.options.DrinkFlavor;
 import com.pluralsight.deli.options.DrinkSize;
 import com.pluralsight.deli.options.DrinkType;
 
-public class Drink extends OrderItem {
+public class Drink implements OrderItem {
     private DrinkSize size;
     private DrinkType type;
     private DrinkFlavor flavor;

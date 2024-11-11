@@ -63,11 +63,10 @@ public class UserInterface {
                     processAddDrinkRequest();
                     break;
                 case "3":
-                    //ProcessAddChipsRequest
                     processAddChipsRequest();
                     break;
                 case "4":
-                    //ProcessCheckoutRequest
+                    processCheckoutRequest();
                     break;
                 case "0":
                     //Remove current order and go back to the Home Screen
@@ -137,12 +136,26 @@ public class UserInterface {
 
         //Getting flavor of chips from user
         ChipFlavor flavor = promptChipsFlavor();
-
+        //Instantiating a new bag of chips
         BagOfChips chips = new BagOfChips(flavor);
         //Adding chips item to order
         blankOrder.addToOrder(chips);
         //Viewing customer's chips
         System.out.println(chips.displayItem());
+    }
+
+    public void processCheckoutRequest() {
+        System.out.println(MenuPromptHandler.checkoutScreenMenuHeader);
+
+        //Prompting user to add any sauces to their order
+        promptSauces();
+
+       List<OrderItem> items = blankOrder.getOrderItems();
+        System.out.println("Finalized order: ");
+        for (OrderItem o: items) {
+            System.out.println(o);
+        }
+
     }
 
     private BreadType promptBreadType() {
@@ -193,6 +206,10 @@ public class UserInterface {
 
             promptInstructions("Would you like to add more premium toppings?:  ");
             userChoice = promptUser(MenuPromptHandler.simpleResponse);
+
+            if (userChoice.equals("1")) {
+                s.setExtraToppings(true);
+            }
         } while (!userChoice.equalsIgnoreCase("2"));
 
         s.addToppings(premiumToppings);
@@ -227,6 +244,19 @@ public class UserInterface {
         promptInstructions("What chips would you like?:  ");
         System.out.println(MenuPromptHandler.chipsFlavorOptions);
         return ChipFlavor.valueOf(promptMenuSelection("Flavor: "));
+    }
+
+    private void promptSauces() {
+        do {
+            promptInstructions("Any sauces you like to add alongside your order?:  ");
+            System.out.println(MenuPromptHandler.sauceOptions);
+            SauceType sauce = SauceType.valueOf(promptMenuSelection("Sauce: "));
+
+            blankOrder.addToOrder(sauce);
+
+            promptInstructions("Would you like to include additional sauces?:  ");
+            userChoice = promptUser(MenuPromptHandler.simpleResponse);
+        } while (!userChoice.equalsIgnoreCase("2"));
     }
 
     //Retrieves user input from a prompt

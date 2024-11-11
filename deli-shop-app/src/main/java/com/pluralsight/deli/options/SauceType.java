@@ -1,6 +1,8 @@
 package com.pluralsight.deli.options;
 
-public enum SauceType {
+import com.pluralsight.deli.models.OrderItem;
+
+public enum SauceType implements OrderItem {
     MAYO,
     MUSTARD,
     KETCHUP,
@@ -8,4 +10,14 @@ public enum SauceType {
     THOUSAND_ISLANDS,
     VINAIGRETTE,
     AU_JUS;
+
+    @Override
+    public String displayItem() {
+        return "";
+    }
+
+    @Override
+    public double getPrice() {
+        return 0;
+    }
 }

@@ -19,7 +19,7 @@ public enum SandwichSize {
 
     private final String size;
 
-    private SandwichSize(String value) {
+    SandwichSize(String value) {
         this.size = value;
     }
 

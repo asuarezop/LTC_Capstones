@@ -2,7 +2,7 @@ package com.pluralsight.deli.models;
 
 import com.pluralsight.deli.options.ChipFlavor;
 
-public class BagOfChips extends OrderItem {
+public class BagOfChips implements OrderItem {
     private ChipFlavor flavor;
 
     public BagOfChips(ChipFlavor flavor) {

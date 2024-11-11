@@ -1,5 +1,5 @@
 package com.pluralsight.deli.models;
 
-public abstract class OrderItem implements Priceable {
-    public abstract String displayItem();
+public interface OrderItem extends Priceable {
+    String displayItem();
 }
