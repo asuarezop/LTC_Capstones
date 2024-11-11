@@ -175,21 +175,21 @@ public class UserInterface {
         promptInstructions("Would you like your sandwich toasted?:  ");
         userChoice = promptUser(MenuPromptHandler.simpleResponse);
 
-        return userChoice.equalsIgnoreCase("Yes");
+        return userChoice.equalsIgnoreCase("1");
     }
 
     //Retrieves user input from a prompt
-    public String promptUser(String prompt) {
+    private String promptUser(String prompt) {
         System.out.print(ColorCodes.WHITE + prompt + ColorCodes.RESET);
         return userInput = inputSc.nextLine().trim();
     }
 
-    public String promptMenuSelection(String prompt) {
+    private String promptMenuSelection(String prompt) {
         System.out.print(ColorCodes.WHITE + prompt + ColorCodes.RESET);
         return userInput = inputSc.nextLine().toUpperCase().trim();
     }
 
-    public void promptInstructions(String prompt) {
+    private void promptInstructions(String prompt) {
         String[] textDetails = prompt.split(": ");
         System.out.println(ColorCodes.LIGHT_BLUE + textDetails[0] + ColorCodes.ORANGE_BOLD + ColorCodes.ITALIC + textDetails[1] + ColorCodes.RESET);
     }
