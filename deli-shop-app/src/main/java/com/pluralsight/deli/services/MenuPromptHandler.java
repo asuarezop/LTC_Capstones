@@ -117,4 +117,21 @@ public class MenuPromptHandler {
             M) Green Tea
             """;
 
+    public static String chipsScreenMenuHeader = """
+                =================================
+                |             CHIPS             |
+                =================================
+                """;
+
+    public static String chipsFlavorOptions = """
+            A) Potato
+            B) BBQ
+            C) Oven Baked
+            D) Sun Dried Tomato
+            E) Salt N Pepper
+            F) Multigrain
+            G) Cheddar
+            H) Jalapeno
+            """;
+
 }

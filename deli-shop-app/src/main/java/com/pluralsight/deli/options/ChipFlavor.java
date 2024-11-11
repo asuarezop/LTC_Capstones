@@ -5,8 +5,8 @@ public enum ChipFlavor {
     BBQ,
     OVEN_BAKED,
     SUN_DRIED_TOMATO,
-    SALT_AND_PEPPER,
+    SALT_N_PEPPER,
     MULTIGRAIN,
-    CHEDDAR_CHEESE,
+    CHEDDAR,
     JALAPENO;
 }

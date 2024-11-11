@@ -64,6 +64,7 @@ public class UserInterface {
                     break;
                 case "3":
                     //ProcessAddChipsRequest
+                    processAddChipsRequest();
                     break;
                 case "4":
                     //ProcessCheckoutRequest
@@ -129,6 +130,19 @@ public class UserInterface {
 
         //Viewing customer's drink
         System.out.println(customerDrink.displayItem());
+    }
+
+    public void processAddChipsRequest() {
+        System.out.println(MenuPromptHandler.chipsScreenMenuHeader);
+
+        //Getting flavor of chips from user
+        ChipFlavor flavor = promptChipsFlavor();
+
+        BagOfChips chips = new BagOfChips(flavor);
+        //Adding chips item to order
+        blankOrder.addToOrder(chips);
+        //Viewing customer's chips
+        System.out.println(chips.displayItem());
     }
 
     private BreadType promptBreadType() {
@@ -207,6 +221,12 @@ public class UserInterface {
         promptInstructions("What flavored drink would you like?:  ");
         System.out.println(MenuPromptHandler.drinkFlavorOptions);
         return DrinkFlavor.valueOf(promptMenuSelection("Flavor: "));
+    }
+
+    private ChipFlavor promptChipsFlavor() {
+        promptInstructions("What chips would you like?:  ");
+        System.out.println(MenuPromptHandler.chipsFlavorOptions);
+        return ChipFlavor.valueOf(promptMenuSelection("Flavor: "));
     }
 
     //Retrieves user input from a prompt
