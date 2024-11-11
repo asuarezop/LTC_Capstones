@@ -77,7 +77,7 @@ public class UserInterface {
                 default:
                     System.out.println("Sorry, that's not a valid option. Please make your selection.");
             }
-        } while(!exitApp);
+        } while (!exitApp);
     }
 
     public void processAddSandwichRequest() {
@@ -88,55 +88,33 @@ public class UserInterface {
 
         //Instantiating a new sandwich
         Sandwich customerSandwich = new Sandwich(size, sandwichBread);
-        boolean finished = false;
+        boolean finished;
 
         do {
             promptAddToppings(customerSandwich);
 
-            //Viewing current toppings on sandwich
+            //Viewing regular toppings on sandwich
             List<Topping> addedToppings = customerSandwich.getToppings();
             System.out.println(addedToppings);
 
-            if (userChoice.equalsIgnoreCase("2")) {
+            promptAddPremToppings(customerSandwich);
 
-                //Prompting user for premium sandwich toppings
-                promptInstructions("Enter any premium toppings to add onto sandwich:  ");
-                System.out.println(MenuPromptHandler.sandwichPremiumMeatToppings);
-                PremiumTopping meats = PremiumTopping.valueOf(promptMenuSelection("Meat: "));
-                System.out.println(MenuPromptHandler.sandwichPremiumCheeseToppings);
-                PremiumTopping cheeses = PremiumTopping.valueOf(promptMenuSelection("Cheese: "));
-//                Sandwich.addPremToppings(meats);
-//                Sandwich.addPremToppings(cheeses);
+            //Viewing premium toppings on sandwich
+            List<Topping> appliedPremToppings = customerSandwich.getToppings();
+            System.out.println(appliedPremToppings);
 
-                List<Topping> appliedPremToppings = customerSandwich.getToppings();
-                System.out.println(appliedPremToppings);
+            //Setting sandwich to toasted based on user choice
+            boolean sandwichToasted = promptToasted();
+            customerSandwich.setToasted(sandwichToasted);
 
-                promptInstructions("Would you like to add more premium toppings?:  ");
-                String addAdditionalPremToppings = promptUser(MenuPromptHandler.simpleResponse);
+            //Adding customer sandwich item to order
+            blankOrder.addToOrder(customerSandwich);
 
-                if (addAdditionalPremToppings.equalsIgnoreCase("2")) {
-                    promptInstructions("Would you like your sandwich toasted?:  ");
-                    userChoice = promptUser(MenuPromptHandler.simpleResponse);
+            //View finished sandwich
+            String completedSandwich = customerSandwich.displayItem();
+            System.out.println(completedSandwich);
 
-                    if (userChoice.equalsIgnoreCase("1")) {
-                        customerSandwich.setToasted(true);
-                        customerSandwich = new Sandwich(size, sandwichBread);
-                    } else {
-                        customerSandwich.setToasted(false);
-                        customerSandwich = new Sandwich(size, sandwichBread);
-                    }
-                    //Adding customer sandwich item to order
-                    blankOrder.addToOrder(customerSandwich);
-
-                    //View finished sandwich
-                    String completedSandwich = customerSandwich.displayItem();
-                    System.out.println(completedSandwich);
-
-                    System.out.println(customerSandwich.getPrice());
-
-                    finished = true;
-                }
-            }
+            finished = true;
         } while (!finished);
     }
 
@@ -168,6 +146,36 @@ public class UserInterface {
         } while (!userChoice.equalsIgnoreCase("2"));
 
         s.addToppings(regularToppings);
+    }
+
+    private void promptAddPremToppings(Sandwich s) {
+        List<Topping> premiumToppings = new ArrayList<>();
+
+        do {
+            //Prompting user for premium sandwich toppings
+            promptInstructions("Enter any premium toppings to add onto sandwich:  ");
+
+            System.out.println(MenuPromptHandler.sandwichPremiumMeatToppings);
+            PremiumTopping meats = PremiumTopping.valueOf(promptMenuSelection("Meat: "));
+
+            System.out.println(MenuPromptHandler.sandwichPremiumCheeseToppings);
+            PremiumTopping cheeses = PremiumTopping.valueOf(promptMenuSelection("Cheese: "));
+
+            premiumToppings.add(meats);
+            premiumToppings.add(cheeses);
+
+            promptInstructions("Would you like to add more premium toppings?:  ");
+            userChoice = promptUser(MenuPromptHandler.simpleResponse);
+        } while (!userChoice.equalsIgnoreCase("2"));
+
+        s.addToppings(premiumToppings);
+    }
+
+    private boolean promptToasted() {
+        promptInstructions("Would you like your sandwich toasted?:  ");
+        userChoice = promptUser(MenuPromptHandler.simpleResponse);
+
+        return userChoice.equalsIgnoreCase("Yes");
     }
 
     //Retrieves user input from a prompt

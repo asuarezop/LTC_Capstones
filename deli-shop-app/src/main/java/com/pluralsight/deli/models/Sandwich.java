@@ -43,10 +43,6 @@ public class Sandwich extends OrderItem {
         toppings.addAll(userToppings);
     }
 
-    public void addPremToppings(PremiumTopping t) {
-        toppings.add(t);
-    }
-
     @Override
     public double getPrice() {
         double sandwichPrice = 0.0;
