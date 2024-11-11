@@ -5,9 +5,9 @@ import com.pluralsight.deli.options.BreadType;
 import com.pluralsight.deli.options.PremiumTopping;
 import com.pluralsight.deli.options.RegularTopping;
 import com.pluralsight.deli.options.SandwichSize;
+import com.pluralsight.deli.services.MenuPromptHandler;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -32,24 +32,11 @@ public class UserInterface {
         this.blankOrder = new Order();
     }
 
-
     public void showHomeScreen() throws IOException {
-        String homeScreenMenuHeader = """
-                =================================
-                |        DELI SHOP (HOME)       |
-                =================================
-                """;
-        String prompt = """
-                Please make your selection:
-                
-                [1] New Order
-                [X] Exit Application
-                """;
-
         do {
             init();
-            System.out.println(homeScreenMenuHeader);
-            System.out.println(prompt);
+            System.out.println(MenuPromptHandler.homeScreenMenuHeader);
+            System.out.println(MenuPromptHandler.homePrompt);
             userInput = inputSc.nextLine().trim().toUpperCase();
 
             switch (userInput) {
@@ -66,24 +53,9 @@ public class UserInterface {
     }
 
     public void processNewOrderRequest() {
-        String orderScreenMenuHeader = """
-                =================================
-                |             ORDER             |
-                =================================
-                """;
-        String orderPrompt = """
-                Select from the following options:
-                
-                1) Add Sandwich
-                2) Add Drink
-                3) Add Chips
-                4) Checkout
-                0) Cancel Order
-                """;
-
         do {
-            System.out.println(orderScreenMenuHeader);
-            System.out.println(orderPrompt);
+            System.out.println(MenuPromptHandler.orderScreenMenuHeader);
+            System.out.println(MenuPromptHandler.orderPrompt);
             userInput = inputSc.nextLine().trim();
 
             switch (userInput) {
@@ -109,93 +81,45 @@ public class UserInterface {
     }
 
     public void processAddSandwichRequest() {
-        String sandwichScreenMenuHeader = """
-                =================================
-                |        CREATE A SANDWICH      |
-                =================================
-                """;
+        System.out.println(MenuPromptHandler.sandwichScreenMenuHeader);
 
-        String breadTypeOptions = """
-                A) White
-                B) Wheat
-                C) Rye
-                D) Wrap
-                """;
-
-        String sandwichSizeOptions = """
-                A) 4"
-                B) 8"
-                C) 12"
-                """;
-
-        String sandwichRegularToppings = """
-                A) Lettuce
-                B) Peppers
-                C) Onions
-                D) Tomatoes
-                E) Jalapenos
-                F) Cucumbers
-                G) Pickles
-                H) Guacamole
-                I) Mushrooms
-                """;
-
-        String sandwichPremiumMeatToppings = """
-                A) Steak
-                B) Ham
-                C) Salami
-                D) Roast Beef
-                E) Chicken
-                F) Bacon
-                """;
-
-        String sandwichPremiumCheeseToppings = """
-                A) American
-                B) Provolone
-                C) Cheddar
-                D) Swiss
-                """;
-
-        String simpleResponse = """
-                    1) Yes
-                    2) No
-                    """;
-
-        System.out.println(sandwichScreenMenuHeader);
+        //Prompting user for sandwich bread type
         promptInstructions("Enter type of bread:  ");
-        System.out.println(breadTypeOptions);
-        //TODO - display list of values for bread using lambda expression
+        System.out.println(MenuPromptHandler.breadTypeOptions);
         BreadType sandwichBread = BreadType.valueOf(promptMenuSelection("Bread: "));
 
+        //Prompting user for sandwich size
         promptInstructions("Enter sandwich size:  ");
-        System.out.println(sandwichSizeOptions);
+        System.out.println(MenuPromptHandler.sandwichSizeOptions);
         SandwichSize size = SandwichSize.valueOfSize(promptMenuSelection("Size: "));
-        System.out.println(size);
 
         boolean finished = false;
         do {
             //Initializing a new sandwich object
             Sandwich customerSandwich = new Sandwich();
 
+            //Prompting user for regular sandwich toppings
             promptInstructions("Enter sandwich toppings:  ");
-            System.out.println(sandwichRegularToppings);
+            System.out.println(MenuPromptHandler.sandwichRegularToppings);
             RegularTopping sandwichVeggies = RegularTopping.valueOf(promptMenuSelection("Toppings: "));
-            System.out.println(sandwichVeggies); //test to check value (working)
 
-            //Viewing user's added toppings of their sandwich
+            //Adding regular toppings user selected onto sandwich
             Sandwich.addRegToppings(sandwichVeggies);
+
+            //Viewing current toppings on sandwich
             List<Topping> appliedToppings = customerSandwich.getToppings();
             System.out.println(appliedToppings);
 
             promptInstructions("Would you like to add more toppings?:  ");
-            response = promptUser(simpleResponse);
+            response = promptUser(MenuPromptHandler.simpleResponse);
 
             if (response.equalsIgnoreCase("2")) {
 
+                //Prompting user for premium sandwich toppings
                 promptInstructions("Enter any premium toppings to add onto sandwich:  ");
-                System.out.println(sandwichPremiumMeatToppings);
+                System.out.println(MenuPromptHandler.sandwichPremiumMeatToppings);
                 PremiumTopping meats = PremiumTopping.valueOf(promptMenuSelection("Meat: "));
-                System.out.println(sandwichPremiumCheeseToppings);
+                System.out.println(MenuPromptHandler.sandwichPremiumCheeseToppings);
                 PremiumTopping cheeses = PremiumTopping.valueOf(promptMenuSelection("Cheese: "));
                 Sandwich.addPremToppings(meats);
                 Sandwich.addPremToppings(cheeses);
@@ -204,11 +128,11 @@ public class UserInterface {
                 System.out.println(appliedPremToppings);
 
                 promptInstructions("Would you like to add more premium toppings?:  ");
-                String addAdditionalPremToppings = promptUser(simpleResponse);
+                String addAdditionalPremToppings = promptUser(MenuPromptHandler.simpleResponse);
 
                 if (addAdditionalPremToppings.equalsIgnoreCase("2")) {
                     promptInstructions("Would you like your sandwich toasted?:  ");
-                    response = promptUser(simpleResponse);
+                    response = promptUser(MenuPromptHandler.simpleResponse);
 
                     if (response.equalsIgnoreCase("1")) {
                         customerSandwich = new Sandwich(size, sandwichBread, true);
@@ -228,17 +152,6 @@ public class UserInterface {
                 }
             }
         } while (!finished);
-
-
-
-//        if (wantsExtra.equalsIgnoreCase("Yes")) {
-//            List<Topping> otherToppings = new ArrayList<>();
-//            promptUser("Other Toppings: ");
-//            System.out.println(sandwichPremiumMeatToppings);
-//            PremiumTopping meat = PremiumTopping.valueOf(promptMenuSelection("Meat: "));
-//            System.out.println(sandwichPremiumCheeseToppings);
-//            PremiumTopping cheese = PremiumTopping.valueOf(promptMenuSelection("Cheese: "));
-//        }
     }
 
     //Retrieves user input from a prompt
