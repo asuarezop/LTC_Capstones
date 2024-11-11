@@ -1,10 +1,7 @@
 package com.pluralsight.deli.models;
 
+import com.pluralsight.deli.options.*;
 import helpers.ColorCodes;
-import com.pluralsight.deli.options.BreadType;
-import com.pluralsight.deli.options.SandwichSize;
-import com.pluralsight.deli.options.RegularTopping;
-import com.pluralsight.deli.options.PremiumTopping;
 import com.pluralsight.deli.services.MenuPromptHandler;
 
 import java.util.ArrayList;
@@ -63,7 +60,7 @@ public class UserInterface {
                     processAddSandwichRequest();
                     break;
                 case "2":
-                    //ProcessDrinkRequest
+                    processAddDrinkRequest();
                     break;
                 case "3":
                     //ProcessAddChipsRequest
@@ -111,11 +108,27 @@ public class UserInterface {
             blankOrder.addToOrder(customerSandwich);
 
             //View finished sandwich
-            String completedSandwich = customerSandwich.displayItem();
-            System.out.println(completedSandwich);
+            System.out.println(customerSandwich.displayItem());
 
             finished = true;
         } while (!finished);
+    }
+
+    public void processAddDrinkRequest() {
+        System.out.println(MenuPromptHandler.drinkScreenMenuHeader);
+
+        //Getting size, type, and flavor of drink from user
+        DrinkSize size = promptDrinkSize();
+        DrinkType type = promptDrinkType();
+        DrinkFlavor flavor = promptDrinkFlavor();
+
+        //Instantiating a new drink
+        Drink customerDrink = new Drink(size, type, flavor);
+        //Adding customer drink item to order
+        blankOrder.addToOrder(customerDrink);
+
+        //Viewing customer's drink
+        System.out.println(customerDrink.displayItem());
     }
 
     private BreadType promptBreadType() {
@@ -176,6 +189,24 @@ public class UserInterface {
         userChoice = promptUser(MenuPromptHandler.simpleResponse);
 
         return userChoice.equalsIgnoreCase("1");
+    }
+
+    private DrinkSize promptDrinkSize() {
+        promptInstructions("What size drink would you like?:  ");
+        System.out.println(MenuPromptHandler.drinkSizeOptions);
+        return DrinkSize.valueOf(promptMenuSelection("Size: "));
+    }
+
+    private DrinkType promptDrinkType() {
+        promptInstructions("What type of drink would you like?:  ");
+        System.out.println(MenuPromptHandler.drinkTypeOptions);
+        return DrinkType.valueOf(promptMenuSelection("Type: "));
+    }
+
+    private DrinkFlavor promptDrinkFlavor() {
+        promptInstructions("What flavored drink would you like?:  ");
+        System.out.println(MenuPromptHandler.drinkFlavorOptions);
+        return DrinkFlavor.valueOf(promptMenuSelection("Flavor: "));
     }
 
     //Retrieves user input from a prompt

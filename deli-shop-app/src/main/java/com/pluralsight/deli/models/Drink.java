@@ -1,13 +1,17 @@
 package com.pluralsight.deli.models;
 
+import com.pluralsight.deli.options.DrinkFlavor;
 import com.pluralsight.deli.options.DrinkSize;
+import com.pluralsight.deli.options.DrinkType;
 
 public class Drink extends OrderItem {
     private DrinkSize size;
-    private String flavor;
+    private DrinkType type;
+    private DrinkFlavor flavor;
 
-    public Drink(DrinkSize size, String flavor) {
+    public Drink(DrinkSize size, DrinkType type, DrinkFlavor flavor) {
         this.size = size;
+        this.type = type;
         this.flavor = flavor;
     }
 
@@ -15,13 +19,17 @@ public class Drink extends OrderItem {
         return size;
     }
 
-    public String getFlavor() {
+    public DrinkType getType() {
+        return type;
+    }
+
+    public DrinkFlavor getFlavor() {
         return flavor;
     }
 
     @Override
     public String displayItem() {
-        return String.format("%-10s, -%12s", size, flavor);
+        return String.format("%s, %s, %s", size, type, flavor);
     }
 
     @Override

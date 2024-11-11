@@ -81,4 +81,40 @@ public class MenuPromptHandler {
                     1) Yes
                     2) No
                     """;
+
+    public static String drinkScreenMenuHeader = """
+                =================================
+                |             DRINK             |
+                =================================
+                """;
+
+    public static String drinkSizeOptions = """
+                A) Small
+                B) Medium
+                C) Large
+                """;
+
+    public static String drinkTypeOptions = """
+            A) Water
+            B) Soft Drink
+            C) Iced Tea
+            """;
+
+    public static String drinkFlavorOptions = """
+            A) Cola
+            B) Lemon-Lime
+            C) Orange
+            D) Dr Pepper
+            E) Fruit Punch
+            F) Berry
+            F) Root Beer
+            G) Lemonade
+            H) Lemon Water
+            I) Seltzer Water
+            J) Cucumber Water
+            K) Sweet Tea
+            L) Lemon Tea
+            M) Green Tea
+            """;
+
 }
