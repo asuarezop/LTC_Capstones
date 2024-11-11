@@ -31,7 +31,6 @@ public class Drink extends OrderItem {
             case SMALL -> 2.00;
             case MEDIUM -> 2.50;
             case LARGE -> 3.00;
-            default -> 0.0;
         };
     }
 }

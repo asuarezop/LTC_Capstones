@@ -1,4 +1,4 @@
-package JavaHelpers;
+package helpers;
 
 public class ColorCodes
 {

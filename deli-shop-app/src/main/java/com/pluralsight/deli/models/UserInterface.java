@@ -1,13 +1,11 @@
 package com.pluralsight.deli.models;
 
-import JavaHelpers.ColorCodes;
+import helpers.ColorCodes;
 import com.pluralsight.deli.options.BreadType;
 import com.pluralsight.deli.options.PremiumTopping;
 import com.pluralsight.deli.options.RegularTopping;
 import com.pluralsight.deli.options.SandwichSize;
 import com.pluralsight.deli.services.MenuPromptHandler;
-
-import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -32,7 +30,7 @@ public class UserInterface {
         this.blankOrder = new Order();
     }
 
-    public void showHomeScreen() throws IOException {
+    public void showHomeScreen() {
         do {
             init();
             System.out.println(MenuPromptHandler.homeScreenMenuHeader);
