@@ -31,6 +31,6 @@ public enum RegularTopping implements Topping {
 
     @Override
     public String getToppingCategory() {
-        return "";
+        return toppingCategory;
     }
 }

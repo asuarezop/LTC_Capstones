@@ -18,4 +18,9 @@ public class BagOfChips implements OrderItem {
     public String displayItem() {
         return String.format("%s", flavor);
     }
+
+    @Override
+    public String toString() {
+        return String.format("Chips Flavor: %s", flavor);
+    }
 }

@@ -41,4 +41,9 @@ public class Drink implements OrderItem {
             case LARGE -> 3.00;
         };
     }
+
+    @Override
+    public String toString() {
+        return String.format("Drink Size: %s, Type: %s, Flavor: %s", size, type, flavor);
+    }
 }

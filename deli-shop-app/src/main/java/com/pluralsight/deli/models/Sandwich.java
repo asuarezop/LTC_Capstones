@@ -93,6 +93,11 @@ public class Sandwich implements OrderItem {
     }
 
     @Override
+    public String toString() {
+        return String.format("Sandwich size: %s, Bread type: %s, Toasted: %s, Toppings: %s", size, bread, isToasted, toppings);
+    }
+
+    @Override
     public String displayItem() {
         //Where you would print individual sandwich to user
         return String.format("Sandwich specs: %s,%s,%s", size, bread, isToasted);
