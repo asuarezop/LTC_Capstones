@@ -41,6 +41,11 @@ public class Order {
         orderItems.add(o);
     }
 
+    //Removes all order items
+    public void removeAllOrderItems(List<OrderItem> items) {
+        items.clear();
+    }
+
     //Calculate total cost of order
     public double getTotalCost(List<OrderItem> items) {
         double orderTotal = 0.0;

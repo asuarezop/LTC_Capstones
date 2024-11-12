@@ -71,7 +71,7 @@ public class UserInterface {
                     processCheckoutRequest();
                     break;
                 case "0":
-                    //Remove current order and go back to the Home Screen
+                    processCancelOrderRequest();
                     break;
                 default:
                     System.out.println("Sorry, that's not a valid option. Please make your selection.");
@@ -156,6 +156,11 @@ public class UserInterface {
 
         //View order details and total pricing for every order item
         promptFinalizeOrder();
+    }
+
+    public void processCancelOrderRequest() {
+        List<OrderItem> items = retrieveAllOrderItems();
+        blankOrder.removeAllOrderItems(items);
     }
 
     private BreadType promptBreadType() {
@@ -260,7 +265,7 @@ public class UserInterface {
 
     private void promptFinalizeOrder() {
         //Retrieving list of all order items
-        List<OrderItem> items = blankOrder.getOrderItems();
+        List<OrderItem> items = retrieveAllOrderItems();
 
         System.out.println(MenuPromptHandler.orderDetailsScreenHeader);
 
@@ -283,6 +288,13 @@ public class UserInterface {
 
         List<OrderItem> chipsOnOrder = items.stream().filter(orderItem -> orderItem instanceof BagOfChips).toList();
         System.out.println(chipsOnOrder);
+    }
+
+    private List<OrderItem> retrieveAllOrderItems() {
+        //Retrieving list of all order items
+        List<OrderItem> items = blankOrder.getOrderItems();
+
+        return items;
     }
 
     //Retrieves user input from a prompt
