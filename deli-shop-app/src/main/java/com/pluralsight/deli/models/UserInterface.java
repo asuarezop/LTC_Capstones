@@ -5,8 +5,10 @@ import helpers.ColorCodes;
 import com.pluralsight.deli.services.MenuPromptHandler;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class UserInterface {
     //Related to input from user
@@ -80,6 +82,7 @@ public class UserInterface {
     public void processAddSandwichRequest() {
         System.out.println(MenuPromptHandler.sandwichScreenMenuHeader);
 
+        //Prompting to get sandwich size and type of bread
         BreadType sandwichBread = promptBreadType();
         SandwichSize size = promptSandwichSize();
 
@@ -88,12 +91,14 @@ public class UserInterface {
         boolean finished;
 
         do {
+            //Prompt to add regular toppings to sandwich
             promptAddToppings(customerSandwich);
 
             //Viewing regular toppings on sandwich
             List<Topping> addedToppings = customerSandwich.getToppings();
             System.out.println(addedToppings);
 
+            //Prompt to add premium toppings to sandwich
             promptAddPremToppings(customerSandwich);
 
             //Viewing premium toppings on sandwich
@@ -107,9 +112,7 @@ public class UserInterface {
             //Adding customer sandwich item to order
             blankOrder.addToOrder(customerSandwich);
 
-            //View finished sandwich
-            System.out.println(customerSandwich.displayItem());
-
+            //Exit loop
             finished = true;
         } while (!finished);
     }
@@ -124,6 +127,7 @@ public class UserInterface {
 
         //Instantiating a new drink
         Drink customerDrink = new Drink(size, type, flavor);
+
         //Adding customer drink item to order
         blankOrder.addToOrder(customerDrink);
 
@@ -150,11 +154,11 @@ public class UserInterface {
         //Prompting user to add any sauces to their order
         promptSauces();
 
-       List<OrderItem> items = blankOrder.getOrderItems();
-        System.out.println("Finalized order: ");
-        //Printing out every order item inside items <List> using method reference (shorter syntax for lambda expression)
-        items.forEach(System.out::println);
+        //Retrieving list of all order items
+        List<OrderItem> items = blankOrder.getOrderItems();
 
+        //View order details and total pricing for every order item
+        promptFinalizeOrder(items);
     }
 
     private BreadType promptBreadType() {
@@ -217,7 +221,6 @@ public class UserInterface {
     private boolean promptToasted() {
         promptInstructions("Would you like your sandwich toasted?:  ");
         userChoice = promptUser(MenuPromptHandler.simpleResponse);
-
         return userChoice.equalsIgnoreCase("1");
     }
 
@@ -258,8 +261,18 @@ public class UserInterface {
         } while (!userChoice.equalsIgnoreCase("2"));
     }
 
-    private void promptFinalizeOrder() {
+    private void promptFinalizeOrder(List<OrderItem> items) {
+        System.out.println(MenuPromptHandler.orderDetailsScreenHeader);
 
+        //Printing out every order item inside items <List> using method reference (shorter syntax for lambda expression)
+        items.forEach(System.out::println);
+
+        //Filtering for sandwich order items and printing them out
+        List<OrderItem> sandwichesOnOrder = items.stream().filter(orderItem -> orderItem instanceof Sandwich).toList();
+        System.out.println(sandwichesOnOrder);
+
+        //Get the price for sandwich
+//        double sandwichTotal = sandwichesOnOrder.stream().forEach(s -> s);
     }
 
     //Retrieves user input from a prompt

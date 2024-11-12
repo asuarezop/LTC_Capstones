@@ -152,4 +152,10 @@ public class MenuPromptHandler {
             G) Au Jus
             """;
 
+    public static String orderDetailsScreenHeader = """
+            =================================
+            |          ORDER_DETAILS        |
+            =================================
+            """;
+
 }
