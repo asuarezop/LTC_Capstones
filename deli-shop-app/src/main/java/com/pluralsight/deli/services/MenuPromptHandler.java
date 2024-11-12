@@ -158,4 +158,15 @@ public class MenuPromptHandler {
             =================================
             """;
 
+    public static String paymentScreenHeader = """
+            =================================
+            |             PAYMENT           |
+            =================================
+            """;
+
+    public static String paymentOptions = """
+                    1) Cash
+                    2) Debit
+                    3) Credit
+                    """;
 }

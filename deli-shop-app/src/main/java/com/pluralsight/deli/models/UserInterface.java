@@ -276,9 +276,32 @@ public class UserInterface {
         double orderTotal = blankOrder.getTotalCost(items);
         String printedTotal = String.format("Order total: $%.2f", orderTotal);
         System.out.println(printedTotal);
+
+        //Prompting user for payment method
+        PaymentOption payMethod = promptForPayment();
+        int moneyForOrder = payMethod.getDollars();
+
+        if (moneyForOrder >= orderTotal) {
+            double changeDue = calculateChangeDue(moneyForOrder, orderTotal);
+        } else {
+            System.out.println("Pay amount is insufficient to cover cost of total order.");
+        }
     }
 
-    private void printIndividualOrderItems (List<OrderItem> items) {
+    private PaymentOption promptForPayment() {
+        System.out.println(MenuPromptHandler.paymentScreenHeader);
+
+        promptInstructions("How would you like to pay?:  ");
+        System.out.println(MenuPromptHandler.paymentOptions);
+
+        return PaymentOption.valueOf(promptUser("Payment Method: "));
+    }
+
+    private double calculateChangeDue(int money, double orderTotal) {
+        return money - orderTotal;
+    }
+
+    private void printIndividualOrderItems(List<OrderItem> items) {
         //Filtering for order items by category and printing them out
         List<OrderItem> sandwichesOnOrder = items.stream().filter(orderItem -> orderItem instanceof Sandwich).toList();
         System.out.println(sandwichesOnOrder);
