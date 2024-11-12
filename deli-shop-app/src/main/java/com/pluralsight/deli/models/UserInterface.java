@@ -154,11 +154,8 @@ public class UserInterface {
         //Prompting user to add any sauces to their order
         promptSauces();
 
-        //Retrieving list of all order items
-        List<OrderItem> items = blankOrder.getOrderItems();
-
         //View order details and total pricing for every order item
-        promptFinalizeOrder(items);
+        promptFinalizeOrder();
     }
 
     private BreadType promptBreadType() {
@@ -261,18 +258,26 @@ public class UserInterface {
         } while (!userChoice.equalsIgnoreCase("2"));
     }
 
-    private void promptFinalizeOrder(List<OrderItem> items) {
+    private void promptFinalizeOrder() {
+        //Retrieving list of all order items
+        List<OrderItem> items = blankOrder.getOrderItems();
+
         System.out.println(MenuPromptHandler.orderDetailsScreenHeader);
 
-        //Printing out every order item inside items <List> using method reference (shorter syntax for lambda expression)
-        items.forEach(System.out::println);
-
-        //Filtering for sandwich order items and printing them out
+        //Filtering for order items by category and printing them out
         List<OrderItem> sandwichesOnOrder = items.stream().filter(orderItem -> orderItem instanceof Sandwich).toList();
         System.out.println(sandwichesOnOrder);
 
-        //Get the price for sandwich
-//        double sandwichTotal = sandwichesOnOrder.stream().forEach(s -> s);
+        List<OrderItem> drinksOnOrder = items.stream().filter(orderItem -> orderItem instanceof Drink).toList();
+        System.out.println(drinksOnOrder);
+
+        List<OrderItem> chipsOnOrder = items.stream().filter(orderItem -> orderItem instanceof BagOfChips).toList();
+        System.out.println(chipsOnOrder);
+
+        //Calculating total price of every item on order and printing it out
+        double orderTotal = blankOrder.getTotalCost(items);
+        String printedTotal = String.format("Order total: $%.2f", orderTotal);
+        System.out.println(printedTotal);
     }
 
     //Retrieves user input from a prompt

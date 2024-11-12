@@ -42,8 +42,15 @@ public class Order {
     }
 
     //Calculate total cost of order
-    public double getTotalCost() {
-        return 0.0;
+    public double getTotalCost(List<OrderItem> items) {
+        double orderTotal = 0.0;
+
+        for (OrderItem o: items) {
+            //Adding all order items prices
+            orderTotal += o.getPrice();
+        }
+
+        return orderTotal;
     };
 
     public void printToReceipt() {
