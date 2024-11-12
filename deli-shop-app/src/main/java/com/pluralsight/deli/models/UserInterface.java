@@ -4,11 +4,10 @@ import com.pluralsight.deli.options.*;
 import helpers.ColorCodes;
 import com.pluralsight.deli.services.MenuPromptHandler;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class UserInterface {
     //Related to input from user

@@ -7,12 +7,12 @@ public class DateTimeHandler {
     //To retrieve current date and time for an order
     public static String getOrderDateTime(LocalDateTime orderDateTime) {
 
-        DateTimeFormatter traditionalDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter traditionalDate = DateTimeFormatter.ofPattern("yyyyMMdd");
         String orderDate = orderDateTime.format(traditionalDate);
 
-        DateTimeFormatter traditionalTime = DateTimeFormatter.ofPattern("HH:mm");
+        DateTimeFormatter traditionalTime = DateTimeFormatter.ofPattern("hhmmss");
         String orderTime = orderDateTime.format(traditionalTime);
 
-        return orderDate + "|" + orderTime;
+        return orderDate + "-" + orderTime;
     }
 }
