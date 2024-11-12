@@ -264,6 +264,16 @@ public class UserInterface {
 
         System.out.println(MenuPromptHandler.orderDetailsScreenHeader);
 
+        //Checking all order items by category
+        printIndividualOrderItems(items);
+
+        //Calculating total price of every item on order and printing it out
+        double orderTotal = blankOrder.getTotalCost(items);
+        String printedTotal = String.format("Order total: $%.2f", orderTotal);
+        System.out.println(printedTotal);
+    }
+
+    private void printIndividualOrderItems (List<OrderItem> items) {
         //Filtering for order items by category and printing them out
         List<OrderItem> sandwichesOnOrder = items.stream().filter(orderItem -> orderItem instanceof Sandwich).toList();
         System.out.println(sandwichesOnOrder);
@@ -273,11 +283,6 @@ public class UserInterface {
 
         List<OrderItem> chipsOnOrder = items.stream().filter(orderItem -> orderItem instanceof BagOfChips).toList();
         System.out.println(chipsOnOrder);
-
-        //Calculating total price of every item on order and printing it out
-        double orderTotal = blankOrder.getTotalCost(items);
-        String printedTotal = String.format("Order total: $%.2f", orderTotal);
-        System.out.println(printedTotal);
     }
 
     //Retrieves user input from a prompt
