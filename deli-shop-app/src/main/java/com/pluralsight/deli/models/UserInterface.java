@@ -277,28 +277,60 @@ public class UserInterface {
         String printedTotal = String.format("Order total: $%.2f", orderTotal);
         System.out.println(printedTotal);
 
-        //Prompting user for payment method
-        PaymentOption payMethod = promptForPayment();
-        int moneyForOrder = payMethod.getDollars();
+        //Confirm with user if order is correct
+        boolean confirmation = promptOrderConfirmation();
 
-        if (moneyForOrder >= orderTotal) {
-            double changeDue = calculateChangeDue(moneyForOrder, orderTotal);
+        if (confirmation) {
+            //Prompting user for payment method
+            double changeForOrder = promptForPayment(orderTotal);
+
+            //Call method to print order details to receipt
         } else {
-            System.out.println("Pay amount is insufficient to cover cost of total order.");
+            //Prompt for user if order details was incorrect
+            System.out.println(MenuPromptHandler.cancelScreenHeader);
+            promptInstructions("Would you like to redo the order?:  ");
+            userChoice = promptUser(MenuPromptHandler.simpleResponse);
+
+            //Cancel order if user selected "Yes"
+            if (userChoice.equals("1")) processCancelOrderRequest();
         }
     }
 
-    private PaymentOption promptForPayment() {
+    private double promptForPayment(double orderTotal) {
         System.out.println(MenuPromptHandler.paymentScreenHeader);
 
         promptInstructions("How would you like to pay?:  ");
         System.out.println(MenuPromptHandler.paymentOptions);
 
-        return PaymentOption.valueOf(promptUser("Payment Method: "));
+        PaymentOption payMethod = PaymentOption.valueOf(promptMenuSelection("Payment Method: "));
+        System.out.println(payMethod);
+
+        //Retrieving money amount based on payment option
+        int moneyForOrder = payMethod.getDollars();
+
+        //To hold change from order transaction
+        double changeDue = 0.0;
+
+        if (moneyForOrder >= orderTotal) {
+            changeDue += calculateChangeDue(moneyForOrder, orderTotal);
+        } else {
+            System.out.println("Pay amount is insufficient to cover cost of total order.");
+        }
+
+        return changeDue;
     }
 
     private double calculateChangeDue(int money, double orderTotal) {
         return money - orderTotal;
+    }
+
+    private boolean promptOrderConfirmation() {
+        System.out.println(MenuPromptHandler.orderConfirmationScreenHeader);
+        promptInstructions("Please confirm order details is correct:  ");
+        userChoice = promptUser(MenuPromptHandler.simpleResponse);
+
+        //Returns true if user selected "Yes"
+        return userChoice.equals("1");
     }
 
     private void printIndividualOrderItems(List<OrderItem> items) {

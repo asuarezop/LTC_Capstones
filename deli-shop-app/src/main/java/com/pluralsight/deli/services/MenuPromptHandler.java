@@ -158,6 +158,18 @@ public class MenuPromptHandler {
             =================================
             """;
 
+    public static String orderConfirmationScreenHeader = """
+            =================================
+            |          CONFIRM ORDER        |
+            =================================
+            """;
+
+    public static String cancelScreenHeader = """
+            =================================
+            |             CANCEL            |
+            =================================
+            """;
+
     public static String paymentScreenHeader = """
             =================================
             |             PAYMENT           |
