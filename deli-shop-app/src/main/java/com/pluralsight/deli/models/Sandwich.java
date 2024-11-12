@@ -52,20 +52,22 @@ public class Sandwich implements OrderItem {
 
     @Override
     public double getPrice() {
-        double sandwichPrice = 0.0;
+        double sandwichPrice;
         double toppingsCharge = 0.0;
 
         //To calculate price of sandwich, have to take into account price of premium toppings
         for (Topping topping : toppings) {
-            if (topping.getToppingType().equals("Premium") && isExtraToppings()) {
+            if (topping.getToppingType().equals("Premium")) {
 
-                toppingsCharge += getToppingPricing(size, topping);
+                //Calculating all topping charges
+                toppingsCharge += calculateToppingCharges(size, topping, isExtraToppings());
             }
         }
 
+        //Adding base sandwich price together with topping charges
         sandwichPrice = getBasePricing(size) + toppingsCharge;
 
-      return sandwichPrice;
+        return sandwichPrice;
     }
 
     @Override
@@ -83,7 +85,7 @@ public class Sandwich implements OrderItem {
     private double getBasePricing(SandwichSize size) {
         double sandwichPrice = 0.0;
 
-        //Calculating price of all priceable items in a sandwich by size
+        //Calculating price of base sandwich by size
         return switch (size) {
             case FOUR_INCHES -> sandwichPrice + 5.50;
             case EIGHT_INCHES -> sandwichPrice + 7.00;
@@ -91,7 +93,7 @@ public class Sandwich implements OrderItem {
         };
     }
 
-    private double getToppingPricing(SandwichSize size, Topping topping) {
+    private double calculateToppingCharges(SandwichSize size, Topping topping, boolean hasExtraToppings) {
         double baseToppingPrice = 0.0;
         double extraToppingCharge = 0.0;
 
@@ -129,6 +131,7 @@ public class Sandwich implements OrderItem {
             }
         }
 
-        return baseToppingPrice + extraToppingCharge;
+        //If the user ordered extra toppings, return base sandwich price with extra toppings charge. Otherwise, return base pricing
+        return (hasExtraToppings) ? baseToppingPrice + extraToppingCharge : baseToppingPrice;
     }
 }
