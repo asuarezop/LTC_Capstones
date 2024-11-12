@@ -56,9 +56,5 @@ public class Order {
         }
 
         return orderTotal;
-    };
-
-    public void printToReceipt() {
-        System.out.println("print to receipt");
     }
 }
