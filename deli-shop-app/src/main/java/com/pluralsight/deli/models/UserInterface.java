@@ -152,9 +152,8 @@ public class UserInterface {
 
        List<OrderItem> items = blankOrder.getOrderItems();
         System.out.println("Finalized order: ");
-        for (OrderItem o: items) {
-            System.out.println(o);
-        }
+        //Printing out every order item inside items <List> using method reference (shorter syntax for lambda expression)
+        items.forEach(System.out::println);
 
     }
 
@@ -257,6 +256,10 @@ public class UserInterface {
             promptInstructions("Would you like to include additional sauces?:  ");
             userChoice = promptUser(MenuPromptHandler.simpleResponse);
         } while (!userChoice.equalsIgnoreCase("2"));
+    }
+
+    private void promptFinalizeOrder() {
+
     }
 
     //Retrieves user input from a prompt
