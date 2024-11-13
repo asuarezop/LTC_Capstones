@@ -1,0 +1,13 @@
+***************** DELI-SHOP *****************
+Date: 11/13/2024     Time: 12:21 PM    
+---------------------------------------------
+Sandwich: EIGHT_INCHES WHITE true $17.20
+LARGE, SOFT_DRINK, COLA $3.00
+Chips: POTATO $1.50
+---------------------------------------------
+Sales Total: $21.70
+Pay method: DEBITAmount Paid: $100.00
+Change Due: $78.30
+---------------------------------------------
+Thank you for choosing the DELI-SHOP! 
+Have a nice day :)

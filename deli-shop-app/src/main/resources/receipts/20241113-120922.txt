@@ -1,0 +1,13 @@
+***************** DELI-SHOP *****************
+Date: %-15s11/13/2024Time: %-12s
+12:09 PM---------------------------------------------
+Sandwich: EIGHT_INCHES WHITE true $10.50
+MEDIUM, SOFT_DRINK, LEMON_LIME $2.50
+Chips: BBQ $1.50
+---------------------------------------------
+Sales Total: $%.2f
+14.5Pay method: %sCREDITAmount Paid: $%.2f
+100Change Due:  $%.2f
+85.5---------------------------------------------
+Thank you for choosing the DELI-SHOP! 
+Have a nice day :)

@@ -4,7 +4,6 @@ import com.pluralsight.deli.options.*;
 import helpers.ColorCodes;
 import com.pluralsight.deli.services.MenuPromptHandler;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -131,7 +130,7 @@ public class UserInterface {
         blankOrder.addToOrder(customerDrink);
 
         //Viewing customer's drink
-        System.out.println(customerDrink.displayItem());
+        System.out.println(customerDrink.printToReceipt());
     }
 
     public void processAddChipsRequest() {
@@ -144,7 +143,7 @@ public class UserInterface {
         //Adding chips item to order
         blankOrder.addToOrder(chips);
         //Viewing customer's chips
-        System.out.println(chips.displayItem());
+        System.out.println(chips.printToReceipt());
     }
 
     public void processCheckoutRequest() {
@@ -281,9 +280,13 @@ public class UserInterface {
 
         if (confirmation) {
             //Prompting user for payment method
-            double changeForOrder = promptForPayment(orderTotal);
+            PaymentOption payMethod = promptForPayment();
 
-            //Call method to print order details to receipt
+            //Getting change due for order payment
+            double changeForOrder = promptChangeOwed(orderTotal, payMethod);
+
+            //Save order details
+            POSManager.saveOrder(blankOrder, orderTotal, payMethod, changeForOrder);
         } else {
             //Prompt for user if order details was incorrect
             System.out.println(MenuPromptHandler.cancelScreenHeader);
@@ -295,17 +298,16 @@ public class UserInterface {
         }
     }
 
-    private double promptForPayment(double orderTotal) {
+    private PaymentOption promptForPayment() {
         System.out.println(MenuPromptHandler.paymentScreenHeader);
-
         promptInstructions("How would you like to pay?:  ");
         System.out.println(MenuPromptHandler.paymentOptions);
+        return PaymentOption.valueOf(promptMenuSelection("Payment Method: "));
+    }
 
-        PaymentOption payMethod = PaymentOption.valueOf(promptMenuSelection("Payment Method: "));
-        System.out.println(payMethod);
-
+    private double promptChangeOwed(double orderTotal, PaymentOption payMethod) {
         //Retrieving money amount based on payment option
-        int moneyForOrder = payMethod.getDollars();
+        double moneyForOrder = payMethod.getDollars();
 
         //To hold change from order transaction
         double changeDue = 0.0;
@@ -319,7 +321,7 @@ public class UserInterface {
         return changeDue;
     }
 
-    private double calculateChangeDue(int money, double orderTotal) {
+    private double calculateChangeDue(double money, double orderTotal) {
         return money - orderTotal;
     }
 
@@ -346,9 +348,7 @@ public class UserInterface {
 
     private List<OrderItem> retrieveAllOrderItems() {
         //Retrieving list of all order items
-        List<OrderItem> items = blankOrder.getOrderItems();
-
-        return items;
+        return blankOrder.getOrderItems();
     }
 
     //Retrieves user input from a prompt

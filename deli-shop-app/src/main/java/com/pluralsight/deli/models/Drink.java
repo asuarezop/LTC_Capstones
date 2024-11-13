@@ -28,11 +28,6 @@ public class Drink implements OrderItem {
     }
 
     @Override
-    public String displayItem() {
-        return String.format("%s, %s, %s", size, type, flavor);
-    }
-
-    @Override
     public double getPrice() {
         //Using switch statement to return price of a Drink at different sizes
         return switch (size) {
@@ -40,6 +35,11 @@ public class Drink implements OrderItem {
             case MEDIUM -> 2.50;
             case LARGE -> 3.00;
         };
+    }
+
+    @Override
+    public String printToReceipt() {
+        return String.format("%s, %s, %s $%.2f\n", size, type, flavor, getPrice());
     }
 
     @Override

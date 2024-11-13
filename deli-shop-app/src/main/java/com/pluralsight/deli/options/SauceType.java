@@ -12,7 +12,7 @@ public enum SauceType implements OrderItem {
     AU_JUS;
 
     @Override
-    public String displayItem() {
+    public String printToReceipt() {
         return "";
     }
 

@@ -5,13 +5,13 @@ public enum PaymentOption {
     DEBIT(100),
     CREDIT(100);
 
-    private final int dollars;
+    private final double dollars;
 
-    PaymentOption(int money) {
+    PaymentOption(double money) {
         this.dollars = money;
     }
 
-    public int getDollars() {
+    public double getDollars() {
         return dollars;
     }
 }
