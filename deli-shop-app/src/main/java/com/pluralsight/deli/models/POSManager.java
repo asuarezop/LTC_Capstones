@@ -46,14 +46,4 @@ public class POSManager {
             throw new RuntimeException(e);
         }
     }
-
-    //GET Endpoint to retrieve order details (/ORDER_DETAILS)
-    public void getOrderDetails() {
-
-    }
-
-    //Printing to the user terminal or web front end interface
-    public void printOrderReceipt() {
-
-    }
 }
