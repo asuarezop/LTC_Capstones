@@ -40,7 +40,7 @@ public class Drink implements OrderItem {
 
     @Override
     public String printToReceipt() {
-        return String.format("Drink: %s, %s, %s $%.2f\n", size, type, flavor, getPrice());
+        return String.format("Drink: %s, %s, %-17s $%.2f\n", size.getAbbrev(), type, flavor.getAbbrev(), getPrice());
     }
 
     @Override

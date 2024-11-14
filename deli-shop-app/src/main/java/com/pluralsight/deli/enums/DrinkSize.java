@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum DrinkSize {
-    SMALL ("A"),
-    MEDIUM ("B"),
-    LARGE ("C");
+    SMALL ("A", "SML"),
+    MEDIUM ("B", "MED"),
+    LARGE ("C", "LRG");
 
     private static final Map<String, DrinkSize> BY_CHOICE = new HashMap<>();
 
@@ -18,9 +18,15 @@ public enum DrinkSize {
     }
 
     private final String choice;
+    private final String abbrev;
 
-    DrinkSize(String userChoice) {
+    DrinkSize(String userChoice, String abbrev) {
         this.choice = userChoice;
+        this.abbrev = abbrev;
+    }
+
+    public String getAbbrev() {
+        return abbrev;
     }
 
     //To get the drinkSize CONSTANT value that matches user's input using a HashMap

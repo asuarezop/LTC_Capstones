@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum SandwichSize {
-    FOUR_INCHES("A"),
-    EIGHT_INCHES("B"),
-    TWELVE_INCHES("C");
+    FOUR_INCHES("A", 4),
+    EIGHT_INCHES("B", 8),
+    TWELVE_INCHES("C", 12);
 
     private static final Map<String, SandwichSize> BY_CHOICE = new HashMap<>();
 
@@ -18,9 +18,11 @@ public enum SandwichSize {
     }
 
     private final String choice;
+    private final int size;
 
-    SandwichSize(String userChoice) {
+    SandwichSize(String userChoice, int size) {
         this.choice = userChoice;
+        this.size = size;
     }
 
     //To get the value associated with a specific sandwichSize CONSTANT
@@ -28,9 +30,14 @@ public enum SandwichSize {
         return choice;
     }
 
+    public int getSize() { return size; }
+
     //To get the sandwichSize CONSTANT value that matches user's input using a HashMap
     public static SandwichSize valueFromChoice(String value) {
         //Retrieving the mapped value associated with given key String size
         return BY_CHOICE.get(value);
     }
+
+    //What do I want to do with the size?
+    // For printing to receipt, I want the size from Sandwich be converted into its shorthand integer value form
 }

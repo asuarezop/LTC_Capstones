@@ -1,0 +1,13 @@
+***************** DELI-SHOP *****************
+Date: 11/14/2024               Time: 14:24 PM
+---------------------------------------------
+Sandwich: TWELVE_INCHES WHITE GRILLED    $23.80
+Drink: LARGE, SOFT_DRINK, BERRY         $3.00
+Chips: BBQ                              $1.50
+---------------------------------------------
+Sales Total: $28.30
+Pay method: CREDIT              Paid: $100.00
+Change Due: $71.70
+---------------------------------------------
+Thank you for choosing the DELI-SHOP! 
+Have a nice day :)

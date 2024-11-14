@@ -1,0 +1,13 @@
+***************** DELI-SHOP *****************
+Date: 11/14/2024               Time: 16:02 PM
+---------------------------------------------
+Sandwich: 8in. WHEAT GRILLED              $17.20
+Drink: M, SOFT_DRINK, DP                $2.50
+Chips: MULTIGRAIN                       $1.50
+---------------------------------------------
+Sales Total: $21.20
+Pay method: CREDIT              Paid: $100.00
+Change Due: $78.80
+---------------------------------------------
+Thank you for choosing the DELI-SHOP! 
+Have a nice day :)

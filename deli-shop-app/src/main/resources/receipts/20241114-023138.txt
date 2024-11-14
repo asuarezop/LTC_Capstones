@@ -1,0 +1,13 @@
+***************** DELI-SHOP *****************
+Date: 11/14/2024               Time: 14:31 PM
+---------------------------------------------
+Sandwich: EIGHT_INCHES WHEAT GRILLED  $22.30
+Drink: LARGE, ICED_TEA, SWEET_TEA    $3.00
+Chips: BBQ                              $1.50
+---------------------------------------------
+Sales Total: $26.80
+Pay method: CREDIT              Paid: $100.00
+Change Due: $73.20
+---------------------------------------------
+Thank you for choosing the DELI-SHOP! 
+Have a nice day :)

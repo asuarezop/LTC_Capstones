@@ -1,0 +1,13 @@
+***************** DELI-SHOP *****************
+Date: 11/14/2024               Time: 15:49 PM
+---------------------------------------------
+Sandwich: 12in. WHITE GRILLED              $23.80
+Drink: MEDIUM, SOFT_DRINK, LEMONADE          $2.50
+Chips: SALT_N_PEPPER                    $1.50
+---------------------------------------------
+Sales Total: $27.80
+Pay method: CASH                Paid: $100.00
+Change Due: $72.20
+---------------------------------------------
+Thank you for choosing the DELI-SHOP! 
+Have a nice day :)

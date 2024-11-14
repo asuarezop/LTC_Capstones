@@ -4,20 +4,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum DrinkFlavor {
-    COLA ("A"),
-    LEMON_LIME ("B"),
-    ORANGE ("C"),
-    DR_PEPPER ("D"),
-    FRUIT_PUNCH ("E"),
-    BERRY ("F"),
-    ROOT_BEER ("G"),
-    LEMONADE ("H"),
-    LEMON_WATER ("I"),
-    SELTZER_WATER ("J"),
-    CUCUMBER_WATER ("K"),
-    SWEET_TEA ("L"),
-    LEMON_TEA ("M"),
-    GREEN_TEA ("N");
+    COLA ("A", "CL"),
+    LEMON_LIME ("B", "LL"),
+    ORANGE ("C", "ORG"),
+    DR_PEPPER ("D", "DP"),
+    FRUIT_PUNCH ("E", "FP"),
+    BERRY ("F", "BRY"),
+    ROOT_BEER ("G", "RB"),
+    LEMONADE ("H", "LEM"),
+    LEMON_WATER ("I", "LW"),
+    SELTZER_WATER ("J", "SW"),
+    CUCUMBER_WATER ("K", "CW"),
+    SWEET_TEA ("L", "ST"),
+    LEMON_TEA ("M", "LT"),
+    GREEN_TEA ("N", "GT");
 
     private static final Map<String, DrinkFlavor> BY_CHOICE = new HashMap<>();
 
@@ -29,9 +29,15 @@ public enum DrinkFlavor {
     }
 
     private final String choice;
+    private final String abbrev;
 
-    DrinkFlavor(String userChoice) {
+    DrinkFlavor(String userChoice, String abbrev) {
         this.choice = userChoice;
+        this.abbrev = abbrev;
+    }
+
+    public String getAbbrev() {
+        return abbrev;
     }
 
     //To get the drinkFlavor CONSTANT value that matches user's input using a HashMap

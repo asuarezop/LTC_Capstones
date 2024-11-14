@@ -33,7 +33,7 @@ public class POSManager {
 
             bufWriter.write("---------------------------------------------\n");
             bufWriter.write("Sales Total: $" + String.format("%.2f\n", total));
-            bufWriter.write("Pay method: " + String.format("%-25s", payMethod) + "Paid: $" + String.format("%.2f\n", amountPaid));
+            bufWriter.write("Pay method: " + String.format("%-20s", payMethod) + "Paid: $" + String.format("%.2f\n", amountPaid));
             bufWriter.write("Change Due: $" + String.format("%.2f\n", changeDue));
             bufWriter.write("---------------------------------------------\n");
             bufWriter.write("Thank you for choosing the DELI-SHOP! \nHave a nice day :)");
