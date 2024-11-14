@@ -157,7 +157,7 @@ public class UIProcessingHandler {
     private SandwichSize promptSandwichSize() {
         promptInstructions("Enter sandwich size:  ");
         System.out.println(MenuPromptHandler.sandwichSizeOptions);
-        return SandwichSize.valueOfSize(promptMenuSelection("Size: "));
+        return SandwichSize.valueFromChoice(promptMenuSelection("Size: "));
     }
 
     private void promptAddToppings(Sandwich s) {

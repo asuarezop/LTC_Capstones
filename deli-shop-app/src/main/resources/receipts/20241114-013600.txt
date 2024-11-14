@@ -1,0 +1,13 @@
+***************** DELI-SHOP *****************
+Date: 11/14/2024                  Time: 13:36 PM
+---------------------------------------------
+Sandwich: FOUR_INCHES WHITE GRILLED $7.25
+Drink: MEDIUM, SOFT_DRINK, LEMON_LIME $2.50
+Chips: MULTIGRAIN $1.50
+---------------------------------------------
+Sales Total: $11.25
+Pay method: DEBIT       Paid: $100.00
+Change Due: $88.75
+---------------------------------------------
+Thank you for choosing the DELI-SHOP! 
+Have a nice day :)

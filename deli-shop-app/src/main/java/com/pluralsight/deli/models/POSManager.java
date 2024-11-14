@@ -23,7 +23,7 @@ public class POSManager {
             String[] receiptDateTimeFormat = DateTimeHandler.getReceiptDateTime(orderDateTime).split("\\|");
 
             bufWriter.write("***************** DELI-SHOP *****************\n");
-            bufWriter.write("Date: " + String.format("%-20s", receiptDateTimeFormat[0]) + "Time: " + String.format("%-12s\n", receiptDateTimeFormat[1]));
+            bufWriter.write("Date: " + String.format("%-25s", receiptDateTimeFormat[0]) + "Time: " + String.format("%s\n", receiptDateTimeFormat[1]));
             bufWriter.write("---------------------------------------------\n");
 
             for (OrderItem i : items) {
@@ -33,7 +33,7 @@ public class POSManager {
 
             bufWriter.write("---------------------------------------------\n");
             bufWriter.write("Sales Total: $" + String.format("%.2f\n", total));
-            bufWriter.write("Pay method: " + String.format("%-12s", payMethod) + "Paid: $" + String.format("%.2f\n", amountPaid));
+            bufWriter.write("Pay method: " + String.format("%-25s", payMethod) + "Paid: $" + String.format("%.2f\n", amountPaid));
             bufWriter.write("Change Due: $" + String.format("%.2f\n", changeDue));
             bufWriter.write("---------------------------------------------\n");
             bufWriter.write("Thank you for choosing the DELI-SHOP! \nHave a nice day :)");

@@ -4,33 +4,33 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum SandwichSize {
-    FOUR_INCHES("4"),
-    EIGHT_INCHES("8"),
-    TWELVE_INCHES("12");
+    FOUR_INCHES("A"),
+    EIGHT_INCHES("B"),
+    TWELVE_INCHES("C");
 
-    private static final Map<String, SandwichSize> BY_SIZE = new HashMap<>();
+    private static final Map<String, SandwichSize> BY_CHOICE = new HashMap<>();
 
     //Pairing sandwichSize CONSTANTS with their given key values ()
     static {
         for (SandwichSize s : values()) {
-            BY_SIZE.put(s.size, s);
+            BY_CHOICE.put(s.choice, s);
         }
     }
 
-    private final String size;
+    private final String choice;
 
-    SandwichSize(String value) {
-        this.size = value;
+    SandwichSize(String userChoice) {
+        this.choice = userChoice;
     }
 
     //To get the value associated with a specific sandwichSize CONSTANT
-    public String getSize() {
-        return size;
+    public String getChoice() {
+        return choice;
     }
 
     //To get the sandwichSize CONSTANT value that matches user's input using a HashMap
-    public static SandwichSize valueOfSize(String size) {
+    public static SandwichSize valueFromChoice(String value) {
         //Retrieving the mapped value associated with given key String size
-        return BY_SIZE.get(size);
+        return BY_CHOICE.get(value);
     }
 }

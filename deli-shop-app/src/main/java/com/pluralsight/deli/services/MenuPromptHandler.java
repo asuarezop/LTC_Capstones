@@ -71,10 +71,10 @@ public class MenuPromptHandler {
                 """;
 
    public static String sandwichPremiumCheeseToppings = """
-                A) American
-                B) Provolone
-                C) Cheddar
-                D) Swiss
+                G) American
+                H) Provolone
+                I) Cheddar
+                J) Swiss
                 """;
 
     public static String simpleResponse = """
