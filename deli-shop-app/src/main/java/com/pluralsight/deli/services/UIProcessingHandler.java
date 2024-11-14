@@ -24,18 +24,13 @@ public class UIProcessingHandler {
     public boolean exitApp;
 
     //Instance variable to hold a new order
-    private Order blankOrder;
-
-    private void init() {
-        this.blankOrder = new Order();
-    }
+    public Order blankOrder;
 
     //Default constructor
     public UIProcessingHandler() {}
 
     public void processNewOrderRequest() {
         do {
-            init();
             System.out.println(MenuPromptHandler.orderScreenMenuHeader);
             System.out.println(MenuPromptHandler.orderPrompt);
             userInput = inputSc.nextLine().trim();
@@ -110,6 +105,7 @@ public class UIProcessingHandler {
         DrinkType type = promptDrinkType();
         System.out.println(type);
         DrinkFlavor flavor = promptDrinkFlavor();
+        System.out.println(flavor);
 
         //Instantiating a new drink
         Drink customerDrink = new Drink(size, type, flavor);
@@ -230,20 +226,20 @@ public class UIProcessingHandler {
     private DrinkFlavor promptDrinkFlavor() {
         promptInstructions("What flavored drink would you like?:  ");
         System.out.println(MenuPromptHandler.drinkFlavorOptions);
-        return DrinkFlavor.valueOf(promptMenuSelection("Flavor: "));
+        return DrinkFlavor.valueFromChoice(promptMenuSelection("Flavor: "));
     }
 
     private ChipFlavor promptChipsFlavor() {
         promptInstructions("What chips would you like?:  ");
         System.out.println(MenuPromptHandler.chipsFlavorOptions);
-        return ChipFlavor.valueOf(promptMenuSelection("Flavor: "));
+        return ChipFlavor.valueFromChoice(promptMenuSelection("Flavor: "));
     }
 
     private void promptSauces() {
         do {
             promptInstructions("Any sauces you like to add alongside your order?:  ");
             System.out.println(MenuPromptHandler.sauceOptions);
-            SauceType sauce = SauceType.valueOf(promptMenuSelection("Sauce: "));
+            SauceType sauce = SauceType.valueFromChoice(promptMenuSelection("Sauce: "));
 
             blankOrder.addToOrder(sauce);
 
@@ -255,6 +251,7 @@ public class UIProcessingHandler {
     private void promptFinalizeOrder() {
         //Retrieving list of all order items
         List<OrderItem> items = retrieveAllOrderItems();
+        System.out.println(items);
 
         System.out.println(MenuPromptHandler.orderDetailsScreenHeader);
 

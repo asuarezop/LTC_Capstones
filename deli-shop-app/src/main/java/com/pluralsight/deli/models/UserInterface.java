@@ -11,6 +11,7 @@ public class UserInterface {
     //Initializing blankOrder with a new Order object instance
     private void init() {
         this.uiProcessor = new UIProcessingHandler();
+        this.uiProcessor.blankOrder = new Order();
         this.uiProcessor.inputSc = new Scanner(System.in);
         this.uiProcessor.exitApp = false;
     }
