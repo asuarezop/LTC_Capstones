@@ -67,6 +67,7 @@ public class UIProcessingHandler {
 
         //Prompting to get sandwich size and type of bread
         BreadType sandwichBread = promptBreadType();
+        System.out.println(sandwichBread);
         SandwichSize size = promptSandwichSize();
 
         //Instantiating a new sandwich
@@ -152,7 +153,7 @@ public class UIProcessingHandler {
     private BreadType promptBreadType() {
         promptInstructions("Enter type of bread:  ");
         System.out.println(MenuPromptHandler.breadTypeOptions);
-        return BreadType.valueOf(promptMenuSelection("Bread: "));
+        return BreadType.valueFromChoice(promptMenuSelection("Bread: "));
     }
 
     private SandwichSize promptSandwichSize() {
