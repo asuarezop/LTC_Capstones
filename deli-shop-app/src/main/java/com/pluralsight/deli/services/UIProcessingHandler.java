@@ -167,7 +167,7 @@ public class UIProcessingHandler {
             //Prompting user for regular sandwich toppings
             promptInstructions("Enter sandwich toppings:  ");
             System.out.println(MenuPromptHandler.sandwichRegularToppings);
-            RegularTopping sandwichVeggies = RegularTopping.valueOf(promptMenuSelection("Toppings: "));
+            RegularTopping sandwichVeggies = RegularTopping.valueFromChoice(promptMenuSelection("Toppings: "));
 
             regularToppings.add(sandwichVeggies);
 
@@ -186,10 +186,10 @@ public class UIProcessingHandler {
             promptInstructions("Enter any premium toppings to add onto sandwich:  ");
 
             System.out.println(MenuPromptHandler.sandwichPremiumMeatToppings);
-            PremiumTopping meats = PremiumTopping.valueOf(promptMenuSelection("Meat: "));
+            PremiumTopping meats = PremiumTopping.valueFromChoice(promptMenuSelection("Meat: "));
 
             System.out.println(MenuPromptHandler.sandwichPremiumCheeseToppings);
-            PremiumTopping cheeses = PremiumTopping.valueOf(promptMenuSelection("Cheese: "));
+            PremiumTopping cheeses = PremiumTopping.valueFromChoice(promptMenuSelection("Cheese: "));
 
             premiumToppings.add(meats);
             premiumToppings.add(cheeses);
@@ -269,6 +269,7 @@ public class UIProcessingHandler {
         if (confirmation) {
             //Prompting user for payment method
             PaymentOption payMethod = promptForPayment();
+            System.out.println(payMethod);
 
             //Getting change due for order payment
             double changeForOrder = promptChangeOwed(orderTotal, payMethod);
@@ -290,7 +291,7 @@ public class UIProcessingHandler {
         System.out.println(MenuPromptHandler.paymentScreenHeader);
         promptInstructions("How would you like to pay?:  ");
         System.out.println(MenuPromptHandler.paymentOptions);
-        return PaymentOption.valueOf(promptMenuSelection("Payment Method: "));
+        return PaymentOption.valueFromChoice(promptMenuSelection("Payment Method: "));
     }
 
     private double promptChangeOwed(double orderTotal, PaymentOption payMethod) {

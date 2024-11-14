@@ -2,21 +2,41 @@ package com.pluralsight.deli.enums;
 
 import com.pluralsight.deli.interfaces.Topping;
 
-public enum RegularTopping implements Topping {
-    LETTUCE ("Veggies"),
-    PEPPERS ("Veggies"),
-    ONIONS ("Veggies"),
-    TOMATOES ("Veggies"),
-    JALAPENOS ("Veggies"),
-    CUCUMBERS ("Veggies"),
-    PICKLES ("Veggies"),
-    GUACAMOLE ("Veggies"),
-    MUSHROOMS ("Veggies");
+import java.util.HashMap;
+import java.util.Map;
 
+public enum RegularTopping implements Topping {
+    LETTUCE ("A","Veggies"),
+    PEPPERS ("B","Veggies"),
+    ONIONS ("C","Veggies"),
+    TOMATOES ("D","Veggies"),
+    JALAPENOS ("E","Veggies"),
+    CUCUMBERS ("F","Veggies"),
+    PICKLES ("G","Veggies"),
+    GUACAMOLE ("H","Veggies"),
+    MUSHROOMS ("I","Veggies");
+
+    private static final Map<String, RegularTopping> BY_CHOICE = new HashMap<>();
+
+    //Pairing regularTopping CONSTANTS with their given key values ()
+    static {
+        for (RegularTopping t : values()) {
+            BY_CHOICE.put(t.choice, t);
+        }
+    }
+
+    private final String choice;
     private final String toppingCategory;
 
-    RegularTopping(String category) {
+    RegularTopping(String userChoice, String category) {
+        this.choice = userChoice;
         this.toppingCategory = category;
+    }
+
+    //To get the regularTopping CONSTANT value that matches user's input using a HashMap
+    public static RegularTopping valueFromChoice(String value) {
+        //Retrieving the mapped value associated with given key String choice
+        return BY_CHOICE.get(value);
     }
 
     @Override
