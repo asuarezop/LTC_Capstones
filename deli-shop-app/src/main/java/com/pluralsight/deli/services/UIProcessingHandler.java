@@ -106,7 +106,9 @@ public class UIProcessingHandler {
 
         //Getting size, type, and flavor of drink from user
         DrinkSize size = promptDrinkSize();
+        System.out.println(size);
         DrinkType type = promptDrinkType();
+        System.out.println(type);
         DrinkFlavor flavor = promptDrinkFlavor();
 
         //Instantiating a new drink
@@ -216,13 +218,13 @@ public class UIProcessingHandler {
     private DrinkSize promptDrinkSize() {
         promptInstructions("What size drink would you like?:  ");
         System.out.println(MenuPromptHandler.drinkSizeOptions);
-        return DrinkSize.valueOf(promptMenuSelection("Size: "));
+        return DrinkSize.valueFromChoice(promptMenuSelection("Size: "));
     }
 
     private DrinkType promptDrinkType() {
         promptInstructions("What type of drink would you like?:  ");
         System.out.println(MenuPromptHandler.drinkTypeOptions);
-        return DrinkType.valueOf(promptMenuSelection("Type: "));
+        return DrinkType.valueFromChoice(promptMenuSelection("Type: "));
     }
 
     private DrinkFlavor promptDrinkFlavor() {
