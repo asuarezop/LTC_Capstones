@@ -1,4 +1,4 @@
-package com.pluralsight.deli.models;
+package com.pluralsight.deli.interfaces;
 
 public interface Topping extends Priceable {
     String getToppingType();

@@ -107,14 +107,14 @@ public class MenuPromptHandler {
             D) Dr Pepper
             E) Fruit Punch
             F) Berry
-            F) Root Beer
-            G) Lemonade
-            H) Lemon Water
-            I) Seltzer Water
-            J) Cucumber Water
-            K) Sweet Tea
-            L) Lemon Tea
-            M) Green Tea
+            G) Root Beer
+            H) Lemonade
+            I) Lemon Water
+            J) Seltzer Water
+            K) Cucumber Water
+            L) Sweet Tea
+            M) Lemon Tea
+            N) Green Tea
             """;
 
     public static String chipsScreenMenuHeader = """

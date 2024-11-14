@@ -1,6 +1,7 @@
 package com.pluralsight.deli.models;
 
-import com.pluralsight.deli.options.PaymentOption;
+import com.pluralsight.deli.enums.PaymentOption;
+import com.pluralsight.deli.interfaces.OrderItem;
 import com.pluralsight.deli.services.DateTimeHandler;
 import com.pluralsight.deli.services.FileHandler;
 

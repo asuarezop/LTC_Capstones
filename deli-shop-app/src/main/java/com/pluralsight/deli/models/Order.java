@@ -1,5 +1,7 @@
 package com.pluralsight.deli.models;
 
+import com.pluralsight.deli.interfaces.OrderItem;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;

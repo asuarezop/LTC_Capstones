@@ -1,6 +1,6 @@
-package com.pluralsight.deli.options;
+package com.pluralsight.deli.enums;
 
-import com.pluralsight.deli.models.Topping;
+import com.pluralsight.deli.interfaces.Topping;
 
 public enum RegularTopping implements Topping {
     LETTUCE ("Veggies"),

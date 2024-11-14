@@ -1,4 +1,4 @@
-package com.pluralsight.deli.options;
+package com.pluralsight.deli.enums;
 
 import java.util.HashMap;
 import java.util.Map;

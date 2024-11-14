@@ -1,4 +1,4 @@
-package com.pluralsight.deli.options;
+package com.pluralsight.deli.enums;
 
 public enum DrinkType {
     WATER,

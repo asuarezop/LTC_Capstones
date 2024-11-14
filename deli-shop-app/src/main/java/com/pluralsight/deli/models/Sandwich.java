@@ -1,7 +1,9 @@
 package com.pluralsight.deli.models;
 
-import com.pluralsight.deli.options.BreadType;
-import com.pluralsight.deli.options.SandwichSize;
+import com.pluralsight.deli.enums.BreadType;
+import com.pluralsight.deli.enums.SandwichSize;
+import com.pluralsight.deli.interfaces.OrderItem;
+import com.pluralsight.deli.interfaces.Topping;
 
 import java.util.ArrayList;
 import java.util.List;

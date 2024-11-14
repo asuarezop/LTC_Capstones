@@ -1,8 +1,9 @@
 package com.pluralsight.deli.models;
 
-import com.pluralsight.deli.options.DrinkFlavor;
-import com.pluralsight.deli.options.DrinkSize;
-import com.pluralsight.deli.options.DrinkType;
+import com.pluralsight.deli.enums.DrinkFlavor;
+import com.pluralsight.deli.enums.DrinkSize;
+import com.pluralsight.deli.enums.DrinkType;
+import com.pluralsight.deli.interfaces.OrderItem;
 
 public class Drink implements OrderItem {
     private DrinkSize size;

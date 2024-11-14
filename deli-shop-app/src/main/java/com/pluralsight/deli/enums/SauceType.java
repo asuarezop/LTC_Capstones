@@ -1,6 +1,6 @@
-package com.pluralsight.deli.options;
+package com.pluralsight.deli.enums;
 
-import com.pluralsight.deli.models.OrderItem;
+import com.pluralsight.deli.interfaces.OrderItem;
 
 public enum SauceType implements OrderItem {
     MAYO,

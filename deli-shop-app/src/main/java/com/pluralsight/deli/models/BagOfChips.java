@@ -1,6 +1,7 @@
 package com.pluralsight.deli.models;
 
-import com.pluralsight.deli.options.ChipFlavor;
+import com.pluralsight.deli.enums.ChipFlavor;
+import com.pluralsight.deli.interfaces.OrderItem;
 
 public class BagOfChips implements OrderItem {
     private ChipFlavor flavor;
