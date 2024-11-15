@@ -31,7 +31,7 @@ public class MenuPromptHandler {
 
     public static String signatureSandwichScreenMenuHeader = """
                 =================================
-                |        SIGNATURE SANDWICH     |
+                |       SIGNATURE SANDWICH      |
                 =================================
                 """;
 

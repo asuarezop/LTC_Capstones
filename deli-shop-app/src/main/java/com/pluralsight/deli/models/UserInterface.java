@@ -2,6 +2,7 @@ package com.pluralsight.deli.models;
 
 import com.pluralsight.deli.services.UIProcessingHandler;
 import com.pluralsight.deli.services.MenuPromptHandler;
+import helpers.ColorCodes;
 
 import java.util.Scanner;
 
@@ -19,7 +20,7 @@ public class UserInterface {
     public void showHomeScreen() {
         do {
             init();
-            System.out.println(MenuPromptHandler.homeScreenMenuHeader);
+            System.out.println(ColorCodes.LIGHT_BLUE + MenuPromptHandler.homeScreenMenuHeader + ColorCodes.RESET);
             System.out.println(MenuPromptHandler.homePrompt);
             uiProcessor.userInput = uiProcessor.inputSc.nextLine().trim().toUpperCase();
 

@@ -18,15 +18,16 @@ public class UIProcessingHandler {
     public Scanner inputSc;
 
     public boolean exitApp;
-    
+
     public Order blankOrder;
 
     //Default constructor
-    public UIProcessingHandler() {}
+    public UIProcessingHandler() {
+    }
 
     public void processNewOrderRequest() {
         do {
-            System.out.println(MenuPromptHandler.orderScreenMenuHeader);
+            System.out.println(ColorCodes.CYAN + MenuPromptHandler.orderScreenMenuHeader + ColorCodes.RESET);
             System.out.println(MenuPromptHandler.orderPrompt);
             userInput = inputSc.nextLine().trim();
 
@@ -54,7 +55,7 @@ public class UIProcessingHandler {
 
     public void processAddSandwichRequest() {
         //Prompt user if they'd like to order from signature sandwiches or create their own sandwich
-        System.out.println(MenuPromptHandler.signatureSandwichScreenMenuHeader);
+        System.out.println(ColorCodes.ORANGE + MenuPromptHandler.signatureSandwichScreenMenuHeader + ColorCodes.RESET);
 
         promptInstructions("Would you like to order from our signature sandwiches?:  ");
         userChoice = promptUser(MenuPromptHandler.simpleResponse);
@@ -62,15 +63,15 @@ public class UIProcessingHandler {
         if (userChoice.equals("1")) {
             promptCustomSandwich();
         } else {
-            System.out.println(MenuPromptHandler.sandwichScreenMenuHeader);
+            System.out.println(ColorCodes.ORANGE + MenuPromptHandler.sandwichScreenMenuHeader + ColorCodes.RESET);
 
             //Prompting to get sandwich size and type of bread
             BreadType sandwichBread = promptBreadType();
-            System.out.println(sandwichBread);
+            System.out.println(ColorCodes.WHITE + sandwichBread + ColorCodes.RESET);
             SandwichSize size = promptSandwichSize();
-            System.out.println(size);
+            System.out.println(ColorCodes.WHITE + size + ColorCodes.RESET);
             SauceType spread = promptSandwichSpread();
-            System.out.println(spread);
+            System.out.println(ColorCodes.WHITE + spread + ColorCodes.RESET);
 
             //Instantiating a new sandwich
             Sandwich customerSandwich = new Sandwich(size, sandwichBread, spread);
@@ -82,14 +83,14 @@ public class UIProcessingHandler {
 
                 //Viewing regular toppings on sandwich
                 List<Topping> addedToppings = customerSandwich.getToppings();
-                System.out.println(addedToppings);
+                System.out.println(ColorCodes.WHITE + addedToppings + ColorCodes.RESET);
 
                 //Prompt to add premium toppings to sandwich
                 promptAddPremToppings(customerSandwich);
 
                 //Viewing premium toppings on sandwich
                 List<Topping> appliedPremToppings = customerSandwich.getToppings();
-                System.out.println(appliedPremToppings);
+                System.out.println(ColorCodes.WHITE + appliedPremToppings + ColorCodes.RESET);
 
                 //Setting sandwich to toasted based on user choice
                 boolean sandwichToasted = promptToasted();
@@ -105,7 +106,7 @@ public class UIProcessingHandler {
     }
 
     public void processAddDrinkRequest() {
-        System.out.println(MenuPromptHandler.drinkScreenMenuHeader);
+        System.out.println(ColorCodes.YELLOW + MenuPromptHandler.drinkScreenMenuHeader + ColorCodes.RESET);
 
         //Getting size, type, and flavor of drink from user
         DrinkSize size = promptDrinkSize();
@@ -119,11 +120,11 @@ public class UIProcessingHandler {
         blankOrder.addToOrder(customerDrink);
 
         //Viewing customer's drink
-        System.out.println(customerDrink);
+        System.out.println(ColorCodes.WHITE + customerDrink + ColorCodes.RESET);
     }
 
     public void processAddChipsRequest() {
-        System.out.println(MenuPromptHandler.chipsScreenMenuHeader);
+        System.out.println(ColorCodes.PURPLE + MenuPromptHandler.chipsScreenMenuHeader + ColorCodes.RESET);
 
         //Getting flavor of chips from user
         ChipFlavor flavor = promptChipsFlavor();
@@ -135,11 +136,11 @@ public class UIProcessingHandler {
         blankOrder.addToOrder(chips);
 
         //Viewing customer's chips
-        System.out.println(chips);
+        System.out.println(ColorCodes.WHITE + chips + ColorCodes.RESET);
     }
 
     public void processCheckoutRequest() {
-        System.out.println(MenuPromptHandler.checkoutScreenMenuHeader);
+        System.out.println(ColorCodes.LIGHT_BLUE + MenuPromptHandler.checkoutScreenMenuHeader + ColorCodes.RESET);
 
         //Prompting user to add any additional sauces to their order
         promptSauces();
@@ -287,9 +288,8 @@ public class UIProcessingHandler {
 
     private void promptFinalizeOrder() {
         List<OrderItem> items = retrieveAllOrderItems();
-        System.out.println(items);
 
-        System.out.println(MenuPromptHandler.orderDetailsScreenHeader);
+        System.out.println(ColorCodes.CYAN + MenuPromptHandler.orderDetailsScreenHeader + ColorCodes.RESET);
 
         //Printing all order items by category
         printIndividualOrderItems(items);
@@ -297,7 +297,7 @@ public class UIProcessingHandler {
         //Calculating total price of every item on order and printing it out
         double orderTotal = blankOrder.getTotalCost(items);
         String printedTotal = String.format("Order total: $%.2f", orderTotal);
-        System.out.println(printedTotal);
+        System.out.println(ColorCodes.CYAN + printedTotal + ColorCodes.RESET);
 
         //Confirm with user if order is correct
         boolean confirmation = promptOrderConfirmation();
@@ -312,9 +312,12 @@ public class UIProcessingHandler {
 
             //Save order details
             POSManager.saveOrder(blankOrder, orderTotal, payMethod, changeForOrder);
+
+            //Confirmation message
+            System.out.println(ColorCodes.SUCCESS + ColorCodes.ITALIC + "Order was successfully printed!" + ColorCodes.RESET);
         } else {
             //Prompt for user if order details was incorrect
-            System.out.println(MenuPromptHandler.cancelScreenHeader);
+            System.out.println(ColorCodes.RED + MenuPromptHandler.cancelScreenHeader + ColorCodes.RESET);
             promptInstructions("Would you like to redo the order?:  ");
             userChoice = promptUser(MenuPromptHandler.simpleResponse);
 
@@ -324,7 +327,7 @@ public class UIProcessingHandler {
     }
 
     private PaymentOption promptForPayment() {
-        System.out.println(MenuPromptHandler.paymentScreenHeader);
+        System.out.println(ColorCodes.WHITE + MenuPromptHandler.paymentScreenHeader + ColorCodes.RESET);
         promptInstructions("How would you like to pay?:  ");
         System.out.println(MenuPromptHandler.paymentOptions);
         return PaymentOption.valueFromChoice(promptMenuSelection("Payment Method: "));
@@ -351,7 +354,7 @@ public class UIProcessingHandler {
     }
 
     private boolean promptOrderConfirmation() {
-        System.out.println(MenuPromptHandler.orderConfirmationScreenHeader);
+        System.out.println(ColorCodes.GREEN + MenuPromptHandler.orderConfirmationScreenHeader + ColorCodes.RESET);
         promptInstructions("Please confirm order details is correct:  ");
         userChoice = promptUser(MenuPromptHandler.simpleResponse);
 
@@ -362,7 +365,7 @@ public class UIProcessingHandler {
     private void printIndividualOrderItems(List<OrderItem> items) {
         //Filtering for order items by category and printing them out
         List<OrderItem> sandwichesOnOrder = items.stream().filter(orderItem -> orderItem instanceof Sandwich).toList();
-        System.out.println(sandwichesOnOrder);
+        System.out.println(ColorCodes.WHITE + sandwichesOnOrder);
 
         List<OrderItem> drinksOnOrder = items.stream().filter(orderItem -> orderItem instanceof Drink).toList();
         System.out.println(drinksOnOrder);
@@ -371,7 +374,7 @@ public class UIProcessingHandler {
         System.out.println(chipsOnOrder);
 
         List<OrderItem> saucesOnOrder = items.stream().filter(orderItem -> orderItem instanceof SauceType).toList();
-        System.out.println("Extra sauces: " + saucesOnOrder);
+        System.out.println("Extra sauces: " + saucesOnOrder + ColorCodes.RESET);
     }
 
     private List<OrderItem> retrieveAllOrderItems() {

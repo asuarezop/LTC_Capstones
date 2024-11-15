@@ -1,0 +1,400 @@
+@startuml
+interface com.pluralsight.deli.interfaces.Priceable {
+~ double getPrice()
+}
+
+enum com.pluralsight.deli.enums.SandwichType {
++  BLT
++  PHILLY_CHEESE_STEAK
++  ITALIAN
++  MEATBALL
++  ULTIMATE
++  ALL_AMERICAN
+- {static} Map<String,SandwichType> BY_CHOICE
+- String choice
+- SandwichSize size
+- BreadType bread
+- SauceType sauce
+- boolean isToasted
+- List<Topping> toppings
++ SandwichSize getSize()
++ BreadType getBread()
++ SauceType getSauce()
++ boolean isToasted()
++ List<Topping> getToppings()
++ {static} SandwichType valueFromChoice(String)
+}
+
+
+interface com.pluralsight.deli.interfaces.Topping {
+~ String getToppingType()
+~ String getToppingCategory()
+}
+
+enum com.pluralsight.deli.enums.RegularTopping {
++  LETTUCE
++  PEPPERS
++  ONIONS
++  TOMATOES
++  JALAPENOS
++  CUCUMBERS
++  PICKLES
++  GUACAMOLE
++  MUSHROOMS
++  OLIVES
+- {static} Map<String,RegularTopping> BY_CHOICE
+- String choice
+- String toppingCategory
++ {static} RegularTopping valueFromChoice(String)
++ double getPrice()
++ String getToppingType()
++ String getToppingCategory()
+}
+
+
+class com.pluralsight.deli.services.FileHandler {
++ {static} BufferedWriter getBufferedWriter(String)
++ {static} BufferedReader openFileReader(String)
+}
+
+class com.pluralsight.deli.services.UIProcessingHandler {
++ String userInput
++ String userChoice
++ Scanner inputSc
++ boolean exitApp
++ Order blankOrder
++ void processNewOrderRequest()
++ void processAddSandwichRequest()
++ void processAddDrinkRequest()
++ void processAddChipsRequest()
++ void processCheckoutRequest()
++ void processCancelOrderRequest()
+- void promptCustomSandwich()
+- BreadType promptBreadType()
+- SandwichSize promptSandwichSize()
+- SauceType promptSandwichSpread()
+- void promptAddToppings(Sandwich)
+- void promptAddPremToppings(Sandwich)
+- boolean promptToasted()
+- DrinkSize promptDrinkSize()
+- DrinkType promptDrinkType()
+- DrinkFlavor promptDrinkFlavor()
+- ChipFlavor promptChipsFlavor()
+- void promptSauces()
+- void promptFinalizeOrder()
+- PaymentOption promptForPayment()
+- double promptChangeOwed(double,PaymentOption)
+- double calculateChangeDue(double,double)
+- boolean promptOrderConfirmation()
+- void printIndividualOrderItems(List<OrderItem>)
+- List<OrderItem> retrieveAllOrderItems()
+- String promptUser(String)
+- String promptMenuSelection(String)
+- void promptInstructions(String)
+}
+
+
+class com.pluralsight.deli.models.BagOfChips {
+- ChipFlavor flavor
++ double getPrice()
++ String printToReceipt()
++ String toString()
+}
+
+
+enum com.pluralsight.deli.enums.PaymentOption {
++  CASH
++  DEBIT
++  CREDIT
+- {static} Map<String,PaymentOption> BY_CHOICE
+- String selection
+- double dollars
++ double getDollars()
++ {static} PaymentOption valueFromChoice(String)
+}
+
+
+class com.pluralsight.deli.models.SignatureSandwich {
+- SandwichType type
+- List<Topping> toppings
++ SandwichType getType()
++ void setType(SandwichType)
++ SandwichSize getSize()
++ BreadType getBread()
++ SauceType getSpread()
++ boolean isToasted()
++ void setToasted(boolean)
++ boolean isExtraToppings()
++ void setExtraToppings(boolean)
++ List<Topping> getToppings()
++ void addToppings(List<Topping>)
++ double getPrice()
++ String toString()
++ String printToReceipt()
+}
+
+
+enum com.pluralsight.deli.enums.SauceType {
++  MAYO
++  MUSTARD
++  KETCHUP
++  RANCH
++  THOUSAND_ISLANDS
++  VINAIGRETTE
++  AU_JUS
++  ITALIAN_DRESSING
++  MARINA
++  HONEY_MUSTARD
+- {static} Map<String,SauceType> BY_CHOICE
+- String choice
+- String abbrev
++ {static} SauceType valueFromChoice(String)
++ String getAbbrev()
++ double getPrice()
++ String printToReceipt()
+}
+
+
+class com.pluralsight.deli.models.Sandwich {
+- SandwichSize size
+- BreadType bread
+- SauceType spread
+- boolean isToasted
+- boolean extraToppings
+- List<Topping> toppings
++ SandwichSize getSize()
++ BreadType getBread()
++ SauceType getSpread()
++ boolean isToasted()
++ void setToasted(boolean)
++ boolean isExtraToppings()
++ void setExtraToppings(boolean)
++ List<Topping> getToppings()
++ void addToppings(List<Topping>)
++ double getPrice()
++ String toString()
++ String printToReceipt()
+- double getBasePricing(SandwichSize)
+- double calculateToppingCharges(SandwichSize,Topping,boolean)
+}
+
+
+class com.pluralsight.deli.services.MenuPromptHandler {
++ {static} String homeScreenMenuHeader
++ {static} String homePrompt
++ {static} String orderScreenMenuHeader
++ {static} String orderPrompt
++ {static} String signatureSandwichScreenMenuHeader
++ {static} String signatureSandwichOptions
++ {static} String sandwichScreenMenuHeader
++ {static} String breadTypeOptions
++ {static} String sandwichSizeOptions
++ {static} String sandwichRegularToppings
++ {static} String sandwichPremiumMeatToppings
++ {static} String sandwichPremiumCheeseToppings
++ {static} String simpleResponse
++ {static} String drinkScreenMenuHeader
++ {static} String drinkSizeOptions
++ {static} String drinkTypeOptions
++ {static} String drinkFlavorOptions
++ {static} String chipsScreenMenuHeader
++ {static} String chipsFlavorOptions
++ {static} String checkoutScreenMenuHeader
++ {static} String sauceOptions
++ {static} String orderDetailsScreenHeader
++ {static} String orderConfirmationScreenHeader
++ {static} String cancelScreenHeader
++ {static} String paymentScreenHeader
++ {static} String paymentOptions
+}
+
+interface com.pluralsight.deli.interfaces.OrderItem {
+~ String printToReceipt()
+}
+
+enum com.pluralsight.deli.enums.BreadType {
++  WHITE
++  WHEAT
++  RYE
++  WRAP
++  CIABATTA
++  BAGUETTE
++  MULTIGRAIN
+- {static} Map<String,BreadType> BY_CHOICE
+- String choice
+- String abbrev
++ String getAbbrev()
++ {static} BreadType valueFromChoice(String)
+}
+
+
+enum com.pluralsight.deli.enums.SideOption {
++  OATMEAL_RAISIN_COOKIE
++  CHOCOLATE_CHIP_COOKIE
++  TOMATO_SOUP
++  MAC_AND_CHEESE
++  APPLE
++  BANANA
++  COLESLAW
+}
+
+enum com.pluralsight.deli.enums.DrinkType {
++  WATER
++  SOFT_DRINK
++  ICED_TEA
+- {static} Map<String,DrinkType> BY_CHOICE
+- String choice
++ {static} DrinkType valueFromChoice(String)
+}
+
+
+enum com.pluralsight.deli.enums.DrinkSize {
++  SMALL
++  MEDIUM
++  LARGE
+- {static} Map<String,DrinkSize> BY_CHOICE
+- String choice
+- String abbrev
++ String getAbbrev()
++ {static} DrinkSize valueFromChoice(String)
+}
+
+
+class com.pluralsight.deli.models.Drink {
+- DrinkSize size
+- DrinkType type
+- DrinkFlavor flavor
++ DrinkSize getSize()
++ DrinkType getType()
++ DrinkFlavor getFlavor()
++ double getPrice()
++ String printToReceipt()
++ String toString()
+}
+
+
+enum com.pluralsight.deli.enums.ChipFlavor {
++  POTATO
++  BBQ
++  OVEN_BAKED
++  SUN_DRIED_TOMATO
++  SALT_N_PEPPER
++  MULTIGRAIN
++  CHEDDAR
++  JALAPENO
+- {static} Map<String,ChipFlavor> BY_CHOICE
+- String choice
++ {static} ChipFlavor valueFromChoice(String)
+}
+
+
+class com.pluralsight.deli.app.DeliShop {
++ {static} void main(String[])
+}
+
+enum com.pluralsight.deli.enums.PremiumTopping {
++  STEAK
++  HAM
++  SALAMI
++  PEPPERONI
++  TURKEY
++  MEATBALL
++  ROAST_BEEF
++  CHICKEN
++  BACON
++  AMERICAN
++  PROVOLONE
++  CHEDDAR
++  SWISS
++  MOZZARELLA
++  PARMESAN
+- {static} Map<String,PremiumTopping> BY_CHOICE
+- String choice
+- String toppingCategory
++ {static} PremiumTopping valueFromChoice(String)
++ double getPrice()
++ String getToppingType()
++ String getToppingCategory()
+}
+
+
+class com.pluralsight.deli.models.POSManager {
+- {static} LocalDateTime orderDateTime
+- {static} String fileTimestamp
+- {static} String receiptsFilePath
++ {static} void saveOrder(Order,double,PaymentOption,double)
+}
+
+
+enum com.pluralsight.deli.enums.DrinkFlavor {
++  COLA
++  LEMON_LIME
++  ORANGE
++  DR_PEPPER
++  FRUIT_PUNCH
++  BERRY
++  ROOT_BEER
++  LEMONADE
++  LEMON_WATER
++  SELTZER_WATER
++  CUCUMBER_WATER
++  SWEET_TEA
++  LEMON_TEA
++  GREEN_TEA
+- {static} Map<String,DrinkFlavor> BY_CHOICE
+- String choice
+- String abbrev
++ String getAbbrev()
++ {static} DrinkFlavor valueFromChoice(String)
+}
+
+
+enum com.pluralsight.deli.enums.SandwichSize {
++  FOUR_INCHES
++  EIGHT_INCHES
++  TWELVE_INCHES
+- {static} Map<String,SandwichSize> BY_CHOICE
+- String choice
+- int size
++ String getChoice()
++ int getSize()
++ {static} SandwichSize valueFromChoice(String)
+}
+
+
+class com.pluralsight.deli.models.UserInterface {
+- UIProcessingHandler uiProcessor
+- void init()
++ void showHomeScreen()
+}
+
+
+class com.pluralsight.deli.models.Order {
+- int orderId
+- LocalDate orderDate
+- LocalTime orderTime
+- List<OrderItem> orderItems
++ int getOrderId()
++ LocalDate getOrderDate()
++ LocalTime getOrderTime()
++ List<OrderItem> getOrderItems()
++ void addToOrder(OrderItem)
++ void removeAllOrderItems(List<OrderItem>)
++ double getTotalCost(List<OrderItem>)
+}
+
+
+class com.pluralsight.deli.services.DateTimeHandler {
++ {static} String getFileTimeStamp(LocalDateTime)
++ {static} String getReceiptDateTime(LocalDateTime)
+}
+
+
+
+com.pluralsight.deli.interfaces.Priceable <|-- com.pluralsight.deli.interfaces.Topping
+com.pluralsight.deli.interfaces.OrderItem <|.. com.pluralsight.deli.models.BagOfChips
+com.pluralsight.deli.models.Sandwich <|-- com.pluralsight.deli.models.SignatureSandwich
+com.pluralsight.deli.interfaces.OrderItem <|.. com.pluralsight.deli.models.Sandwich
+com.pluralsight.deli.interfaces.Priceable <|-- com.pluralsight.deli.interfaces.OrderItem
+com.pluralsight.deli.interfaces.OrderItem <|.. com.pluralsight.deli.models.Drink
+@enduml
