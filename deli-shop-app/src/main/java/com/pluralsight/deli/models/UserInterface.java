@@ -221,6 +221,31 @@ public class UserInterface {
         return uiProcessor.userChoice.equals("1");
     }
 
+    public static void promptCustomSandwich() {
+        UserInterface.promptInstructions("Select from our signature sandwich menu:  ");
+        System.out.println(MenuPromptHandler.signatureSandwichOptions);
+        SandwichType customSandwich = SandwichType.valueFromChoice(UserInterface.promptMenuSelection("Sandwich: "));
+        SignatureSandwich menuSandwich = new SignatureSandwich(customSandwich.getSize(), customSandwich.getBread(), customSandwich.getSauce());
+        //Setting values of toppings, isToasted for signature sandwiches using SandwichType values
+        menuSandwich.addToppings(customSandwich.getToppings());
+        menuSandwich.setToasted(customSandwich.isToasted());
+
+        UserInterface.promptInstructions("Are there any topping modifications you'd like to make to this sandwich?:  ");
+        uiProcessor.userChoice = UserInterface.promptUser(MenuPromptHandler.simpleResponse);
+
+        if (uiProcessor.userChoice.equals("1")) {
+            //Add in any new toppings
+            UserInterface.promptAddToppings(menuSandwich);
+            UserInterface.promptAddPremToppings(menuSandwich);
+        } else if (uiProcessor.userChoice.equals("2")) {
+            //Keep toppings the same
+            menuSandwich.setExtraToppings(false);
+        }
+
+        //Add signature sandwich to order
+        uiProcessor.blankOrder.addToOrder(menuSandwich);
+    }
+
     //Methods to retrieve user input and display prompts to user
     public static String promptUser(String prompt) {
         System.out.print(ColorCodes.WHITE + prompt + ColorCodes.RESET);

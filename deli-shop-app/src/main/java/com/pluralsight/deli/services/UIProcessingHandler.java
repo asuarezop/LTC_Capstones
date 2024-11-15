@@ -60,7 +60,7 @@ public class UIProcessingHandler {
         userChoice = UserInterface.promptUser(MenuPromptHandler.simpleResponse);
 
         if (userChoice.equals("1")) {
-            promptCustomSandwich();
+            UserInterface.promptCustomSandwich();
         } else {
             System.out.println(ColorCodes.ORANGE + MenuPromptHandler.sandwichScreenMenuHeader + ColorCodes.RESET);
 
@@ -151,31 +151,6 @@ public class UIProcessingHandler {
     public void processCancelOrderRequest() {
         List<OrderItem> items = retrieveAllOrderItems();
         blankOrder.removeAllOrderItems(items);
-    }
-
-    private void promptCustomSandwich() {
-        UserInterface.promptInstructions("Select from our signature sandwich menu:  ");
-        System.out.println(MenuPromptHandler.signatureSandwichOptions);
-        SandwichType customSandwich = SandwichType.valueFromChoice(UserInterface.promptMenuSelection("Sandwich: "));
-        SignatureSandwich menuSandwich = new SignatureSandwich(customSandwich.getSize(), customSandwich.getBread(), customSandwich.getSauce());
-        //Setting values of toppings, isToasted for signature sandwiches using SandwichType values
-        menuSandwich.addToppings(customSandwich.getToppings());
-        menuSandwich.setToasted(customSandwich.isToasted());
-
-        UserInterface.promptInstructions("Are there any topping modifications you'd like to make to this sandwich?:  ");
-        userChoice = UserInterface.promptUser(MenuPromptHandler.simpleResponse);
-
-        if (userChoice.equals("1")) {
-            //Add in any new toppings
-           UserInterface.promptAddToppings(menuSandwich);
-           UserInterface.promptAddPremToppings(menuSandwich);
-        } else if (userChoice.equals("2")) {
-            //Keep toppings the same
-            menuSandwich.setExtraToppings(false);
-        }
-
-        //Add signature sandwich to order
-        blankOrder.addToOrder(menuSandwich);
     }
 
     public double calculateChangeDue(double money, double orderTotal) {

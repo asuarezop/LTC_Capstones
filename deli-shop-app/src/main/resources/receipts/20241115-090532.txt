@@ -1,0 +1,13 @@
+***************** DELI-SHOP *****************
+Date: 11/15/2024               Time: 09:05 AM
+---------------------------------------------
+Sandwich: 8 in. CIB ITD CLC            $12.50
+Drink: MED, SOFT_DRINK, LEM             $2.50
+Chips: OVEN_BAKED                       $1.50
+---------------------------------------------
+Sales Total: $16.50
+Pay method: DEBIT               Paid: $100.00
+Change Due: $83.50
+---------------------------------------------
+Thank you for choosing the DELI-SHOP! 
+Have a nice day :)
