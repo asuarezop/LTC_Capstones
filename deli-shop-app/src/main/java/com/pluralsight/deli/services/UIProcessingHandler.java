@@ -18,7 +18,7 @@ public class UIProcessingHandler {
     public Scanner inputSc;
 
     public boolean exitApp;
-
+    
     public Order blankOrder;
 
     //Default constructor
@@ -158,20 +158,24 @@ public class UIProcessingHandler {
         System.out.println(MenuPromptHandler.signatureSandwichOptions);
         SandwichType customSandwich = SandwichType.valueFromChoice(promptMenuSelection("Sandwich: "));
         SignatureSandwich menuSandwich = new SignatureSandwich(customSandwich.getSize(), customSandwich.getBread(), customSandwich.getSauce());
+        //Setting values of toppings, isToasted for signature sandwiches using SandwichType values
+        menuSandwich.addToppings(customSandwich.getToppings());
         menuSandwich.setToasted(customSandwich.isToasted());
 
         promptInstructions("Are there any topping modifications you'd like to make to this sandwich?:  ");
         userChoice = promptUser(MenuPromptHandler.simpleResponse);
 
         if (userChoice.equals("1")) {
+            //Add in any new toppings
             promptAddToppings(menuSandwich);
             promptAddPremToppings(menuSandwich);
         } else if (userChoice.equals("2")) {
-            menuSandwich.addToppings(customSandwich.getToppings());
+            //Keep toppings the same
             menuSandwich.setExtraToppings(false);
-
-            blankOrder.addToOrder(menuSandwich);
         }
+
+        //Add signature sandwich to order
+        blankOrder.addToOrder(menuSandwich);
     }
 
     private BreadType promptBreadType() {

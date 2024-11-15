@@ -1,0 +1,13 @@
+***************** DELI-SHOP *****************
+Date: 11/15/2024               Time: 01:50 AM
+---------------------------------------------
+Sandwich: 8 in. WHI RNC GRL            $14.00
+Drink: MED, SOFT_DRINK, LL              $2.50
+Chips: MULTIGRAIN                       $1.50
+---------------------------------------------
+Sales Total: $18.00
+Pay method: CREDIT              Paid: $100.00
+Change Due: $82.00
+---------------------------------------------
+Thank you for choosing the DELI-SHOP! 
+Have a nice day :)

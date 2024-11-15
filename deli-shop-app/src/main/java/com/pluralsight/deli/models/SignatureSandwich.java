@@ -6,10 +6,12 @@ import com.pluralsight.deli.enums.SandwichType;
 import com.pluralsight.deli.enums.SauceType;
 import com.pluralsight.deli.interfaces.Topping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SignatureSandwich extends Sandwich {
     private SandwichType type;
+    private List<Topping> toppings = new ArrayList<>();
 
     public SignatureSandwich(SandwichSize size, BreadType bread, SauceType spread) {
         super(size, bread, spread);

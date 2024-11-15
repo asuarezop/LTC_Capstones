@@ -1,0 +1,13 @@
+***************** DELI-SHOP *****************
+Date: 11/15/2024               Time: 01:27 AM
+---------------------------------------------
+Sandwich: 8 in. BG MARINA GR             $15.50
+Drink: MED, SOFT_DRINK, CL              $2.50
+Chips: SUN_DRIED_TOMATO                 $1.50
+---------------------------------------------
+Sales Total: $19.50
+Pay method: CREDIT              Paid: $100.00
+Change Due: $80.50
+---------------------------------------------
+Thank you for choosing the DELI-SHOP! 
+Have a nice day :)

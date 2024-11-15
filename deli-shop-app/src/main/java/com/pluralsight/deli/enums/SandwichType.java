@@ -2,7 +2,6 @@ package com.pluralsight.deli.enums;
 
 import com.pluralsight.deli.interfaces.Topping;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

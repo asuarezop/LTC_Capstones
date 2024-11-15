@@ -1,0 +1,13 @@
+***************** DELI-SHOP *****************
+Date: 11/15/2024               Time: 01:36 AM
+---------------------------------------------
+Sandwich: 8 in. CI MYO GR             $18.00
+Drink: MED, SOFT_DRINK, LEM             $2.50
+Chips: JALAPENO                         $1.50
+---------------------------------------------
+Sales Total: $22.00
+Pay method: CREDIT              Paid: $100.00
+Change Due: $78.00
+---------------------------------------------
+Thank you for choosing the DELI-SHOP! 
+Have a nice day :)

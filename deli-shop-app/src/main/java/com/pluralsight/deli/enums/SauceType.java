@@ -6,16 +6,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum SauceType implements OrderItem {
-    MAYO("A"),
-    MUSTARD ("B"),
-    KETCHUP ("C"),
-    RANCH ("D"),
-    THOUSAND_ISLANDS ("E"),
-    VINAIGRETTE ("F"),
-    AU_JUS ("G"),
-    ITALIAN_DRESSING("H"),
-    MARINA("I"),
-    HONEY_MUSTARD("J");
+    MAYO("A", "MYO"),
+    MUSTARD ("B", "MUS"),
+    KETCHUP ("C", "KTP"),
+    RANCH ("D", "RNC"),
+    THOUSAND_ISLANDS ("E", "THI"),
+    VINAIGRETTE ("F", "VGT"),
+    AU_JUS ("G", "AJS"),
+    ITALIAN_DRESSING("H", "ITD"),
+    MARINA("I", "MRN"),
+    HONEY_MUSTARD("J", "HMD");
 
     private static final Map<String, SauceType> BY_CHOICE = new HashMap<>();
 
@@ -26,13 +26,19 @@ public enum SauceType implements OrderItem {
     }
 
     private final String choice;
+    private final String abbrev;
 
-    SauceType(String userChoice) {
+    SauceType(String userChoice, String abbrev) {
         this.choice = userChoice;
+        this.abbrev = abbrev;
     }
 
     public static SauceType valueFromChoice(String value) {
         return BY_CHOICE.get(value);
+    }
+
+    public String getAbbrev() {
+        return abbrev;
     }
 
     @Override

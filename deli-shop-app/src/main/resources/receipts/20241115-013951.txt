@@ -1,0 +1,13 @@
+***************** DELI-SHOP *****************
+Date: 11/15/2024               Time: 01:39 AM
+---------------------------------------------
+Sandwich: 8 in. BG MR GR              $12.00
+Drink: MED, SOFT_DRINK, CL              $2.50
+Chips: POTATO                           $1.50
+---------------------------------------------
+Sales Total: $16.00
+Pay method: DEBIT               Paid: $100.00
+Change Due: $84.00
+---------------------------------------------
+Thank you for choosing the DELI-SHOP! 
+Have a nice day :)

@@ -4,13 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum BreadType {
-    WHITE ("A", "WH"),
-    WHEAT ("B", "WT"),
-    RYE ("C", "RY"),
-    WRAP ("D", "WR"),
-    CIABATTA("E", "CI"),
-    BAGUETTE("F", "BG"),
-    MULTIGRAIN("G", "MG");
+    WHITE ("A", "WHI"),
+    WHEAT ("B", "WHT"),
+    RYE ("C", "RYE"),
+    WRAP ("D", "WRP"),
+    CIABATTA("E", "CIB"),
+    BAGUETTE("F", "BGT"),
+    MULTIGRAIN("G", "MGN");
 
     private static final Map<String, BreadType> BY_CHOICE = new HashMap<>();
 

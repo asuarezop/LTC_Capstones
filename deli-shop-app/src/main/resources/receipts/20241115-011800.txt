@@ -1,0 +1,13 @@
+***************** DELI-SHOP *****************
+Date: 11/15/2024               Time: 01:18 AM
+---------------------------------------------
+Sandwich: 8 in. CI ITALIAN_DRESSING CL             $16.00
+Drink: MED, SOFT_DRINK, LEM             $2.50
+Chips: CHEDDAR                          $1.50
+---------------------------------------------
+Sales Total: $20.00
+Pay method: CREDIT              Paid: $100.00
+Change Due: $80.00
+---------------------------------------------
+Thank you for choosing the DELI-SHOP! 
+Have a nice day :)

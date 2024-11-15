@@ -86,7 +86,7 @@ public class Sandwich implements OrderItem {
 
     @Override
     public String printToReceipt() {
-        return String.format("Sandwich: %s %s %s %-14s $%.2f\n", size.getSize() + " in.", bread.getAbbrev(), spread, (isToasted) ? "GR" : "CL", getPrice());
+        return String.format("Sandwich: %s %s %s %-14s $%.2f\n", size.getSize() + " in.", bread.getAbbrev(), spread.getAbbrev(), (isToasted) ? "GRL" : "CLC", getPrice());
     }
 
     //Methods for calculating price of a sandwich
