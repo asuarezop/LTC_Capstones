@@ -37,7 +37,4 @@ public enum SandwichSize {
         //Retrieving the mapped value associated with given key String size
         return BY_CHOICE.get(value);
     }
-
-    //What do I want to do with the size?
-    // For printing to receipt, I want the size from Sandwich be converted into its shorthand integer value form
 }

@@ -18,11 +18,9 @@ public class DateTimeHandler {
 
     //To retrieve current date and time for order receipt in a readable format
     public static String getReceiptDateTime(LocalDateTime orderDateTime) {
-        //Receipt date in a readable format
         DateTimeFormatter formattedDate = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         String receiptDate = orderDateTime.format(formattedDate);
 
-        //Receipt time in a readable format
         DateTimeFormatter formattedTime = DateTimeFormatter.ofPattern("HH:mm a");
         String receiptTime = orderDateTime.format(formattedTime);
 

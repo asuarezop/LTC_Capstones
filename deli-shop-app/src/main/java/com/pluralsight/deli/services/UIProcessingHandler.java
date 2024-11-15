@@ -11,19 +11,14 @@ import java.util.List;
 import java.util.Scanner;
 
 public class UIProcessingHandler {
-    //Related to input from user
     public String userInput;
 
-    //To hold user choice selections for order prompts
     public String userChoice;
 
-    //Initializing scanner to read from terminal input
     public Scanner inputSc;
 
-    //Boolean condition to exit application screens
     public boolean exitApp;
 
-    //Instance variable to hold a new order
     public Order blankOrder;
 
     //Default constructor
@@ -101,11 +96,8 @@ public class UIProcessingHandler {
 
         //Getting size, type, and flavor of drink from user
         DrinkSize size = promptDrinkSize();
-        System.out.println(size);
         DrinkType type = promptDrinkType();
-        System.out.println(type);
         DrinkFlavor flavor = promptDrinkFlavor();
-        System.out.println(flavor);
 
         //Instantiating a new drink
         Drink customerDrink = new Drink(size, type, flavor);
@@ -249,13 +241,12 @@ public class UIProcessingHandler {
     }
 
     private void promptFinalizeOrder() {
-        //Retrieving list of all order items
         List<OrderItem> items = retrieveAllOrderItems();
         System.out.println(items);
 
         System.out.println(MenuPromptHandler.orderDetailsScreenHeader);
 
-        //Checking all order items by category
+        //Printing all order items by category
         printIndividualOrderItems(items);
 
         //Calculating total price of every item on order and printing it out

@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class UserInterface {
     private UIProcessingHandler uiProcessor;
 
-    //Initializing blankOrder with a new Order object instance
+    //Initializing UIProcessor variables
     private void init() {
         this.uiProcessor = new UIProcessingHandler();
         this.uiProcessor.blankOrder = new Order();
