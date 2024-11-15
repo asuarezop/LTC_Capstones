@@ -9,27 +9,32 @@ public enum PremiumTopping implements Topping {
     STEAK ("A","Meat"),
     HAM ("B","Meat"),
     SALAMI ("C","Meat"),
-    ROAST_BEEF ("D","Meat"),
-    CHICKEN ("E","Meat"),
-    BACON ("F","Meat"),
-    AMERICAN ("G","Cheese"),
-    PROVOLONE ("H","Cheese"),
-    CHEDDAR ("I","Cheese"),
-    SWISS ("J","Cheese");
+    PEPPERONI("D", "Meat"),
+    TURKEY("E", "Meat"),
+    MEATBALL("F", "Meat"),
+    ROAST_BEEF ("G","Meat"),
+    CHICKEN ("H","Meat"),
+    BACON ("I","Meat"),
+    AMERICAN ("J","Cheese"),
+    PROVOLONE ("K","Cheese"),
+    CHEDDAR ("L","Cheese"),
+    SWISS ("M","Cheese"),
+    MOZZARELLA("N", "Cheese"),
+    PARMESAN("O", "Cheese");
 
-    private static final Map<String, PremiumTopping> BY_SELECTION = new HashMap<>();
+    private static final Map<String, PremiumTopping> BY_CHOICE = new HashMap<>();
 
     //Mapping premiumTopping CONSTANTS to userChoice key values ()
     static {
         for (PremiumTopping pt : values()) {
-            BY_SELECTION.put(pt.choice, pt);
+            BY_CHOICE.put(pt.choice, pt);
         }
     }
 
     //To get the premiumTopping CONSTANT value that matches user's input using a HashMap
     public static PremiumTopping valueFromChoice(String value) {
         //Retrieving the mapped value associated with given key String choice
-        return BY_SELECTION.get(value);
+        return BY_CHOICE.get(value);
     }
 
     private final String choice;

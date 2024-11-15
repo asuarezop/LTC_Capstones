@@ -29,6 +29,21 @@ public class MenuPromptHandler {
                 0) Cancel Order
                 """;
 
+    public static String signatureSandwichScreenMenuHeader = """
+                =================================
+                |        SIGNATURE SANDWICH     |
+                =================================
+                """;
+
+    public static String signatureSandwichOptions = """
+            A) BLT
+            B) Philly Cheese Steak
+            C) Italian
+            D) Meatball
+            E) Ultimate
+            F) All-American
+            """;
+
 
     public static String sandwichScreenMenuHeader = """
                 =================================
@@ -41,6 +56,9 @@ public class MenuPromptHandler {
                 B) Wheat
                 C) Rye
                 D) Wrap
+                E) Ciabatta
+                F) Baguette
+                G) Multigrain
                 """;
 
     public static String sandwichSizeOptions = """
@@ -59,22 +77,28 @@ public class MenuPromptHandler {
                 G) Pickles
                 H) Guacamole
                 I) Mushrooms
+                J) Olives
                 """;
 
     public static String sandwichPremiumMeatToppings = """
                 A) Steak
                 B) Ham
                 C) Salami
-                D) Roast Beef
-                E) Chicken
-                F) Bacon
+                D) Pepperoni
+                E) Turkey
+                F) Meatball
+                G) Roast Beef
+                H) Chicken
+                I) Bacon
                 """;
 
    public static String sandwichPremiumCheeseToppings = """
-                G) American
-                H) Provolone
-                I) Cheddar
-                J) Swiss
+                J) American
+                K) Provolone
+                L) Cheddar
+                M) Swiss
+                N) Mozzarella
+                O) Parmesan
                 """;
 
     public static String simpleResponse = """
@@ -150,6 +174,9 @@ public class MenuPromptHandler {
             E) Thousand Islands
             F) Vinaigrette
             G) Au Jus
+            H) Italian Dressing
+            I) Marina
+            J) Honey Mustard
             """;
 
     public static String orderDetailsScreenHeader = """

@@ -10,7 +10,6 @@ public enum DrinkSize {
 
     private static final Map<String, DrinkSize> BY_CHOICE = new HashMap<>();
 
-    //Pairing drinkSize CONSTANTS with their given key values ()
     static {
         for (DrinkSize s : values()) {
             BY_CHOICE.put(s.choice, s);
@@ -29,9 +28,7 @@ public enum DrinkSize {
         return abbrev;
     }
 
-    //To get the drinkSize CONSTANT value that matches user's input using a HashMap
     public static DrinkSize valueFromChoice(String value) {
-        //Retrieving the mapped value associated with given key String choice
         return BY_CHOICE.get(value);
     }
 

@@ -12,11 +12,13 @@ public enum SauceType implements OrderItem {
     RANCH ("D"),
     THOUSAND_ISLANDS ("E"),
     VINAIGRETTE ("F"),
-    AU_JUS ("G");
+    AU_JUS ("G"),
+    ITALIAN_DRESSING("H"),
+    MARINA("I"),
+    HONEY_MUSTARD("J");
 
     private static final Map<String, SauceType> BY_CHOICE = new HashMap<>();
 
-    //Pairing sauceType CONSTANTS with their given key values ()
     static {
         for (SauceType t : values()) {
             BY_CHOICE.put(t.choice, t);
@@ -29,19 +31,17 @@ public enum SauceType implements OrderItem {
         this.choice = userChoice;
     }
 
-    //To get the sauceType CONSTANT value that matches user's input using a HashMap
     public static SauceType valueFromChoice(String value) {
-        //Retrieving the mapped value associated with given key String choice
         return BY_CHOICE.get(value);
-    }
-
-    @Override
-    public String printToReceipt() {
-        return "";
     }
 
     @Override
     public double getPrice() {
         return 0;
+    }
+
+    @Override
+    public String printToReceipt() {
+        return "";
     }
 }

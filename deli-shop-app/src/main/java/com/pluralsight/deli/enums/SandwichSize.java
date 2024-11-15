@@ -10,7 +10,7 @@ public enum SandwichSize {
 
     private static final Map<String, SandwichSize> BY_CHOICE = new HashMap<>();
 
-    //Pairing sandwichSize CONSTANTS with their given key values ()
+    //Mapping sandwichSize CONSTANTS to int key values ()
     static {
         for (SandwichSize s : values()) {
             BY_CHOICE.put(s.choice, s);

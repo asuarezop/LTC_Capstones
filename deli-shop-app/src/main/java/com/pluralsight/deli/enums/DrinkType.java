@@ -10,7 +10,6 @@ public enum DrinkType {
 
     private static final Map<String, DrinkType> BY_CHOICE = new HashMap<>();
 
-    //Pairing drinkType CONSTANTS with their given key values ()
     static {
         for (DrinkType t : values()) {
             BY_CHOICE.put(t.choice, t);
@@ -23,9 +22,7 @@ public enum DrinkType {
         this.choice = userChoice;
     }
 
-    //To get the drinkType CONSTANT value that matches user's input using a HashMap
     public static DrinkType valueFromChoice(String value) {
-        //Retrieving the mapped value associated with given key String choice
         return BY_CHOICE.get(value);
     }
 }

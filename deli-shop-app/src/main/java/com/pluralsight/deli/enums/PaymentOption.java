@@ -10,7 +10,6 @@ public enum PaymentOption {
 
     private static final Map<String, PaymentOption> BY_CHOICE = new HashMap<>();
 
-    //Pairing paymentOption CONSTANTS with their given key values ()
     static {
         for (PaymentOption p : values()) {
             BY_CHOICE.put(p.selection, p);
@@ -29,9 +28,7 @@ public enum PaymentOption {
         return dollars;
     }
 
-    //To get the paymentOption CONSTANT value that matches user's input using a HashMap
     public static PaymentOption valueFromChoice(String value) {
-        //Retrieving the mapped value associated with given key String choice
         return BY_CHOICE.get(value);
     }
 }

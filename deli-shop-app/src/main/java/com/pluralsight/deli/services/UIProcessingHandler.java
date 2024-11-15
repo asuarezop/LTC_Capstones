@@ -53,42 +53,55 @@ public class UIProcessingHandler {
     }
 
     public void processAddSandwichRequest() {
-        System.out.println(MenuPromptHandler.sandwichScreenMenuHeader);
+        //Prompt user if they'd like to order from signature sandwiches or create their own sandwich
+        System.out.println(MenuPromptHandler.signatureSandwichScreenMenuHeader);
 
-        //Prompting to get sandwich size and type of bread
-        BreadType sandwichBread = promptBreadType();
-        System.out.println(sandwichBread);
-        SandwichSize size = promptSandwichSize();
+        promptInstructions("Would you like to order from our signature sandwiches?:  ");
+        userChoice = promptUser(MenuPromptHandler.simpleResponse);
 
-        //Instantiating a new sandwich
-        Sandwich customerSandwich = new Sandwich(size, sandwichBread);
-        boolean finished;
+        if (userChoice.equals("1")) {
+            promptCustomSandwich();
+        } else {
+            System.out.println(MenuPromptHandler.sandwichScreenMenuHeader);
 
-        do {
-            //Prompt to add regular toppings to sandwich
-            promptAddToppings(customerSandwich);
+            //Prompting to get sandwich size and type of bread
+            BreadType sandwichBread = promptBreadType();
+            System.out.println(sandwichBread);
+            SandwichSize size = promptSandwichSize();
+            System.out.println(size);
+            SauceType spread = promptSandwichSpread();
+            System.out.println(spread);
 
-            //Viewing regular toppings on sandwich
-            List<Topping> addedToppings = customerSandwich.getToppings();
-            System.out.println(addedToppings);
+            //Instantiating a new sandwich
+            Sandwich customerSandwich = new Sandwich(size, sandwichBread, spread);
+            boolean finished;
 
-            //Prompt to add premium toppings to sandwich
-            promptAddPremToppings(customerSandwich);
+            do {
+                //Prompt to add regular toppings to sandwich
+                promptAddToppings(customerSandwich);
 
-            //Viewing premium toppings on sandwich
-            List<Topping> appliedPremToppings = customerSandwich.getToppings();
-            System.out.println(appliedPremToppings);
+                //Viewing regular toppings on sandwich
+                List<Topping> addedToppings = customerSandwich.getToppings();
+                System.out.println(addedToppings);
 
-            //Setting sandwich to toasted based on user choice
-            boolean sandwichToasted = promptToasted();
-            customerSandwich.setToasted(sandwichToasted);
+                //Prompt to add premium toppings to sandwich
+                promptAddPremToppings(customerSandwich);
 
-            //Adding customer sandwich item to order
-            blankOrder.addToOrder(customerSandwich);
+                //Viewing premium toppings on sandwich
+                List<Topping> appliedPremToppings = customerSandwich.getToppings();
+                System.out.println(appliedPremToppings);
 
-            //Exit loop
-            finished = true;
-        } while (!finished);
+                //Setting sandwich to toasted based on user choice
+                boolean sandwichToasted = promptToasted();
+                customerSandwich.setToasted(sandwichToasted);
+
+                //Adding customer sandwich item to order
+                blankOrder.addToOrder(customerSandwich);
+
+                //Exit loop
+                finished = true;
+            } while (!finished);
+        }
     }
 
     public void processAddDrinkRequest() {
@@ -106,7 +119,7 @@ public class UIProcessingHandler {
         blankOrder.addToOrder(customerDrink);
 
         //Viewing customer's drink
-        System.out.println(customerDrink.printToReceipt());
+        System.out.println(customerDrink);
     }
 
     public void processAddChipsRequest() {
@@ -122,13 +135,13 @@ public class UIProcessingHandler {
         blankOrder.addToOrder(chips);
 
         //Viewing customer's chips
-        System.out.println(chips.printToReceipt());
+        System.out.println(chips);
     }
 
     public void processCheckoutRequest() {
         System.out.println(MenuPromptHandler.checkoutScreenMenuHeader);
 
-        //Prompting user to add any sauces to their order
+        //Prompting user to add any additional sauces to their order
         promptSauces();
 
         //View order details and total pricing for every order item
@@ -138,6 +151,27 @@ public class UIProcessingHandler {
     public void processCancelOrderRequest() {
         List<OrderItem> items = retrieveAllOrderItems();
         blankOrder.removeAllOrderItems(items);
+    }
+
+    private void promptCustomSandwich() {
+        promptInstructions("Select from our signature sandwich menu:  ");
+        System.out.println(MenuPromptHandler.signatureSandwichOptions);
+        SandwichType customSandwich = SandwichType.valueFromChoice(promptMenuSelection("Sandwich: "));
+        SignatureSandwich menuSandwich = new SignatureSandwich(customSandwich.getSize(), customSandwich.getBread(), customSandwich.getSauce());
+        menuSandwich.setToasted(customSandwich.isToasted());
+
+        promptInstructions("Are there any topping modifications you'd like to make to this sandwich?:  ");
+        userChoice = promptUser(MenuPromptHandler.simpleResponse);
+
+        if (userChoice.equals("1")) {
+            promptAddToppings(menuSandwich);
+            promptAddPremToppings(menuSandwich);
+        } else if (userChoice.equals("2")) {
+            menuSandwich.addToppings(customSandwich.getToppings());
+            menuSandwich.setExtraToppings(false);
+
+            blankOrder.addToOrder(menuSandwich);
+        }
     }
 
     private BreadType promptBreadType() {
@@ -152,6 +186,12 @@ public class UIProcessingHandler {
         return SandwichSize.valueFromChoice(promptMenuSelection("Size: "));
     }
 
+    private SauceType promptSandwichSpread() {
+        promptInstructions("Enter sandwich spread:  ");
+        System.out.println(MenuPromptHandler.sauceOptions);
+        return SauceType.valueFromChoice(promptMenuSelection("Spread: "));
+    }
+
     private void promptAddToppings(Sandwich s) {
         List<Topping> regularToppings = new ArrayList<>();
 
@@ -160,6 +200,7 @@ public class UIProcessingHandler {
             promptInstructions("Enter sandwich toppings:  ");
             System.out.println(MenuPromptHandler.sandwichRegularToppings);
             RegularTopping sandwichVeggies = RegularTopping.valueFromChoice(promptMenuSelection("Toppings: "));
+            System.out.println(sandwichVeggies);
 
             regularToppings.add(sandwichVeggies);
 
@@ -324,6 +365,9 @@ public class UIProcessingHandler {
 
         List<OrderItem> chipsOnOrder = items.stream().filter(orderItem -> orderItem instanceof BagOfChips).toList();
         System.out.println(chipsOnOrder);
+
+        List<OrderItem> saucesOnOrder = items.stream().filter(orderItem -> orderItem instanceof SauceType).toList();
+        System.out.println("Extra sauces: " + saucesOnOrder);
     }
 
     private List<OrderItem> retrieveAllOrderItems() {

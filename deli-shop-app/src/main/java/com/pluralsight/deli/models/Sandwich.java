@@ -2,6 +2,7 @@ package com.pluralsight.deli.models;
 
 import com.pluralsight.deli.enums.BreadType;
 import com.pluralsight.deli.enums.SandwichSize;
+import com.pluralsight.deli.enums.SauceType;
 import com.pluralsight.deli.interfaces.OrderItem;
 import com.pluralsight.deli.interfaces.Topping;
 
@@ -11,13 +12,15 @@ import java.util.List;
 public class Sandwich implements OrderItem {
     private SandwichSize size;
     private BreadType bread;
+    private SauceType spread;
     private boolean isToasted;
     private boolean extraToppings;
     private List<Topping> toppings = new ArrayList<>();
 
-    public Sandwich(SandwichSize size, BreadType bread) {
+    public Sandwich(SandwichSize size, BreadType bread, SauceType spread) {
         this.size = size;
         this.bread = bread;
+        this.spread = spread;
     }
 
     public SandwichSize getSize() {
@@ -26,6 +29,10 @@ public class Sandwich implements OrderItem {
 
     public BreadType getBread() {
         return bread;
+    }
+
+    public SauceType getSpread() {
+        return spread;
     }
 
     public boolean isToasted() {
@@ -74,12 +81,12 @@ public class Sandwich implements OrderItem {
 
     @Override
     public String toString() {
-        return String.format("Sandwich size: %s, Bread type: %s, Toasted: %s, Toppings: %s", size, bread, isToasted, toppings);
+        return String.format("Sandwich size: %s, Bread type: %s, Spread: %s, Toasted: %s, Toppings: %s", size, bread, spread, isToasted, toppings);
     }
 
     @Override
     public String printToReceipt() {
-        return String.format("Sandwich: %s %s %-17s $%.2f\n", size.getSize() + " in.", bread, (isToasted) ? "GRILLED" : "CLASSIC", getPrice());
+        return String.format("Sandwich: %s %s %s %-14s $%.2f\n", size.getSize() + " in.", bread.getAbbrev(), spread, (isToasted) ? "GR" : "CL", getPrice());
     }
 
     //Methods for calculating price of a sandwich

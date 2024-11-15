@@ -14,11 +14,11 @@ public enum RegularTopping implements Topping {
     CUCUMBERS ("F","Veggies"),
     PICKLES ("G","Veggies"),
     GUACAMOLE ("H","Veggies"),
-    MUSHROOMS ("I","Veggies");
+    MUSHROOMS ("I","Veggies"),
+    OLIVES("J", "Veggies");
 
     private static final Map<String, RegularTopping> BY_CHOICE = new HashMap<>();
 
-    //Pairing regularTopping CONSTANTS with their given key values ()
     static {
         for (RegularTopping t : values()) {
             BY_CHOICE.put(t.choice, t);
@@ -33,9 +33,7 @@ public enum RegularTopping implements Topping {
         this.toppingCategory = category;
     }
 
-    //To get the regularTopping CONSTANT value that matches user's input using a HashMap
     public static RegularTopping valueFromChoice(String value) {
-        //Retrieving the mapped value associated with given key String choice
         return BY_CHOICE.get(value);
     }
 
