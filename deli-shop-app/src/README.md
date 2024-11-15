@@ -5,12 +5,15 @@
 
 ![DeliShopHome.png](main/resources/images/DeliShopHome.png)
 
-### Features
+### Features 🎯
 * Create your own sandwiches by specifying size, breadType, spread, and meaty toppings
 * Print orders to receipt and view them by date/time alongside your order items
 * Cancel any order to restart the process of sandwich making
 
-### Methods
+### UML Diagram 😵‍💫
+![deli-shop.png](main/resources/images/deli-shop.png)
+
+### Methods 
 `Add a sandwich`
 ```declarative
 public void processAddSandwichRequest() {
@@ -150,7 +153,7 @@ private void printIndividualOrderItems(List<OrderItem> items) {
 }
 ```
 
-### What I Learned
+### What I Learned ✍🏼
 * Navigating the relationships between interfaces, subclasses, enums, and user input was much more complicated as the project grew in scale. 🔄
   * Slowing down to understand what I wanted to do and asking myself, what is the simplest way to do this? 💭
 * Planning out what is most important for each of your classes through the class diagrams. Even better to draw it out on paper! 📝
@@ -165,6 +168,6 @@ private void printIndividualOrderItems(List<OrderItem> items) {
 
 ![SaveAnOrder.png](main/resources/images/SaveAnOrder.png)
 
-### Author
+### Author 
 Anthony Suarez - https://github.com/asuarezop
 
