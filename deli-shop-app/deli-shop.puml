@@ -1,8 +1,6 @@
 @startuml
 interface com.pluralsight.deli.interfaces.Priceable {
-~ double getPrice()
 }
-
 enum com.pluralsight.deli.enums.SandwichType {
 +  BLT
 +  PHILLY_CHEESE_STEAK
@@ -27,10 +25,7 @@ enum com.pluralsight.deli.enums.SandwichType {
 
 
 interface com.pluralsight.deli.interfaces.Topping {
-~ String getToppingType()
-~ String getToppingCategory()
 }
-
 enum com.pluralsight.deli.enums.RegularTopping {
 +  LETTUCE
 +  PEPPERS
@@ -69,28 +64,9 @@ class com.pluralsight.deli.services.UIProcessingHandler {
 + void processAddChipsRequest()
 + void processCheckoutRequest()
 + void processCancelOrderRequest()
-- void promptCustomSandwich()
-- BreadType promptBreadType()
-- SandwichSize promptSandwichSize()
-- SauceType promptSandwichSpread()
-- void promptAddToppings(Sandwich)
-- void promptAddPremToppings(Sandwich)
-- boolean promptToasted()
-- DrinkSize promptDrinkSize()
-- DrinkType promptDrinkType()
-- DrinkFlavor promptDrinkFlavor()
-- ChipFlavor promptChipsFlavor()
-- void promptSauces()
-- void promptFinalizeOrder()
-- PaymentOption promptForPayment()
-- double promptChangeOwed(double,PaymentOption)
-- double calculateChangeDue(double,double)
-- boolean promptOrderConfirmation()
-- void printIndividualOrderItems(List<OrderItem>)
-- List<OrderItem> retrieveAllOrderItems()
-- String promptUser(String)
-- String promptMenuSelection(String)
-- void promptInstructions(String)
++ double calculateChangeDue(double,double)
++ void printIndividualOrderItems(List<OrderItem>)
++ List<OrderItem> retrieveAllOrderItems()
 }
 
 
@@ -209,9 +185,7 @@ class com.pluralsight.deli.services.MenuPromptHandler {
 }
 
 interface com.pluralsight.deli.interfaces.OrderItem {
-~ String printToReceipt()
 }
-
 enum com.pluralsight.deli.enums.BreadType {
 +  WHITE
 +  WHEAT
@@ -363,9 +337,28 @@ enum com.pluralsight.deli.enums.SandwichSize {
 
 
 class com.pluralsight.deli.models.UserInterface {
-- UIProcessingHandler uiProcessor
+- {static} UIProcessingHandler uiProcessor
 - void init()
 + void showHomeScreen()
++ {static} BreadType promptBreadType()
++ {static} SandwichSize promptSandwichSize()
++ {static} SauceType promptSandwichSpread()
++ {static} void promptAddToppings(Sandwich)
++ {static} void promptAddPremToppings(Sandwich)
++ {static} boolean promptToasted()
++ {static} DrinkSize promptDrinkSize()
++ {static} DrinkType promptDrinkType()
++ {static} DrinkFlavor promptDrinkFlavor()
++ {static} ChipFlavor promptChipsFlavor()
++ {static} void promptSauces()
++ {static} void promptFinalizeOrder()
+# {static} PaymentOption promptForPayment()
+# {static} double promptChangeOwed(double,PaymentOption)
+# {static} boolean promptOrderConfirmation()
++ {static} void promptCustomSandwich()
++ {static} String promptUser(String)
++ {static} String promptMenuSelection(String)
++ {static} void promptInstructions(String)
 }
 
 
