@@ -40,6 +40,7 @@ public class AuthenticationController {
         this.profileDao = profileDao;
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<LoginResponseDto> login(@Valid @RequestBody LoginDto loginDto) {
 

@@ -36,7 +36,7 @@ public class ProductsController {
         }
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     @PreAuthorize("permitAll()")
     public Product getById(@PathVariable int id) {
         try {
@@ -53,15 +53,28 @@ public class ProductsController {
 
     @PostMapping()
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public Product addProduct(@RequestBody Product product) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public Product addProductOrReplaceIfExists(@RequestBody Product product) {
         try {
-            return productDao.create(product);
+            Product createdProduct = productDao.create(product);
+
+            //Checking for already existing products
+            List<Product> filteredProducts = productDao.listByCategoryId(product.getCategoryId());
+
+            for (Product p : filteredProducts) {
+                if (createdProduct.getName().equals(p.getName()) && createdProduct.getProductId() != p.getProductId()) {
+
+                    //Delete the pre-existing
+                    productDao.delete(p.getProductId());
+                }
+            }
+            return createdProduct;
         } catch (Exception ex) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
         }
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void updateProduct(@PathVariable int id, @RequestBody Product product) {
         try {
@@ -71,8 +84,9 @@ public class ProductsController {
         }
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteProduct(@PathVariable int id) {
         try {
             Product product = productDao.getById(id);

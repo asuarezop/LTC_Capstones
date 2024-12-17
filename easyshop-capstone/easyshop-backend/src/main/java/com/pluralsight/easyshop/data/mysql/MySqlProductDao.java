@@ -119,19 +119,17 @@ public class MySqlProductDao extends MySqlDaoBase implements ProductDao {
             statement.setInt(7, product.getStock());
             statement.setBoolean(8, product.isFeatured());
 
-            int rowsAffected = statement.executeUpdate();
+            int rows = statement.executeUpdate();
+            System.out.printf("Rows updated: %d\n", rows);
 
-            if (rowsAffected > 0) {
-                // Retrieve the generated keys
-                ResultSet generatedKeys = statement.getGeneratedKeys();
+            // Retrieve the generated keys
+            ResultSet genKeys = statement.getGeneratedKeys();
 
-                if (generatedKeys.next()) {
-                    // Retrieve the auto-incremented ID
-                    int orderId = generatedKeys.getInt(1);
+            if (genKeys.next()) {
+                // Retrieve the auto-incremented ID
+                int productId = genKeys.getInt(1);
 
-                    // get the newly inserted category
-                    return getById(orderId);
-                }
+                return new Product(productId, product.getName(), product.getPrice(), product.getCategoryId(), product.getDescription(), product.getColor(), product.getStock(), product.isFeatured(), product.getImageUrl());
             }
 
             //Confirmation message
@@ -145,17 +143,6 @@ public class MySqlProductDao extends MySqlDaoBase implements ProductDao {
 
     @Override
     public void update(int productId, Product product) {
-//        String sql = "UPDATE products" +
-//                " SET name = ? " +
-//                "   , price = ? " +
-//                "   , category_id = ? " +
-//                "   , description = ? " +
-//                "   , color = ? " +
-//                "   , image_url = ? " +
-//                "   , stock = ? " +
-//                "   , featured = ? " +
-//                " WHERE product_id = ?;";
-
         try (Connection connection = getConnection()) {
             PreparedStatement statement = connection.prepareStatement("""
                     UPDATE products
