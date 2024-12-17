@@ -12,12 +12,9 @@ import java.util.List;
 
 @Component
 public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao {
-    private final DataSource dataSource;
-
 
     public MySqlCategoryDao(DataSource dataSource) {
         super(dataSource);
-        this.dataSource = dataSource;
     }
 
     @Override
@@ -25,7 +22,7 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao {
         List<Category> categories = new ArrayList<>();
         Category c;
         // get all categories
-        try (Connection conn = dataSource.getConnection()) {
+        try (Connection conn = getConnection()) {
             PreparedStatement statement = conn.prepareStatement("""
                     SELECT * FROM categories;
                     """);
@@ -45,7 +42,7 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao {
     public Category getById(int categoryId) {
         Category c;
         // get category by id
-        try (Connection conn = dataSource.getConnection()) {
+        try (Connection conn = getConnection()) {
             PreparedStatement statement = conn.prepareStatement("""
                     SELECT * FROM categories
                     WHERE category_id = ?
@@ -68,7 +65,7 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao {
     public Category create(Category category) {
         Category c;
         // create a new category
-        try (Connection conn = dataSource.getConnection()) {
+        try (Connection conn = getConnection()) {
             PreparedStatement statement = conn.prepareStatement("""
                     INSERT INTO categories(name, description) VALUES
                     (?, ?)
@@ -88,7 +85,7 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao {
             }
 
             //Confirmation message
-            System.out.println(ColorCodes.SUCCESS + ColorCodes.ITALIC + "Category was updated." + ColorCodes.RESET);
+            System.out.println(ColorCodes.SUCCESS + ColorCodes.ITALIC + "Category was created!" + ColorCodes.RESET);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -99,12 +96,31 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao {
     @Override
     public void update(int categoryId, Category category) {
         // update category
+        try(Connection conn = getConnection()) {
+            PreparedStatement statement = conn.prepareStatement("""
+                    UPDATE categories
+                    SET name = ?, description = ?
+                    WHERE category_id = ?
+                    """);
+            statement.setString(1, category.getName());
+            statement.setString(2, category.getDescription());
+            statement.setInt(3, categoryId);
+
+            int rows = statement.executeUpdate();
+            System.out.printf("Rows updated: %d\n", rows);
+
+            //Confirmation message
+            System.out.println(ColorCodes.SUCCESS + ColorCodes.ITALIC + "Category was updated." + ColorCodes.RESET);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public void delete(int categoryId) {
         // delete category
-        try (Connection conn = dataSource.getConnection()) {
+        try (Connection conn = getConnection()) {
             PreparedStatement statement = conn.prepareStatement("""
                     DELETE FROM categories
                     WHERE category_id = ?
@@ -126,12 +142,6 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao {
         int categoryId = row.getInt("category_id");
         String name = row.getString("name");
         String description = row.getString("description");
-
-//        Category category = new Category() {{
-//            setCategoryId(categoryId);
-//            setName(name);
-//            setDescription(description);
-//        }};
 
         return new Category(categoryId, name, description);
     }

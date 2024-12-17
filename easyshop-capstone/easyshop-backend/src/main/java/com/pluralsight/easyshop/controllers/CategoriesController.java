@@ -8,6 +8,7 @@ import com.pluralsight.easyshop.data.CategoryDao;
 import com.pluralsight.easyshop.data.ProductDao;
 import com.pluralsight.easyshop.models.Category;
 import com.pluralsight.easyshop.models.Product;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -35,17 +36,23 @@ public class CategoriesController {
 
     // add the appropriate annotation for a get action
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-    public Category getById(@PathVariable int id) {
+    public Category getById(@PathVariable Integer id) {
         // get the category by id
-        return categoryDao.getById(id);
+        Category foundCategory = categoryDao.getById(id);
+
+        if (foundCategory == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        return foundCategory;
     }
 
     // the url to return all products in category 1 would look like this
     // https://localhost:8080/categories/1/products
     @GetMapping("{categoryId}/products")
-    public List<Product> getProductsById(@PathVariable int categoryId) {
+    public List<Product> getProductsById(@PathVariable Integer categoryId) {
         // get a list of product by categoryId
-        return null;
+        return productDao.listByCategoryId(categoryId);
     }
 
     // add annotation to call this method for a POST action
@@ -60,8 +67,11 @@ public class CategoriesController {
 
     // add annotation to call this method for a PUT (update) action - the url path must include the categoryId
     // add annotation to ensure that only an ADMIN can call this function
-    public void updateCategory(@PathVariable int id, @RequestBody Category category) {
+    @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public void updateCategory(@PathVariable Integer id, @RequestBody Category category) {
         // update the category by id
+        categoryDao.update(id, category);
     }
 
 
@@ -70,7 +80,7 @@ public class CategoriesController {
     @RequestMapping(path = "/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCategory(@PathVariable int id) {
+    public void deleteCategory(@PathVariable Integer id) {
         // delete the category by id
         categoryDao.delete(id);
     }
