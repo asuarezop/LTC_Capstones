@@ -18,14 +18,15 @@ public class MySqlUserDao extends MySqlDaoBase implements UserDao {
         super(dataSource);
     }
 
-
     @Override
     public User create(User newUser) {
-        String sql = "INSERT INTO users (username, hashed_password, role) VALUES (?, ?, ?)";
         String hashedPassword = new BCryptPasswordEncoder().encode(newUser.getPassword());
 
         try (Connection connection = getConnection()) {
-            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = connection.prepareStatement("""
+                    INSERT INTO users (username, hashed_password, role) VALUES
+                    (?, ?, ?)
+                    """, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, newUser.getUsername());
             ps.setString(2, hashedPassword);
             ps.setString(3, newUser.getRole());

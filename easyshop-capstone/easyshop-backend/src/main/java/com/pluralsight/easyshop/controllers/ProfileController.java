@@ -3,7 +3,6 @@ package com.pluralsight.easyshop.controllers;
 import com.pluralsight.easyshop.data.ProfileDao;
 import com.pluralsight.easyshop.models.Profile;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -37,7 +36,6 @@ public class ProfileController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void update(@PathVariable int id, @RequestBody Profile profile) {
         try {
             profileDao.update(id, profile);

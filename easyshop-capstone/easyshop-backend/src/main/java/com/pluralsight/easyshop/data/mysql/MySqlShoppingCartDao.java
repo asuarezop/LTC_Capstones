@@ -30,7 +30,9 @@ public class MySqlShoppingCartDao extends MySqlDaoBase implements ShoppingCartDa
 
             ResultSet rs = statement.executeQuery();
 
-            if (rs.next()) {
+            while (rs.next()) {
+                ShoppingCart userCart = new ShoppingCart();
+
 //                ShoppingCart userCart = mapRow(rs);
 //                return userCart;
             }
