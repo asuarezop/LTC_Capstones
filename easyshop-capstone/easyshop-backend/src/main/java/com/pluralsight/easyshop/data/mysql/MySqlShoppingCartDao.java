@@ -93,6 +93,29 @@ public class MySqlShoppingCartDao extends MySqlDaoBase implements ShoppingCartDa
     }
 
     @Override
+    public void updateProductInCart(int userId, ShoppingCartItem item, int productId) {
+        try (Connection conn = getConnection()) {
+            PreparedStatement statement = conn.prepareStatement("""
+                    UPDATE shopping_cart
+                    SET quantity = ?
+                    WHERE user_id = ? AND product_id = ?
+                    """);
+            statement.setInt(1, item.getQuantity());
+            statement.setInt(2, userId);
+            statement.setInt(3, productId);
+
+            int rows = statement.executeUpdate();
+            System.out.printf("Rows updated: %d\n", rows);
+
+            //Confirmation message
+            System.out.println(ColorCodes.SUCCESS + ColorCodes.ITALIC + "Product in cart was updated." + ColorCodes.RESET);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public void clearCart(int userId) {
         try (Connection conn = getConnection()) {
             PreparedStatement statement = conn.prepareStatement("""
@@ -111,6 +134,4 @@ public class MySqlShoppingCartDao extends MySqlDaoBase implements ShoppingCartDa
             throw new RuntimeException(e);
         }
     }
-
-
 }
