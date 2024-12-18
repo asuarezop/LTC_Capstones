@@ -1,7 +1,6 @@
 package com.pluralsight.easyshop.data.mysql;
 
 import JavaHelpers.ColorCodes;
-import com.pluralsight.easyshop.data.ProductDao;
 import com.pluralsight.easyshop.data.ShoppingCartDao;
 import com.pluralsight.easyshop.models.Product;
 
