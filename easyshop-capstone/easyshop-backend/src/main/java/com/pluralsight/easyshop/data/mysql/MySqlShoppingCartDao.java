@@ -39,7 +39,7 @@ public class MySqlShoppingCartDao extends MySqlDaoBase implements ShoppingCartDa
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
-                //the only thing that can be added into shopping cart are shopping cart items
+                //The only thing that can be added into shopping cart are shopping cart items
                 ShoppingCartItem item = new ShoppingCartItem();
 
                 //Mapping products associated with a user
@@ -119,7 +119,7 @@ public class MySqlShoppingCartDao extends MySqlDaoBase implements ShoppingCartDa
         try (Connection conn = getConnection()) {
             PreparedStatement statement = conn.prepareStatement("""
                     DELETE FROM shopping_cart
-                    WHERE user_id = ?
+                    WHERE user_id = ?;
                     """);
             statement.setInt(1, userId);
 

@@ -2,6 +2,7 @@ package com.pluralsight.easyshop.controllers;
 
 import com.pluralsight.easyshop.models.Product;
 import com.pluralsight.easyshop.models.ShoppingCartItem;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,7 @@ public class ShoppingCartController {
     private UserDao userDao;
     private ProductDao productDao;
 
+    @Autowired
     public ShoppingCartController(ShoppingCartDao shoppingCartDao, UserDao userDao, ProductDao productDao) {
         this.shoppingCartDao = shoppingCartDao;
         this.userDao = userDao;
@@ -67,7 +69,6 @@ public class ShoppingCartController {
         }
     }
 
-
     // add a PUT method to update an existing product in the cart - the url should be
     // https://localhost:8080/cart/products/15 (15 is the productId to be updated)
     // the BODY should be a ShoppingCartItem - quantity is the only value that will be updated
@@ -85,7 +86,6 @@ public class ShoppingCartController {
         }
     }
 
-
     // add a DELETE method to clear all products from the current users cart
     // https://localhost:8080/cart
     @DeleteMapping
@@ -102,5 +102,4 @@ public class ShoppingCartController {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
         }
     }
-
 }

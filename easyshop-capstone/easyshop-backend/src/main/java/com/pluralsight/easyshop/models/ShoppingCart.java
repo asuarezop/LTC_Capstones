@@ -10,6 +10,7 @@ public class ShoppingCart {
     public ShoppingCart() {
     }
 
+    //Use this method in getOrderItems method in OrderDao
     public Map<Integer, ShoppingCartItem> getItems() {
         return items;
     }

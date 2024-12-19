@@ -2,7 +2,9 @@ package com.pluralsight.easyshop.controllers;
 
 import com.pluralsight.easyshop.data.ProfileDao;
 import com.pluralsight.easyshop.models.Profile;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -14,11 +16,13 @@ import java.util.List;
 public class ProfileController {
     private ProfileDao profileDao;
 
+    @Autowired
     public ProfileController(ProfileDao profileDao) {
         this.profileDao = profileDao;
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<Profile> getAllProfiles() {
         return profileDao.getAllProfiles();
     }

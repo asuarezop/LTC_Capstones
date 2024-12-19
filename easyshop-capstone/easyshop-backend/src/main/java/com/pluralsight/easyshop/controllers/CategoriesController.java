@@ -1,6 +1,7 @@
 package com.pluralsight.easyshop.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -21,11 +22,14 @@ import java.util.List;
 @RequestMapping(path = "/categories")
 public class CategoriesController {
     // create an Autowired controller to inject the categoryDao and ProductDao
-    @Autowired
     private CategoryDao categoryDao;
+    private ProductDao productDao;
 
     @Autowired
-    private ProductDao productDao;
+    public CategoriesController(CategoryDao categoryDao, ProductDao productDao) {
+        this.categoryDao = categoryDao;
+        this.productDao = productDao;
+    }
 
     // add the appropriate annotation for a get action
     @GetMapping
