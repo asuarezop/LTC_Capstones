@@ -1,11 +1,55 @@
 {
 	"info": {
-		"_postman_id": "fecda8d8-b5c4-4c3d-814f-2f94dbf48019",
+		"_postman_id": "3a96d7a6-1365-4399-93f5-a7f9896166ed",
 		"name": "easyshop-optional-solo",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "1479778"
+		"_exporter_id": "28664937",
+		"_collection_link": "https://easyshop-capstone.postman.co/workspace/EasyShop-Capstone~3ff11d3d-f054-4d85-86f0-b8ba5652aa82/collection/28664937-3a96d7a6-1365-4399-93f5-a7f9896166ed?action=share&source=collection_link&creator=28664937"
 	},
 	"item": [
+		{
+			"name": "Register",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Registration should succeed\", function() {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"username\": \"{{newUserName}}\",\n  \"password\": \"{{newUserPassword}}\",\n  \"confirmPassword\": \"{{newUserPassword}}\",\n  \"role\": \"USER\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/register",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
 		{
 			"name": "Login - new user",
 			"event": [
@@ -13,17 +57,18 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.environment.set(\"userToken\", pm.response.json().token);\r",
+							"pm.collectionVariables.set(\"userToken\", pm.response.json().token);\r",
 							"\r",
 							"pm.test(\"User Login should create token\", function() {\r",
 							"    pm.response.to.have.status(200);\r",
 							"    pm.response.to.be.ok;\r",
 							"    pm.response.to.be.withBody;\r",
 							"    pm.response.to.have.jsonBody(\"token\");\r",
-							"    pm.expect(pm.environment.get(\"userToken\")).to.not.equal(\"\");\r",
+							"    pm.expect(pm.collectionVariables.get(\"userToken\")).to.not.equal(\"\");\r",
 							"})"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -58,12 +103,12 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"\r",
 							"pm.test(\"Get UserProfile should succeed\", function() {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -81,12 +126,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/profile",
+					"raw": "{{baseUrl}}/profile/{{newUserId}}",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"path": [
-						"profile"
+						"profile",
+						"{{newUserId}}"
 					]
 				}
 			},
@@ -104,7 +150,8 @@
 							"    pm.response.to.have.status(200);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -123,7 +170,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"userId\": 3,\r\n    \"firstName\": \"Joe\",\r\n    \"lastName\": \"Tester\",\r\n    \"phone\": \"888-456-9876\",\r\n    \"email\": \"j.tester@test.net\",\r\n    \"address\": \"123 test st\",\r\n    \"city\": \"some city\",\r\n    \"state\": \"ST\",\r\n    \"zip\": \"12121\"\r\n}",
+					"raw": "{\r\n    \"userId\": 4,\r\n    \"firstName\": \"Gary\",\r\n    \"lastName\": \"Vee\",\r\n    \"phone\": \"888-456-9876\",\r\n    \"email\": \"g.vee@test.net\",\r\n    \"address\": \"123 test st\",\r\n    \"city\": \"some city\",\r\n    \"state\": \"ST\",\r\n    \"zip\": \"12121\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -131,12 +178,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}/profile",
+					"raw": "{{baseUrl}}/profile/{{newUserId}}",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"path": [
-						"profile"
+						"profile",
+						"{{newUserId}}"
 					]
 				}
 			},
@@ -257,50 +305,6 @@
 			"response": []
 		},
 		{
-			"name": "Clear Cart",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"var items = pm.response.json().items;\r",
-							"var total = pm.response.json().total;\r",
-							"\r",
-							"pm.test('Cart should be empty', function () {\r",
-							"    pm.expect(items).to.be.empty;\r",
-							"    pm.expect(total).to.equal(0);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{userToken}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "{{baseUrl}}/cart",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"cart"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Add Product to Cart - with auth - should succeed",
 			"event": [
 				{
@@ -311,12 +315,13 @@
 							"var total = pm.response.json().total;\r",
 							"\r",
 							"pm.test(\"Add to cart logged in should succeed\", function() {\r",
-							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.have.status(201);\r",
 							"    pm.expect(items).to.not.be.empty;\r",
 							"    pm.expect(total).to.equal(149.99);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -358,12 +363,13 @@
 							"var total = pm.response.json().total;\r",
 							"\r",
 							"pm.test(\"Add additional to cart logged in should succeed\", function() {\r",
-							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.have.status(201);\r",
 							"    pm.expect(items).to.not.be.empty;\r",
 							"    pm.expect(total).to.equal(179.98);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -380,6 +386,15 @@
 				},
 				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
 					"raw": "{{baseUrl}}/cart/products/21",
 					"host": [
@@ -440,6 +455,58 @@
 			"response": []
 		},
 		{
+			"name": "Edit Product In Cart",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Updating ShoppingCart should succeed\", function() {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{userToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"quantity\": 3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/cart/products/21",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cart",
+						"products",
+						"21"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Create Order",
 			"event": [
 				{
@@ -453,7 +520,8 @@
 							"    pm.expect(items.length).to.equal(2);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -470,6 +538,15 @@
 				},
 				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
 					"raw": "{{baseUrl}}/orders",
 					"host": [
@@ -477,6 +554,48 @@
 					],
 					"path": [
 						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Clear Cart",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Cart should be empty.\", function() {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{userToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/cart",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cart"
 					]
 				}
 			},
@@ -528,6 +647,28 @@
 			"response": []
 		}
 	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
 	"variable": [
 		{
 			"key": "userToken",
@@ -557,6 +698,11 @@
 		{
 			"key": "newUserPassword",
 			"value": "thePass",
+			"type": "string"
+		},
+		{
+			"key": "newUserId",
+			"value": "4",
 			"type": "string"
 		}
 	]
