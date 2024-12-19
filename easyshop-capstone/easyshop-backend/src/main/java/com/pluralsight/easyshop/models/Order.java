@@ -15,11 +15,14 @@ public class Order {
     private String zip;
     private BigDecimal shippingAmount;
     private List<OrderLineItem> lineItems = new ArrayList<>();
+    private BigDecimal orderTotal;
 
-    public Order() {
+    public Order(int orderId, int userId) {
+        this.orderId = orderId;
+        this.userId = userId;
     }
 
-    public Order(int orderId, int userId, LocalDateTime date, String address, String city, String state, String zip, BigDecimal shippingAmount, List<OrderLineItem> lineItems) {
+    public Order(int orderId, int userId, LocalDateTime date, String address, String city, String state, String zip, BigDecimal shippingAmount, List<OrderLineItem> lineItems, BigDecimal orderTotal) {
         this.orderId = orderId;
         this.userId = userId;
         this.date = date;
@@ -29,11 +32,17 @@ public class Order {
         this.zip = zip;
         this.shippingAmount = shippingAmount;
         this.lineItems = lineItems;
+        this.orderTotal = orderTotal;
     }
 
     public int getOrderId() {
         return orderId;
     }
+
+    public int getUserId() {
+        return userId;
+    }
+
 
     public LocalDateTime getDate() {
         return date;
@@ -66,4 +75,9 @@ public class Order {
     public void add(OrderLineItem item) {
         lineItems.add(item);
     }
+
+    public BigDecimal getOrderTotal() {
+        return lineItems.stream().map(OrderLineItem::getOrderLineTotal).reduce(BigDecimal::add).orElse(null);
+    }
+
 }
