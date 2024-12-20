@@ -148,6 +148,58 @@
 			"response": []
 		},
 		{
+			"name": "Edit Profile - new user Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Update UserProfile should succeed\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{userToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\": 4,\r\n    \"firstName\": \"Gary\",\r\n    \"lastName\": \"Vee\",\r\n    \"phone\": \"888-321-5213\",\r\n    \"email\": \"gary.vee@test.net\",\r\n    \"address\": \"7345 East Garland St\",\r\n    \"city\": \"Albany\",\r\n    \"state\": \"NY\",\r\n    \"zip\": \"12204\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/profile/{{newUserId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"profile",
+						"{{newUserId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Get Categories",
 			"event": [
 				{
@@ -582,6 +634,11 @@
 		{
 			"key": "newUserPassword",
 			"value": "thePass",
+			"type": "string"
+		},
+		{
+			"key": "newUserId",
+			"value": "4",
 			"type": "string"
 		}
 	]
