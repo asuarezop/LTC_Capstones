@@ -7,7 +7,7 @@
 > Note: You will need access to MySQL WorkBench alongside Postman to run integration tests associated 
 >       with the application. 
 
-Navigating to the easyshop-capstone directory, you will find three Postman collections to run
+Navigating to the easyshop-capstone directory, you will find three Postman collections to run.
 When running these tests, run the entire collection as a whole as opposed to individually.
 - This avoids any potential errors being thrown inside of Postman
 
@@ -55,5 +55,5 @@ just to make sure the logic was correct.
 > overwriting of values when running the next collection.
 
 ### Author
-Anthony Suarez - https://github.com/asuarezop
+Anthony Suarez - https://github.com/asuarezop****
 
