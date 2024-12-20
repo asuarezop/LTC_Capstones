@@ -4,7 +4,7 @@
 		"name": "easyshop - solo",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "28664937",
-		"_collection_link": "https://winter-station-276981.postman.co/workspace/EasyShop-Capstone~3ff11d3d-f054-4d85-86f0-b8ba5652aa82/collection/28664937-e39a7375-9f83-4c46-aec4-c57c0f4b386a?action=share&source=collection_link&creator=28664937"
+		"_collection_link": "https://easyshop-capstone.postman.co/workspace/EasyShop-Capstone~3ff11d3d-f054-4d85-86f0-b8ba5652aa82/collection/28664937-e39a7375-9f83-4c46-aec4-c57c0f4b386a?action=share&source=collection_link&creator=28664937"
 	},
 	"item": [
 		{
@@ -576,12 +576,12 @@
 		},
 		{
 			"key": "newUserName",
-			"value": "daniel",
+			"value": "gary",
 			"type": "string"
 		},
 		{
 			"key": "newUserPassword",
-			"value": "redpanda21",
+			"value": "thePass",
 			"type": "string"
 		}
 	]
